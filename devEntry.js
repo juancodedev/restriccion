@@ -1,2 +1,6 @@
 require("babel/register");
-module.exports = require('./lib/User.js');
+const scrape = require('./lib/scrape.js');
+
+
+scrape.numerosRestriccion
+  .then(function(x) { console.log(x); });
