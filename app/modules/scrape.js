@@ -20,7 +20,6 @@ export const fetchNumerosRestriccion = new Promise(function(resolve, reject) {
 
     $('.col-sm-12.restrictiontop').find("h3,a").each(function(){
       var obj = $(this);
-      console.log(obj.html());
       jsonArray.push(obj.html().trim());
     });
 
