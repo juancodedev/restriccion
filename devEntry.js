@@ -1,6 +1,14 @@
 require("babel/register");
-const scrape = require('./app/modules/scrape.js');
+require('./app/modules/connectToDB.js');
+const moment = require('moment');
+const RestrictionDay = require('./app/models/RestrictionDay.js');
 
-
-scrape.fetchNumerosRestriccion
-  .then(function(x) { console.log(x); });
+RestrictionDay.set({
+  _id    : "12-10-1925",
+  fecha  : moment("10-10-1925", "DD-MM-YYYY"),
+  estatus: "Ambiente Nuclear",
+  numeros: {
+    sinSello: [1, 2, 3, 4, 5],
+    conSello: false
+  }
+});
