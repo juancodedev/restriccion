@@ -16,29 +16,40 @@ export const fetchNumerosRestriccion = new Promise(function(resolve, reject) {
 
     const $ = cheerio.load(html.toString());
     let jsonArray = [];
-    let conSello = false;
+
 
     $('.col-sm-12.restrictiontop').find("h3,a").each(function(){
       var obj = $(this);
       jsonArray.push(obj.html().trim());
     });
 
-    $('div.restriction h3').each(function(){
-      var obj = $(this);
-      //console.log(obj.html());
-      jsonArray.push(obj.html().trim());
-    });
+    let sinSello = jsonArray[0].replace(/.*sin sello verde(.*),.*/, '$1');
+    sinSello = sinSello.trim().replace(/ /g, '-');
+    sinSello = sinSello.split('-');
 
+    let conSello = /^.*, con sello verde (.*)$/.test(jsonArray[0]) ?
+        jsonArray[0].replace(/.*, con sello verde(.*)/, '$1') : false;
+
+    if(conSello){
+      conSello = conSello.trim().replace(/ /g, '-');
+      conSello = conSello.split('-');
+    }
+
+
+
+    /**
     if(jsonArray[3].indexOf('Sin restricci&#xF3;n') === -1) {
         conSello = jsonArray[3];
-    }
+    }**/
+
+    //console.log(jsonArray[0]);
 
 
     const output = {
       fecha  : getDate(jsonArray[0]),
       estatus: jsonArray[1],
       numeros: {
-        sinSello: jsonArray[2],
+        sinSello: sinSello,
         conSello: conSello
       }
     };

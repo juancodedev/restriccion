@@ -10,22 +10,30 @@ describe('scrape', function(){
     // Fetch Numeros Restriccion only once
     var fetchNumerosRestriccion =
           scrape.fetchNumerosRestriccion
-            .then( function (result) { console.log(result); return result; } );
+            .then( function (result) { return result; } );
 
     it('should return an object', function(){
       return fetchNumerosRestriccion.should.eventually.be.an('object');
     });
 
     it('object should have formated numeros', function(){
-      return fetchNumerosRestriccion.should.eventually.have.deep.property('numeros.conSello') &&
-            fetchNumerosRestriccion.should.eventually.have.deep.property('numeros.sinSello');
+      return fetchNumerosRestriccion.should.eventually.have.deep.property('numeros.conSello').and.be.an('array');
+    });
+
+    it('object should have formated numeros', function(){
+      return fetchNumerosRestriccion.should.eventually.have.deep.property('numeros.conSello').and.be.an('array');
     });
 
     it('object should have proper fecha type', function(){
       return fetchNumerosRestriccion.should.eventually
               .have.property('fecha')
-              .and.to.match(/\d{1,2}-\d{1,2}-\d{4}/);
+              .and.to.match(/^\d{1,2}-\d{1,2}-\d{4}$/);
     });
 
+    it('object should have proper estatus type', function(){
+      return fetchNumerosRestriccion.should.eventually
+              .have.property('estatus')
+              .and.to.match(/ambiental/i);
+    });
   });
 });
