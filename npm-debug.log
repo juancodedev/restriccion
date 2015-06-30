@@ -1,0 +1,180 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/federico/.nvm/v0.12.5/bin/node',
+1 verbose cli   '/Users/federico/.nvm/v0.12.5/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'moment',
+1 verbose cli   '--save' ]
+2 info using npm@2.11.2
+3 info using node@v0.12.5
+4 verbose install initial load of /opt/reactjs/SANTIAGOLABS/tengo-restriccion/package.json
+5 warn package.json tengo-restriccion@1.0.0 No repository field.
+6 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/babel/package.json
+7 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/babel-core/package.json
+8 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/babel-loader/package.json
+9 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/cheerio/package.json
+10 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/envify/package.json
+11 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/eslint/package.json
+12 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/eslint-plugin-react/package.json
+13 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/mandrill-send/package.json
+14 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/mongoose/package.json
+15 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/node-libs-browser/package.json
+16 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/react/package.json
+17 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/react-hot-loader/package.json
+18 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/request/package.json
+19 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/uglify-loader/package.json
+20 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/webpack/package.json
+21 verbose installManyTop reading scoped package data from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/webpack-dev-server/package.json
+22 info package.json mandrill-send@0.1.0 No repository field.
+23 info package.json mandrill-send@0.1.0 No license field.
+24 verbose readDependencies loading dependencies from /opt/reactjs/SANTIAGOLABS/tengo-restriccion/package.json
+25 silly cache add args [ 'moment', null ]
+26 verbose cache add spec moment
+27 silly cache add parsed spec { raw: 'moment',
+27 silly cache add   scope: null,
+27 silly cache add   name: 'moment',
+27 silly cache add   rawSpec: '',
+27 silly cache add   spec: '*',
+27 silly cache add   type: 'range' }
+28 silly addNamed moment@*
+29 verbose addNamed "*" is a valid semver range for moment
+30 silly addNameRange { name: 'moment', range: '*', hasData: false }
+31 silly mapToRegistry name moment
+32 silly mapToRegistry using default registry
+33 silly mapToRegistry registry https://registry.npmjs.org/
+34 silly mapToRegistry uri https://registry.npmjs.org/moment
+35 verbose addNameRange registry:https://registry.npmjs.org/moment not in flight; fetching
+36 verbose get https://registry.npmjs.org/moment not expired, no request
+37 silly addNameRange number 2 { name: 'moment', range: '*', hasData: true }
+38 silly addNameRange versions [ 'moment',
+38 silly addNameRange   [ '1.0.0',
+38 silly addNameRange     '1.0.1',
+38 silly addNameRange     '1.1.0',
+38 silly addNameRange     '1.1.1',
+38 silly addNameRange     '1.2.0',
+38 silly addNameRange     '1.3.0',
+38 silly addNameRange     '1.4.0',
+38 silly addNameRange     '1.5.0',
+38 silly addNameRange     '1.5.1',
+38 silly addNameRange     '1.6.0',
+38 silly addNameRange     '1.6.1',
+38 silly addNameRange     '1.6.2',
+38 silly addNameRange     '1.7.0',
+38 silly addNameRange     '1.7.1',
+38 silly addNameRange     '1.7.2',
+38 silly addNameRange     '2.0.0',
+38 silly addNameRange     '2.1.0',
+38 silly addNameRange     '2.2.1',
+38 silly addNameRange     '2.3.0',
+38 silly addNameRange     '2.3.1',
+38 silly addNameRange     '2.4.0',
+38 silly addNameRange     '2.5.0',
+38 silly addNameRange     '2.5.1',
+38 silly addNameRange     '2.6.0',
+38 silly addNameRange     '2.7.0',
+38 silly addNameRange     '2.8.1',
+38 silly addNameRange     '2.8.2',
+38 silly addNameRange     '2.8.3',
+38 silly addNameRange     '2.8.4',
+38 silly addNameRange     '2.9.0',
+38 silly addNameRange     '2.10.2',
+38 silly addNameRange     '2.10.3' ] ]
+39 silly addNamed moment@2.10.3
+40 verbose addNamed "2.10.3" is a plain semver version for moment
+41 silly cache afterAdd moment@2.10.3
+42 verbose afterAdd /Users/federico/.npm/moment/2.10.3/package/package.json not in flight; writing
+43 verbose afterAdd /Users/federico/.npm/moment/2.10.3/package/package.json written
+44 silly install resolved [ { name: 'moment',
+44 silly install resolved     version: '2.10.3',
+44 silly install resolved     description: 'Parse, validate, manipulate, and display dates',
+44 silly install resolved     homepage: 'http://momentjs.com',
+44 silly install resolved     author:
+44 silly install resolved      { name: 'Iskren Ivov Chernev',
+44 silly install resolved        email: 'iskren.chernev@gmail.com',
+44 silly install resolved        url: 'https://github.com/ichernev' },
+44 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+44 silly install resolved     keywords:
+44 silly install resolved      [ 'moment',
+44 silly install resolved        'date',
+44 silly install resolved        'time',
+44 silly install resolved        'parse',
+44 silly install resolved        'format',
+44 silly install resolved        'validate',
+44 silly install resolved        'i18n',
+44 silly install resolved        'l10n',
+44 silly install resolved        'ender' ],
+44 silly install resolved     main: './moment.js',
+44 silly install resolved     engines: { node: '*' },
+44 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/moment/moment.git' },
+44 silly install resolved     bugs: { url: 'https://github.com/moment/moment/issues' },
+44 silly install resolved     licenses: [ [Object] ],
+44 silly install resolved     devDependencies:
+44 silly install resolved      { 'uglify-js': 'latest',
+44 silly install resolved        'es6-promise': 'latest',
+44 silly install resolved        grunt: 'latest',
+44 silly install resolved        benchmark: 'latest',
+44 silly install resolved        esperanto: 'latest',
+44 silly install resolved        'grunt-contrib-clean': 'latest',
+44 silly install resolved        'grunt-contrib-concat': 'latest',
+44 silly install resolved        'grunt-contrib-copy': 'latest',
+44 silly install resolved        'grunt-contrib-jshint': 'latest',
+44 silly install resolved        'grunt-contrib-uglify': 'latest',
+44 silly install resolved        'grunt-contrib-watch': 'latest',
+44 silly install resolved        'grunt-env': 'latest',
+44 silly install resolved        'grunt-jscs': 'latest',
+44 silly install resolved        'grunt-karma': 'latest',
+44 silly install resolved        'grunt-nuget': 'latest',
+44 silly install resolved        'grunt-benchmark': 'latest',
+44 silly install resolved        'grunt-string-replace': 'latest',
+44 silly install resolved        'grunt-exec': 'latest',
+44 silly install resolved        'load-grunt-tasks': 'latest',
+44 silly install resolved        karma: 'latest',
+44 silly install resolved        'karma-chrome-launcher': 'latest',
+44 silly install resolved        'karma-firefox-launcher': 'latest',
+44 silly install resolved        'karma-qunit': 'latest',
+44 silly install resolved        'karma-sauce-launcher': 'latest',
+44 silly install resolved        qunit: '^0.7.5',
+44 silly install resolved        'qunit-cli': '^0.1.4',
+44 silly install resolved        spacejam: 'latest' },
+44 silly install resolved     ender: './ender.js',
+44 silly install resolved     dojoBuild: 'package.js',
+44 silly install resolved     jspm: { files: [Object], map: [Object], buildConfig: [Object] },
+44 silly install resolved     scripts: { test: 'grunt test' },
+44 silly install resolved     spm: { main: 'moment.js', output: [Object] },
+44 silly install resolved     _id: 'moment@2.10.3',
+44 silly install resolved     dist:
+44 silly install resolved      { shasum: '0abb99f307f65218308c6935efe29c57b1a0a27f',
+44 silly install resolved        tarball: 'http://registry.npmjs.org/moment/-/moment-2.10.3.tgz' },
+44 silly install resolved     _from: 'moment@*',
+44 silly install resolved     _npmVersion: '1.4.6',
+44 silly install resolved     _npmUser: { name: 'ichernev', email: 'iskren.chernev@gmail.com' },
+44 silly install resolved     maintainers: [ [Object], [Object] ],
+44 silly install resolved     directories: {},
+44 silly install resolved     _shasum: '0abb99f307f65218308c6935efe29c57b1a0a27f',
+44 silly install resolved     _resolved: 'https://registry.npmjs.org/moment/-/moment-2.10.3.tgz',
+44 silly install resolved     readme: 'ERROR: No README data found!' } ]
+45 info install moment@2.10.3 into /opt/reactjs/SANTIAGOLABS/tengo-restriccion
+46 info installOne moment@2.10.3
+47 verbose installOne of moment to /opt/reactjs/SANTIAGOLABS/tengo-restriccion not in flight; installing
+48 warn locking Error: EACCES, open '/Users/federico/.npm/_locks/moment-dc907ac45fd5799a.lock'
+48 warn locking     at Error (native)
+48 warn locking  /Users/federico/.npm/_locks/moment-dc907ac45fd5799a.lock failed { [Error: EACCES, open '/Users/federico/.npm/_locks/moment-dc907ac45fd5799a.lock']
+48 warn locking   errno: -13,
+48 warn locking   code: 'EACCES',
+48 warn locking   path: '/Users/federico/.npm/_locks/moment-dc907ac45fd5799a.lock' }
+49 verbose stack Error: Attempt to unlock /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/moment, which hasn't been locked
+49 verbose stack     at unlock (/Users/federico/.nvm/v0.12.5/lib/node_modules/npm/lib/utils/locker.js:66:11)
+49 verbose stack     at cb (/Users/federico/.nvm/v0.12.5/lib/node_modules/npm/lib/install.js:1017:5)
+49 verbose stack     at /Users/federico/.nvm/v0.12.5/lib/node_modules/npm/lib/install.js:1021:20
+49 verbose stack     at /Users/federico/.nvm/v0.12.5/lib/node_modules/npm/lib/utils/locker.js:40:9
+49 verbose stack     at cb (/Users/federico/.nvm/v0.12.5/lib/node_modules/npm/node_modules/lockfile/lockfile.js:149:38)
+49 verbose stack     at /Users/federico/.nvm/v0.12.5/lib/node_modules/npm/node_modules/lockfile/lockfile.js:177:38
+49 verbose stack     at FSReqWrap.oncomplete (fs.js:95:15)
+50 verbose cwd /opt/reactjs/SANTIAGOLABS/tengo-restriccion
+51 error Darwin 13.4.0
+52 error argv "/Users/federico/.nvm/v0.12.5/bin/node" "/Users/federico/.nvm/v0.12.5/bin/npm" "install" "moment" "--save"
+53 error node v0.12.5
+54 error npm  v2.11.2
+55 error Attempt to unlock /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/moment, which hasn't been locked
+56 error If you need help, you may report this error at:
+56 error     <https://github.com/npm/npm/issues>
+57 verbose exit [ 1, true ]

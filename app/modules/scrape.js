@@ -1,6 +1,6 @@
 import request from 'request';
 import cheerio from 'cheerio';
-import moment from 'moment';
+import getDate from './dateFormat';
 
 
 export const fetchNumerosRestriccion = new Promise(function(resolve, reject) {
@@ -18,24 +18,25 @@ export const fetchNumerosRestriccion = new Promise(function(resolve, reject) {
     let jsonArray = [];
     let conSello = false;
 
-    $('.alerta-ambiental').each(function(){
+    $('.col-sm-12.restrictiontop').find("h3,a").each(function(){
       var obj = $(this);
+      console.log(obj.html());
       jsonArray.push(obj.html().trim());
     });
 
     $('div.restriction h3').each(function(){
       var obj = $(this);
+      //console.log(obj.html());
       jsonArray.push(obj.html().trim());
     });
 
-    /*
     if(jsonArray[3].indexOf('Sin restricci&#xF3;n') === -1) {
-      conSello = true;
+        conSello = jsonArray[3];
     }
-    */
+
 
     const output = {
-      fecha  : moment().format('DD-MM-YYYY'),
+      fecha  : getDate(jsonArray[0]),
       estatus: jsonArray[1],
       numeros: {
         sinSello: jsonArray[2],
