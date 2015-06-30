@@ -12,3 +12,8 @@ RestrictionDay.set({
     conSello: false
   }
 });
+
+/*
+scrape.fetchNumerosRestriccion()
+  .then(function(x) { console.log(x); });
+*/
