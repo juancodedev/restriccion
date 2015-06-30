@@ -3,8 +3,39 @@ import cheerio from 'cheerio';
 import getDate from './dateFormat';
 
 
-export const fetchNumerosRestriccion = new Promise(function(resolve, reject) {
 
+export function fetchNumerosRestriccion(){
+    return scrapeNumerosRestriccion.then(parseNumerosRestriccion);
+}
+
+export function parseNumerosRestriccion(jsonArray) {
+
+    let sinSello = jsonArray[0].replace(/.*sin sello verde(.*),.*/, '$1');
+    sinSello = sinSello.trim().replace(/ /g, '-');
+    sinSello = sinSello.split('-');
+
+    let conSello = /^.*, con sello verde (.*)$/.test(jsonArray[0]) ?
+        jsonArray[0].replace(/.*, con sello verde(.*)/, '$1') : false;
+
+    if(conSello){
+      conSello = conSello.trim().replace(/ /g, '-');
+      conSello = conSello.split('-');
+    }
+
+    const output = {
+      fecha  : getDate(jsonArray[0]),
+      estatus: jsonArray[1],
+      numeros: {
+        sinSello: sinSello,
+        conSello: conSello
+      }
+    };
+
+    return output;
+}
+
+
+export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
   request.get({
     url: 'http://www.uoct.cl/restriccion-vehicular/'
   }, function (error, response, html) {
@@ -23,37 +54,7 @@ export const fetchNumerosRestriccion = new Promise(function(resolve, reject) {
       jsonArray.push(obj.html().trim());
     });
 
-    let sinSello = jsonArray[0].replace(/.*sin sello verde(.*),.*/, '$1');
-    sinSello = sinSello.trim().replace(/ /g, '-');
-    sinSello = sinSello.split('-');
-
-    let conSello = /^.*, con sello verde (.*)$/.test(jsonArray[0]) ?
-        jsonArray[0].replace(/.*, con sello verde(.*)/, '$1') : false;
-
-    if(conSello){
-      conSello = conSello.trim().replace(/ /g, '-');
-      conSello = conSello.split('-');
-    }
-
-
-
-    /**
-    if(jsonArray[3].indexOf('Sin restricci&#xF3;n') === -1) {
-        conSello = jsonArray[3];
-    }**/
-
-    //console.log(jsonArray[0]);
-
-
-    const output = {
-      fecha  : getDate(jsonArray[0]),
-      estatus: jsonArray[1],
-      numeros: {
-        sinSello: sinSello,
-        conSello: conSello
-      }
-    };
-
-    resolve(output);
+    resolve(jsonArray);
   });
+
 });
