@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "description": "App para notificacion de restriccion vehicular segun patente",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "eslint . && mocha --reporter spec 'app/**/__tests__/*-test.js'"
   },
   "author": "SantiagoLab.cl <contact@santiagolab.cl>",
   "license": "MIT",
   "dependencies": {
+    "chai": "^3.0.0",
+    "chai-as-promised": "^5.1.0",
+    "chai-things": "^0.2.0",
+    "mocha": "^2.2.5",
     "moment": "^2.10.3",
     "mongoose": "^4.0.6"
   },

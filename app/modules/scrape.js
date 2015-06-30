@@ -3,7 +3,7 @@ import cheerio from 'cheerio';
 import moment from 'moment';
 
 
-export const numerosRestriccion = new Promise(function(resolve, reject) {
+export const fetchNumerosRestriccion = new Promise(function(resolve, reject) {
 
   request.get({
     url: 'http://www.uoct.cl/restriccion-vehicular/'
@@ -16,33 +16,33 @@ export const numerosRestriccion = new Promise(function(resolve, reject) {
 
     const $ = cheerio.load(html.toString());
     let jsonArray = [];
+    let conSello = false;
 
     $('.alerta-ambiental').each(function(){
       var obj = $(this);
       jsonArray.push(obj.html().trim());
     });
 
-
     $('div.restriction h3').each(function(){
       var obj = $(this);
       jsonArray.push(obj.html().trim());
     });
 
-    let conSello = false;
-
+    /*
     if(jsonArray[3].indexOf('Sin restricci&#xF3;n') === -1) {
-        conSello = true;
+      conSello = true;
     }
+    */
 
     const output = {
       fecha  : moment().format('DD-MM-YYYY'),
       estatus: jsonArray[1],
       numeros: {
-        sin_sello: jsonArray[2],
-        con_sello: conSello
+        sinSello: jsonArray[2],
+        conSello: conSello
       }
     };
-    
+
     resolve(output);
   });
 });

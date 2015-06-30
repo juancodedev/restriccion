@@ -1,6 +1,6 @@
 require("babel/register");
-const scrape = require('./lib/scrape.js');
+const scrape = require('./app/modules/scrape.js');
 
 
-scrape.numerosRestriccion
+scrape.fetchNumerosRestriccion
   .then(function(x) { console.log(x); });

@@ -35,7 +35,8 @@
         "browser": true,
         "node": true,
         "es6": true,
-        "amd": true
+        "amd": true,
+        "mocha": true
     },
     "plugins": [
       "react"
