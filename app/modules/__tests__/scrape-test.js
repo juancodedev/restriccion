@@ -103,9 +103,11 @@ describe('scrape', function(){
 
 
       it('object should have proper fecha type', function(){
+        const mockFechaInvalida = ['fechaErronea: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4', 'Emergencia Ambiental'];
+
         parseNumerosRestriccion(mockEmergencia).should
                 .have.property('fecha')
-                .and.be.a('date'); // TODO: revisar el generador de dates, deberia devolver false si no hay fecha
+                .and.be.a('date');
 
         parseNumerosRestriccion(mockPreemergencia).should
                 .have.property('fecha')
@@ -115,18 +117,7 @@ describe('scrape', function(){
                 .have.property('fecha')
                 .and.be.a('date');
 
-
-
-        //Test de negación
-        const mockFechaInvalida = ['fechaErronea: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4', 'Emergencia Ambiental'];
-
-
-
-        parseNumerosRestriccion(mockFechaInvalida).should
-                .have.property('fecha')
-                .and.be.a('date'); // TODO: revisar el generador de dates, deberia devolver false si no hay fecha
-
-
+        parseNumerosRestriccion(mockFechaInvalida).should.throw( Error );
       });
 
 

@@ -1,19 +1,20 @@
 import request from 'request';
 import cheerio from 'cheerio';
 import {compose, map, filter} from 'ramda';
-import getDate from './dateFormat';
-
 
 
 export function fetchNumerosRestriccion(){
     return scrapeNumerosRestriccion.then(parseNumerosRestriccion);
 }
 
+
 export function parseNumerosRestriccion(jsonArray) {
     const parseNumbers =
             compose(
               filter(Number.isInteger),
               map(parseInt));
+
+    const fechaRegex = /.*\b(\d{1,2}) de .*:.*/;
 
     let sinSello = jsonArray[0].replace(/.*sin sello verde(.*),.*/, '$1');
     sinSello = sinSello.trim().replace(/ /g, '-');
@@ -29,14 +30,14 @@ export function parseNumerosRestriccion(jsonArray) {
       conSello = parseNumbers(conSello);
     }
 
-    const cadena = 'asdfasdf';
-
-    if(!cadena.test(/.*\b(\d{1,2}) de .*:.*/)){
-        throw Error('Fecha no encontrada en el scrape.');
+    if(!(fechaRegex.test(jsonArray[0]))) {
+      throw Error("Couldn't get 'fecha' while scraping");
     }
 
+    const day = jsonArray[0].replace(fechaRegex, '$1');
+
     return {
-      fecha  : getDate(jsonArray[0]),
+      fecha  : getDate(day),
       estatus: jsonArray[1],
       numeros: {
         sinSello: sinSello,
@@ -68,3 +69,10 @@ export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
     resolve(jsonArray);
   });
 });
+
+
+function getDate(day){
+  var date = new Date();
+  date.setDate(day);
+  return date;
+}

@@ -4,4 +4,5 @@ const scrape = require('./app/modules/scrape.js');
 //const RestrictionDay = require('./app/models/RestrictionDay.js');
 
 scrape.fetchNumerosRestriccion()
-  .then(function(x) { console.log(x) });
+  .then(function(x) { console.log(x); })
+  .catch(function(x) { console.log(x); });
