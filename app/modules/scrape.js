@@ -29,6 +29,12 @@ export function parseNumerosRestriccion(jsonArray) {
       conSello = parseNumbers(conSello);
     }
 
+    const cadena = 'asdfasdf';
+
+    if(!cadena.test(/.*\b(\d{1,2}) de .*:.*/)){
+        throw Error('Fecha no encontrada en el scrape.');
+    }
+
     return {
       fecha  : getDate(jsonArray[0]),
       estatus: jsonArray[1],

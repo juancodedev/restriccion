@@ -59,7 +59,35 @@ describe('scrape', function(){
             });
 
             // TODO: agregar test negacion
+            numerosEmergencia
+              .should.not.be.deep.equal({
+                fecha  : fechaEmergencia,
+                estatus: "Emergtal",
+                numeros: {
+                  conSello: [1, 1, 1],
+                  sinSello: [2, 9, 4, 2]
+                }
+              });
 
+              numerosPreemergencia
+                .should.not.be.deep.equal({
+                  fecha  : fechaPreemergencia,
+                  estatus: "Prial",
+                  numeros: {
+                    conSello: [],
+                    sinSello: [8, 8]
+                  }
+                });
+
+              numerosAlerta
+                .should.not.be.deep.equal({
+                  fecha  : fechaAlerta,
+                  estatus: "Alertal",
+                  numeros: {
+                    conSello: [3, 3],
+                    sinSello: [9, 9, 9]
+                  }
+                });
       });
 
 
@@ -86,7 +114,22 @@ describe('scrape', function(){
         parseNumerosRestriccion(mockAlerta).should
                 .have.property('fecha')
                 .and.be.a('date');
+
+
+
+        //Test de negación
+        const mockFechaInvalida = ['fechaErronea: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4', 'Emergencia Ambiental'];
+
+
+
+        parseNumerosRestriccion(mockFechaInvalida).should
+                .have.property('fecha')
+                .and.be.a('date'); // TODO: revisar el generador de dates, deberia devolver false si no hay fecha
+
+
       });
+
+
 
 
       it('object should have proper estatus type', function(){
