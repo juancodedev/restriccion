@@ -12,8 +12,8 @@ import moment from 'moment';
  * @param {date} fecha
  * @param {string} estatus
  * @param {object} numeros
- * @param {array|boolean} numeros.sinSello
- * @param {array|boolean} numeros.conSello
+ * @param {array} numeros.sinSello
+ * @param {array} numeros.conSello
  */
 const Schema = mongoose.Schema({
   _id    : String,
