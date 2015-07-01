@@ -1,5 +1,6 @@
 import request from 'request';
 import cheerio from 'cheerio';
+import {compose, map, filter} from 'ramda';
 import getDate from './dateFormat';
 
 
@@ -9,10 +10,15 @@ export function fetchNumerosRestriccion(){
 }
 
 export function parseNumerosRestriccion(jsonArray) {
+    const parseNumbers =
+            compose(
+              filter(Number.isInteger),
+              map(parseInt));
 
     let sinSello = jsonArray[0].replace(/.*sin sello verde(.*),.*/, '$1');
     sinSello = sinSello.trim().replace(/ /g, '-');
     sinSello = sinSello.split('-');
+    sinSello = parseNumbers(sinSello);
 
     let conSello = /^.*, con sello verde (.*)$/.test(jsonArray[0]) ?
         jsonArray[0].replace(/.*, con sello verde(.*)/, '$1') : false;
@@ -20,9 +26,10 @@ export function parseNumerosRestriccion(jsonArray) {
     if(conSello){
       conSello = conSello.trim().replace(/ /g, '-');
       conSello = conSello.split('-');
+      conSello = parseNumbers(conSello);
     }
 
-    const output = {
+    return {
       fecha  : getDate(jsonArray[0]),
       estatus: jsonArray[1],
       numeros: {
@@ -30,8 +37,6 @@ export function parseNumerosRestriccion(jsonArray) {
         conSello: conSello
       }
     };
-
-    return output;
 }
 
 
@@ -56,5 +61,4 @@ export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
 
     resolve(jsonArray);
   });
-
 });
