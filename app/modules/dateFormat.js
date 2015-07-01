@@ -11,6 +11,5 @@ export default function getDate(string){
     var date = new Date();
     date.setDate(numArray[0]);
 
-
    return date;
 }
