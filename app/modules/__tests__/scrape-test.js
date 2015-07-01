@@ -12,10 +12,10 @@ describe('scrape', function(){
 
 
   describe('#parseNumerosRestriccion', function(){
-      var mockEmergencia = ['Martes 30 de Junio: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4', 'Emergencia Ambiental'];
-      var mockPreemergencia = ['Lunes 29 de Junio: sin sello verde 9-0-1-2 3-4, con sello verde 1-2', 'Preemergencia Ambiental'];
-      var mockAlerta = ['Domingo 28 de Junio: sin sello verde 7-8-9-0, con sello verde sin restriccion', 'Alerta Ambiental'];
-      var parseNumerosRestriccion = scrape.parseNumerosRestriccion;
+      const mockEmergencia = ['Martes 30 de Junio: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4', 'Emergencia Ambiental'];
+      const mockPreemergencia = ['Lunes 29 de Junio: sin sello verde 9-0-1-2 3-4, con sello verde 1-2', 'Preemergencia Ambiental'];
+      const mockAlerta = ['Domingo 28 de Junio: sin sello verde 7-8-9-0, con sello verde sin restriccion', 'Alerta Ambiental'];
+      const parseNumerosRestriccion = scrape.parseNumerosRestriccion;
 
       it('should return expected result', function(){
           const numerosEmergencia    = parseNumerosRestriccion(mockEmergencia);
@@ -57,6 +57,9 @@ describe('scrape', function(){
                 sinSello: [7, 8, 9, 0]
               }
             });
+
+            // TODO: agregar test negacion
+
       });
 
 
