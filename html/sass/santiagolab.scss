@@ -115,10 +115,12 @@ h5 {
 
 
 form{
+  max-width: 700px;
+  margin: 0 auto;
   .input-field{
     input{
       color: #fff;
-      font-size: 5vw;
+      font-size: 3.5vw;
       height: 6vw;
       min-height: 34px;
       text-align: center;
