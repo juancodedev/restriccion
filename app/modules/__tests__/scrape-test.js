@@ -6,11 +6,6 @@ chai.should();
 
 
 describe('scrape', function(){
-  describe('#fetchNumerosRestriccion', function(){
-    // TODO: Tests de integracion
-  });
-
-
   describe('#parseNumerosRestriccion', function(){
       const mockEmergencia = [
         'Martes 30 de Junio: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4',

@@ -2,12 +2,20 @@ import request from 'request';
 import cheerio from 'cheerio';
 import {compose, map, filter} from 'ramda';
 
-
+/**
+ * Fetches numerosRestriccion from web page and parses it
+ * @return {object} promise
+ */
 export function fetchNumerosRestriccion(){
     return scrapeNumerosRestriccion.then(parseNumerosRestriccion);
 }
 
 
+/**
+ * Parses the array given as parameter and returns and object
+ * @param  {array} jsonArray is the array resolved from the scrapeNumerosRestriccion promise
+ * @return {object} final formated object
+ */
 export function parseNumerosRestriccion(jsonArray) {
     const parseNumbers =
             compose(
@@ -46,7 +54,10 @@ export function parseNumerosRestriccion(jsonArray) {
     };
 }
 
-
+/**
+ * Scrapes the website and resolves with an array of all the objects it gets
+ * @param {function} contains the resolve and reject arguments to be called when the promise ends
+ */
 export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
   request.get({
     url: 'http://www.uoct.cl/restriccion-vehicular/'
@@ -70,7 +81,11 @@ export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
   });
 });
 
-
+/**
+ * Receives a string with a number
+ * @param  {string} day is the number sent by parseNumerosRestriccion
+ * @return {date} date object with the date formated using the day passed as argument
+ */
 function getDate(day){
   var date = new Date();
   date.setDate(day);
