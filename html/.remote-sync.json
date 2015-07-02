@@ -1,0 +1,15 @@
+{
+  "transport": "scp",
+  "hostname": "marifedev",
+  "port": "22",
+  "username": "marife",
+  "password": "05081987",
+  "target": "/www/tengorestriccion",
+  "ignore": [
+    ".git/**",
+    ".idea/**",
+    ".sass-cache/**",
+    ".remote-sync.json"
+  ],
+  "uploadOnSave": false
+}
