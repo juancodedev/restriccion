@@ -9948,8 +9948,8 @@ input[type=tel]:focus:not([readonly]),
 input[type=number]:focus:not([readonly]),
 input[type=search]:focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #3A3B3F;
-  box-shadow: 0 1px 0 0 #3A3B3F;
+  border-bottom: 1px solid #57595E;
+  box-shadow: 0 1px 0 0 #57595E;
 }
 /* line 81, ../sass/components/_form.scss */
 input[type=text]:focus:not([readonly]) + label,
@@ -9963,7 +9963,7 @@ input[type=tel]:focus:not([readonly]) + label,
 input[type=number]:focus:not([readonly]) + label,
 input[type=search]:focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label {
-  color: #3A3B3F;
+  color: #57595E;
 }
 /* line 85, ../sass/components/_form.scss */
 input[type=text].valid, input[type=text]:focus.valid,
@@ -10128,7 +10128,7 @@ textarea.materialize-textarea + label:after {
 }
 /* line 148, ../sass/components/_form.scss */
 .input-field .prefix.active {
-  color: #3A3B3F;
+  color: #57595E;
 }
 /* line 150, ../sass/components/_form.scss */
 .input-field .prefix ~ input,
@@ -10304,8 +10304,8 @@ textarea.materialize-textarea {
 /* line 297, ../sass/components/_form.scss */
 [type="radio"]:checked + label:after {
   border-radius: 50%;
-  border: 2px solid #3A3B3F;
-  background-color: #3A3B3F;
+  border: 2px solid #D9FF39;
+  background-color: #D9FF39;
   z-index: 0;
   -webkit-transform: scale(1.02);
   -moz-transform: scale(1.02);
@@ -10318,14 +10318,14 @@ textarea.materialize-textarea {
 /* line 306, ../sass/components/_form.scss */
 [type="radio"].with-gap:checked + label:before {
   border-radius: 50%;
-  border: 2px solid #3A3B3F;
+  border: 2px solid #D9FF39;
 }
 
 /* line 310, ../sass/components/_form.scss */
 [type="radio"].with-gap:checked + label:after {
   border-radius: 50%;
-  border: 2px solid #3A3B3F;
-  background-color: #3A3B3F;
+  border: 2px solid #D9FF39;
+  background-color: #D9FF39;
   z-index: 0;
   -webkit-transform: scale(0.5);
   -moz-transform: scale(0.5);
@@ -10448,8 +10448,8 @@ form p:last-child {
   height: 22px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
-  border-right: 2px solid #3A3B3F;
-  border-bottom: 2px solid #3A3B3F;
+  border-right: 2px solid #D9FF39;
+  border-bottom: 2px solid #D9FF39;
   -webkit-transform: rotate(40deg);
   -moz-transform: rotate(40deg);
   -ms-transform: rotate(40deg);
@@ -10477,7 +10477,7 @@ form p:last-child {
   height: 22px;
   border-top: none;
   border-left: none;
-  border-right: 2px solid #3A3B3F;
+  border-right: 2px solid #D9FF39;
   border-bottom: none;
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
@@ -10825,7 +10825,7 @@ input[type=range] + .thumb {
   height: 0;
   width: 0;
   border-radius: 50%;
-  background-color: #3A3B3F;
+  background-color: #D9FF39;
   top: 10px;
   margin-left: -6px;
   -webkit-transform-origin: 50% 50%;
@@ -10844,7 +10844,7 @@ input[type=range] + .thumb .value {
   display: block;
   width: 30px;
   text-align: center;
-  color: #3A3B3F;
+  color: #D9FF39;
   font-size: 0;
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
@@ -10888,7 +10888,7 @@ input[type=range]::-webkit-slider-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background-color: #3A3B3F;
+  background-color: #D9FF39;
   transform-origin: 50% 50%;
   margin: -5px 0 0 0;
   -webkit-transition: 0.3s;
@@ -10923,7 +10923,7 @@ input[type=range]::-moz-range-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: #3A3B3F;
+  background: #D9FF39;
   margin-top: -5px;
 }
 
@@ -10967,7 +10967,7 @@ input[type=range]::-ms-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: #3A3B3F;
+  background: #D9FF39;
 }
 
 /* line 868, ../sass/components/_form.scss */
