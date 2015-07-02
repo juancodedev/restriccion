@@ -5,6 +5,7 @@
 
 import mongoose from 'mongoose';
 import moment from 'moment';
+import * as CRUD from './helpers/CRUD.js';
 
 /**
  * RestrictionDay's Schema
@@ -16,7 +17,7 @@ import moment from 'moment';
  * @param {array} numeros.conSello
  */
 const Schema = mongoose.Schema({
-  _id    : String,
+  _id    : { type: String, unique: true },
   fecha  : Date,
   estatus: String,
   numeros: {
@@ -32,14 +33,12 @@ const RestrictionDay = mongoose.model('RestrictionDay', Schema);
  * @param {object} restrictionDayData an object according to RestrictionDay's Schema
  */
 export function set(restrictionDayData) {
-  const document = new RestrictionDay( addId(restrictionDayData) );
-  const query    = {'_id': restrictionDayData._id};
+  const data  = addId(restrictionDayData);
+  const query = {'_id': data._id};
 
-  RestrictionDay
-    .findOneAndUpdate(query, document, {upsert: true}, function(err, doc){
-      if (err) { return console.error(err); }
-      console.log('Saved! : ', doc || document);
-    });
+  CRUD.upsert(RestrictionDay, query, data)
+    .then( doc => console.log("Saved RestrictionDay!", doc) )
+    .catch( err => console.error("Error while creating RestrictionDay!", err));
 }
 
 /**
@@ -47,12 +46,9 @@ export function set(restrictionDayData) {
  * @param {object} restrictionDayData an object according to RestrictionDay's Schema
  */
 export function create(restrictionDayData) {
-  const document = new RestrictionDay( addId(restrictionDayData) );
-
-  document.save(function (err, doc) {
-    if (err) { return console.error(err); }
-    console.log('Saved! : ', doc);
-  });
+  CRUD.create(RestrictionDay, addId(restrictionDayData))
+    .then( doc => console.log("Saved RestrictionDay!", doc) )
+    .catch( err => console.error("Error while creating RestrictionDay!", err));
 }
 
 /**
