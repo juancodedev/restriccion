@@ -12,9 +12,18 @@ describe('scrape', function(){
 
 
   describe('#parseNumerosRestriccion', function(){
-      const mockEmergencia = ['Martes 30 de Junio: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4', 'Emergencia Ambiental'];
-      const mockPreemergencia = ['Lunes 29 de Junio: sin sello verde 9-0-1-2 3-4, con sello verde 1-2', 'Preemergencia Ambiental'];
-      const mockAlerta = ['Domingo 28 de Junio: sin sello verde 7-8-9-0, con sello verde sin restriccion', 'Alerta Ambiental'];
+      const mockEmergencia = [
+        'Martes 30 de Junio: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4',
+        'Emergencia Ambiental'];
+
+      const mockPreemergencia = [
+        'Lunes 29 de Junio: sin sello verde 9-0-1-2 3-4, con sello verde 1-2',
+        'Preemergencia Ambiental'];
+
+      const mockAlerta = [
+        'Domingo 28 de Junio: sin sello verde 7-8-9-0, con sello verde sin restriccion',
+        'Alerta Ambiental'];
+
       const parseNumerosRestriccion = scrape.parseNumerosRestriccion;
 
       it('should return expected result', function(){
@@ -58,7 +67,6 @@ describe('scrape', function(){
               }
             });
 
-            // TODO: agregar test negacion
             numerosEmergencia
               .should.not.be.deep.equal({
                 fecha  : fechaEmergencia,
@@ -92,18 +100,35 @@ describe('scrape', function(){
 
 
       it('object should have formated numeros', function(){
-        parseNumerosRestriccion(mockEmergencia).should.have.deep.property('numeros.conSello').and.be.a('array');
-        parseNumerosRestriccion(mockPreemergencia).should.have.deep.property('numeros.conSello').and.be.a('array');
-        parseNumerosRestriccion(mockAlerta).should.have.deep.property('numeros.conSello').and.be.a('array');
+        parseNumerosRestriccion(mockEmergencia)
+            .should.have.deep.property('numeros.conSello')
+            .and.be.a('array');
 
-        parseNumerosRestriccion(mockEmergencia).should.have.deep.property('numeros.sinSello').and.be.a('array');
-        parseNumerosRestriccion(mockPreemergencia).should.have.deep.property('numeros.sinSello').and.be.a('array');
-        parseNumerosRestriccion(mockAlerta).should.have.deep.property('numeros.sinSello').and.be.a('array');
+        parseNumerosRestriccion(mockPreemergencia)
+            .should.have.deep.property('numeros.conSello')
+            .and.be.a('array');
+
+        parseNumerosRestriccion(mockAlerta)
+            .should.have.deep.property('numeros.conSello')
+            .and.be.a('array');
+
+        parseNumerosRestriccion(mockEmergencia)
+            .should.have.deep.property('numeros.sinSello')
+            .and.be.a('array');
+
+        parseNumerosRestriccion(mockPreemergencia)
+            .should.have.deep.property('numeros.sinSello')
+            .and.be.a('array');
+
+        parseNumerosRestriccion(mockAlerta)
+            .should.have.deep.property('numeros.sinSello')
+            .and.be.a('array');
       });
 
 
       it('object should have proper fecha type', function(){
-        const mockFechaInvalida = ['fechaErronea: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4', 'Emergencia Ambiental'];
+        const mockFechaInvalida =
+                ['fechaErronea: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4', 'Emergencia Ambiental'];
 
         parseNumerosRestriccion(mockEmergencia).should
                 .have.property('fecha')
@@ -117,10 +142,9 @@ describe('scrape', function(){
                 .have.property('fecha')
                 .and.be.a('date');
 
-        parseNumerosRestriccion(mockFechaInvalida).should.throw( Error );
+        (function(){ parseNumerosRestriccion(mockFechaInvalida); })
+                          .should.throw(/Couldn't get 'fecha' while scraping/);
       });
-
-
 
 
       it('object should have proper estatus type', function(){
