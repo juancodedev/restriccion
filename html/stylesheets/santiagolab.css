@@ -5,16 +5,59 @@ body {
 }
 
 /* line 12, ../sass/santiagolab.scss */
+hr {
+  border: none;
+  border-top: 1px dashed rgba(187, 248, 57, 0.1);
+  margin: 4vw;
+}
+
+/* line 18, ../sass/santiagolab.scss */
+h4 {
+  font-weight: 100;
+}
+
+/* line 22, ../sass/santiagolab.scss */
+h4.num {
+  letter-spacing: 7px;
+  font-weight: 400;
+}
+
+/* line 27, ../sass/santiagolab.scss */
+h5 {
+  font-size: 1.4rem;
+  color: #C5C469;
+  font-weight: 100;
+}
+
+/* line 33, ../sass/santiagolab.scss */
+.stgoLab {
+  margin-bottom: 4vw;
+}
+/* line 35, ../sass/santiagolab.scss */
+.stgoLab h5 {
+  letter-spacing: 2px;
+}
+/* line 36, ../sass/santiagolab.scss */
+.stgoLab img {
+  width: 400px;
+}
+
+/* line 39, ../sass/santiagolab.scss */
+.logo {
+  width: 780px;
+}
+
+/* line 41, ../sass/santiagolab.scss */
 .top {
   padding: 4vw 0 2vw 0;
 }
 
-/* line 16, ../sass/santiagolab.scss */
+/* line 45, ../sass/santiagolab.scss */
 .main {
   text-align: center;
 }
 
-/* line 21, ../sass/santiagolab.scss */
+/* line 50, ../sass/santiagolab.scss */
 .date h5 {
   background-color: rgba(23, 23, 23, 0.62);
   line-height: 2;
@@ -25,59 +68,59 @@ body {
   letter-spacing: 1px;
   text-transform: capitalize;
 }
-/* line 31, ../sass/santiagolab.scss */
+/* line 60, ../sass/santiagolab.scss */
 .date.picker__date-display {
   background-color: #63655B;
   padding-bottom: 0;
   margin-bottom: 4vh;
 }
-/* line 36, ../sass/santiagolab.scss */
+/* line 65, ../sass/santiagolab.scss */
 .date .picker__weekday-display {
   background-color: #56594D;
   font-weight: 300;
   margin-bottom: 6px;
 }
-/* line 41, ../sass/santiagolab.scss */
+/* line 70, ../sass/santiagolab.scss */
 .date .picker__day-display {
   font-size: 2.5rem;
 }
-/* line 44, ../sass/santiagolab.scss */
+/* line 73, ../sass/santiagolab.scss */
 .date .picker__month-display {
   font-size: 1.5rem;
 }
-/* line 47, ../sass/santiagolab.scss */
+/* line 76, ../sass/santiagolab.scss */
 .date .picker__year-display {
   font-size: 1.3rem;
 }
 
-/* line 53, ../sass/santiagolab.scss */
+/* line 82, ../sass/santiagolab.scss */
 .restriccion h3 {
   text-transform: uppercase;
   margin-top: 0;
   color: #C5D38F;
   font-weight: 100;
 }
-/* line 59, ../sass/santiagolab.scss */
+/* line 88, ../sass/santiagolab.scss */
 .restriccion .conSello, .restriccion .sinSello {
   padding: 15px 20px;
   border: 1px solid #464E3D;
   margin-bottom: 4vh;
 }
-/* line 63, ../sass/santiagolab.scss */
+/* line 92, ../sass/santiagolab.scss */
 .restriccion .conSello h5, .restriccion .sinSello h5 {
   font-weight: 200;
   font-size: 1.4rem;
 }
-/* line 68, ../sass/santiagolab.scss */
+/* line 97, ../sass/santiagolab.scss */
 .restriccion .sinSello h5 {
   color: #FF4254;
 }
-/* line 71, ../sass/santiagolab.scss */
+/* line 100, ../sass/santiagolab.scss */
 .restriccion .conSello h5 {
   color: #B6FF2C;
 }
 
-/* line 76, ../sass/santiagolab.scss */
+/* line 105, ../sass/santiagolab.scss */
 .info, .numeros {
   display: flex;
   flex-wrap: wrap;
@@ -85,23 +128,12 @@ body {
   color: #fff;
 }
 
-/* line 83, ../sass/santiagolab.scss */
-h4.num {
-  letter-spacing: 7px;
-}
-
-/* line 87, ../sass/santiagolab.scss */
+/* line 112, ../sass/santiagolab.scss */
 .subscripcion {
-  margin-top: 5vh;
-  padding-top: 4vh;
-  border-top: 1px dashed rgba(187, 248, 57, 0.1);
-}
-/* line 91, ../sass/santiagolab.scss */
-.subscripcion h4 {
-  font-weight: 100;
+  padding: 1vh 0;
 }
 
-/* line 97, ../sass/santiagolab.scss */
+/* line 119, ../sass/santiagolab.scss */
 form .input-field input {
   color: #fff;
   font-size: 5vw;
@@ -109,27 +141,27 @@ form .input-field input {
   min-height: 34px;
   text-align: center;
 }
-/* line 104, ../sass/santiagolab.scss */
+/* line 126, ../sass/santiagolab.scss */
 form .input-field label {
   top: 1.8vw;
 }
-/* line 106, ../sass/santiagolab.scss */
+/* line 128, ../sass/santiagolab.scss */
 form .btn-large {
   color: #63655B;
 }
 
 @media screen and (max-width: 400px) {
-  /* line 113, ../sass/santiagolab.scss */
+  /* line 135, ../sass/santiagolab.scss */
   .restriccion .conSello, .restriccion .sinSello {
     padding: 0px 20px;
     width: 100%;
   }
-  /* line 117, ../sass/santiagolab.scss */
+  /* line 139, ../sass/santiagolab.scss */
   .restriccion h3 {
     font-size: 1.5rem;
   }
 
-  /* line 119, ../sass/santiagolab.scss */
+  /* line 141, ../sass/santiagolab.scss */
   .date {
     padding-top: 5px;
     display: flex;
@@ -138,7 +170,7 @@ form .btn-large {
     align-items: baseline;
     width: 100%;
   }
-  /* line 126, ../sass/santiagolab.scss */
+  /* line 148, ../sass/santiagolab.scss */
   .date div {
     height: 30px;
     background: transparent;
@@ -149,13 +181,13 @@ form .btn-large {
     padding: 0;
     margin: 0 4px 0 4px;
   }
-  /* line 136, ../sass/santiagolab.scss */
+  /* line 158, ../sass/santiagolab.scss */
   .date .picker__weekday-display {
     background: transparent;
     font-size: 1.3rem;
     margin: 0 4px 0 4px;
   }
-  /* line 141, ../sass/santiagolab.scss */
+  /* line 163, ../sass/santiagolab.scss */
   .date h5 {
     display: block;
     width: 100%;

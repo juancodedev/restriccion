@@ -9,6 +9,35 @@ body{
   text-rendering: optimizeLegibility;
 }
 
+hr{
+  border: none;
+  border-top: 1px dashed rgba(187, 248, 57, 0.1);
+  margin: 4vw;
+}
+
+h4{
+  font-weight: 100;
+}
+
+h4.num {
+  letter-spacing: 7px;
+  font-weight: 400;
+}
+
+h5 {
+  font-size: 1.4rem;
+  color: #C5C469;
+  font-weight: 100;
+}
+
+.stgoLab{
+  margin-bottom: 4vw;
+  h5{ letter-spacing: 2px; }
+  img { width: 400px; }
+}
+
+.logo{ width: 780px; }
+
 .top{
   padding: 4vw 0 2vw 0;
 }
@@ -80,15 +109,8 @@ body{
   color: #fff;
 }
 
-h4.num {
-  letter-spacing: 7px;
-}
-
 .subscripcion{
-  margin-top: 5vh;
-  padding-top: 4vh;
-  border-top: 1px dashed rgba(187, 248, 57, 0.1);
-  h4{ font-weight: 100; }
+  padding: 1vh 0;
 }
 
 

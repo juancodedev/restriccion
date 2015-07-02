@@ -11,5 +11,5 @@
     ".sass-cache/**",
     ".remote-sync.json"
   ],
-  "uploadOnSave": false
+  "uploadOnSave": true
 }
