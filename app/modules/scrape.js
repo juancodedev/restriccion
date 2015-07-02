@@ -3,8 +3,8 @@ import cheerio from 'cheerio';
 import {compose, map, filter} from 'ramda';
 
 /**
- * Fetches numerosRestriccion from web page and parses it
- * @return {object} promise
+ * Fetches numerosRestriccion from web page and parses the data
+ * @return {promise}
  */
 export function fetchNumerosRestriccion(){
     return scrapeNumerosRestriccion.then(parseNumerosRestriccion);
@@ -12,9 +12,9 @@ export function fetchNumerosRestriccion(){
 
 
 /**
- * Parses the array given as parameter and returns and object
- * @param  {array} jsonArray is the array resolved from the scrapeNumerosRestriccion promise
- * @return {object} final formated object
+ * Parses scraped data and returns a formatted object
+ * @param  {array} jsonArray scrapeNumerosRestriccion scraped data
+ * @return {object}
  */
 export function parseNumerosRestriccion(jsonArray) {
     const parseNumbers =
@@ -54,9 +54,10 @@ export function parseNumerosRestriccion(jsonArray) {
     };
 }
 
+
 /**
- * Scrapes the website and resolves with an array of all the objects it gets
- * @param {function} contains the resolve and reject arguments to be called when the promise ends
+ * Scrapes the website and resolves with an array
+ * @return {promise}
  */
 export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
   request.get({
@@ -81,10 +82,11 @@ export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
   });
 });
 
+
 /**
- * Receives a string with a number
- * @param  {string} day is the number sent by parseNumerosRestriccion
- * @return {date} date object with the date formated using the day passed as argument
+ * Returns a Date with current time and specified day
+ * @param  {string} day the day to set in Date
+ * @return {date}
  */
 function getDate(day){
   var date = new Date();

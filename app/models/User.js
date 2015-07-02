@@ -38,7 +38,7 @@ export function create(userData) {
  * @param {object} numbers
  * @param {array} numbers.sinSello an array of restricted sin sello numbers
  * @param {array} numbers.conSello an array of restricted con sello numbers
- * @return {object} Promise containing found Users
+ * @return {promise} Promise containing found Users
  */
 export function allWithRestriction(numbers) {
   return new Promise(function(resolve, reject){
