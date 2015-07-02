@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <meta charset="utf-8" /> 
+     <!--Import materialize.css-->
+     <link type="text/css" rel="stylesheet" href="stylesheets/materialize.css"  media="screen,projection"/>
+     <link type="text/css" rel="stylesheet" href="stylesheets/santiagolab.css"  media="screen,projection"/>
+
+     <!--Let browser know website is optimized for mobile-->
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   </head>
+
+   <body>
+     <div class="container">
+        <div class="top center-align">
+          <img class="responsive-img" src="imgs/logo.png" alt="tengorestriccion" />
+          <h2></h2>
+        </div>
+        <div class="main">
+            <section class="info">
+              <div class="date picker__date-display">
+                <div class="picker__weekday-display">Martes</div>
+                <div class="picker__month-display">
+                  <div>Jul</div>
+                </div>
+                <div class="picker__day-display">
+                  <div>7</div>
+                </div>
+                <div class="picker__year-display">
+                  <div>2015</div>
+                </div>
+                <h5>Alerta ambiental</h5>
+              </div>
+              <div class="restriccion">
+                <h3>Patentes terminadas en:</h3>
+                <div class="numeros">
+                  <div class="sinSello">
+                    <h4 class="num">3-4-5-6-1-2</h4>
+                    <h5>Sin sello verde</h5>
+                  </div>
+                  <div class="conSello">
+                    <h4 class="num">3-4</h4>
+                    <h5>Con sello verde</h5>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="subscripcion">
+              <h4 class="white-text">Subscribete para recibir una notificación cuanto estes en restricción</h4>
+              <form action="">
+                <div class="row">
+                   <div class="input-field col s12">
+                     <input id="patente" type="text" class="validate">
+                     <label for="patente">Placa Patente</label>
+                   </div>
+                 </div>
+                 <div class="row">
+                   <div class="input-field col s12">
+                     <input id="email" type="email" class="validate">
+                     <label for="email">Email</label>
+                   </div>
+                 </div>
+                 <div class="row">
+                   <a class="waves-effect waves-light btn-large"><i class="material-icons left"></i>Enviar</a>
+                 </div>
+              </form>
+            </section>
+        </div>
+     </div>
+
+     <!--Import jQuery before materialize.js-->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+     <script type="text/javascript" src="js/materialize.min.js"></script>
+   </body>
+ </html>
