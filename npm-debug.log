@@ -1,0 +1,191 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/federico/.nvm/v0.10.36/bin/node',
+1 verbose cli   '/Users/federico/.nvm/v0.10.36/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'mandrill-api',
+1 verbose cli   '--save' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.36
+4 warn package.json tengo-restriccion@1.0.0 No repository field.
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'mandrill-api', null ]
+7 verbose cache add name=undefined spec="mandrill-api" args=["mandrill-api",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: 'mandrill-api',
+8 verbose parsed url   path: 'mandrill-api',
+8 verbose parsed url   href: 'mandrill-api' }
+9 silly lockFile 0a31cda0-mandrill-api mandrill-api
+10 verbose lock mandrill-api /Users/federico/.npm/0a31cda0-mandrill-api.lock
+11 silly lockFile 0a31cda0-mandrill-api mandrill-api
+12 silly lockFile 0a31cda0-mandrill-api mandrill-api
+13 verbose addNamed [ 'mandrill-api', '' ]
+14 verbose addNamed [ null, '*' ]
+15 silly lockFile 29d1bd3d-mandrill-api mandrill-api@
+16 verbose lock mandrill-api@ /Users/federico/.npm/29d1bd3d-mandrill-api.lock
+17 silly addNameRange { name: 'mandrill-api', range: '*', hasData: false }
+18 verbose request where is /mandrill-api
+19 verbose request registry https://registry.npmjs.org/
+20 verbose request id 1dc0e979000669b0
+21 verbose url raw /mandrill-api
+22 verbose url resolving [ 'https://registry.npmjs.org/', './mandrill-api' ]
+23 verbose url resolved https://registry.npmjs.org/mandrill-api
+24 verbose request where is https://registry.npmjs.org/mandrill-api
+25 info trying registry request attempt 1 at 16:38:39
+26 verbose etag "7ATAYVLMMBZKM64G0IPKL1JU7"
+27 http GET https://registry.npmjs.org/mandrill-api
+28 http 304 https://registry.npmjs.org/mandrill-api
+29 silly registry.get cb [ 304,
+29 silly registry.get   { date: 'Fri, 03 Jul 2015 19:38:50 GMT',
+29 silly registry.get     via: '1.1 varnish',
+29 silly registry.get     'cache-control': 'max-age=60',
+29 silly registry.get     etag: '"7ATAYVLMMBZKM64G0IPKL1JU7"',
+29 silly registry.get     age: '0',
+29 silly registry.get     connection: 'keep-alive',
+29 silly registry.get     'x-served-by': 'cache-atl6226-ATL',
+29 silly registry.get     'x-cache': 'HIT',
+29 silly registry.get     'x-cache-hits': '1',
+29 silly registry.get     'x-timer': 'S1435952330.182821,VS0,VE29',
+29 silly registry.get     vary: 'Accept' } ]
+30 verbose etag https://registry.npmjs.org/mandrill-api from cache
+31 silly addNameRange number 2 { name: 'mandrill-api', range: '*', hasData: true }
+32 silly addNameRange versions [ 'mandrill-api',
+32 silly addNameRange   [ '1.0.2',
+32 silly addNameRange     '1.0.4',
+32 silly addNameRange     '1.0.5',
+32 silly addNameRange     '1.0.6',
+32 silly addNameRange     '1.0.7',
+32 silly addNameRange     '1.0.8',
+32 silly addNameRange     '1.0.9',
+32 silly addNameRange     '1.0.10',
+32 silly addNameRange     '1.0.11',
+32 silly addNameRange     '1.0.12',
+32 silly addNameRange     '1.0.13',
+32 silly addNameRange     '1.0.14',
+32 silly addNameRange     '1.0.15',
+32 silly addNameRange     '1.0.16',
+32 silly addNameRange     '1.0.17',
+32 silly addNameRange     '1.0.18',
+32 silly addNameRange     '1.0.19',
+32 silly addNameRange     '1.0.20',
+32 silly addNameRange     '1.0.21',
+32 silly addNameRange     '1.0.22',
+32 silly addNameRange     '1.0.23',
+32 silly addNameRange     '1.0.24',
+32 silly addNameRange     '1.0.25',
+32 silly addNameRange     '1.0.26',
+32 silly addNameRange     '1.0.27',
+32 silly addNameRange     '1.0.28',
+32 silly addNameRange     '1.0.29',
+32 silly addNameRange     '1.0.30',
+32 silly addNameRange     '1.0.31',
+32 silly addNameRange     '1.0.32',
+32 silly addNameRange     '1.0.33',
+32 silly addNameRange     '1.0.34',
+32 silly addNameRange     '1.0.35',
+32 silly addNameRange     '1.0.36',
+32 silly addNameRange     '1.0.37',
+32 silly addNameRange     '1.0.38',
+32 silly addNameRange     '1.0.39',
+32 silly addNameRange     '1.0.40',
+32 silly addNameRange     '1.0.41',
+32 silly addNameRange     '1.0.42',
+32 silly addNameRange     '1.0.44',
+32 silly addNameRange     '1.0.43',
+32 silly addNameRange     '1.0.45' ] ]
+33 verbose addNamed [ 'mandrill-api', '1.0.45' ]
+34 verbose addNamed [ '1.0.45', '1.0.45' ]
+35 silly lockFile 50d120d0-mandrill-api-1-0-45 mandrill-api@1.0.45
+36 verbose lock mandrill-api@1.0.45 /Users/federico/.npm/50d120d0-mandrill-api-1-0-45.lock
+37 silly lockFile 50d120d0-mandrill-api-1-0-45 mandrill-api@1.0.45
+38 silly lockFile 50d120d0-mandrill-api-1-0-45 mandrill-api@1.0.45
+39 silly lockFile 29d1bd3d-mandrill-api mandrill-api@
+40 silly lockFile 29d1bd3d-mandrill-api mandrill-api@
+41 silly resolved [ { author:
+41 silly resolved      { name: 'Mandrill Devs',
+41 silly resolved        email: 'community@mandrill.com',
+41 silly resolved        url: 'http://mandrill.com' },
+41 silly resolved     name: 'mandrill-api',
+41 silly resolved     description: 'The official API client for the Mandrill email as a service product.',
+41 silly resolved     version: '1.0.45',
+41 silly resolved     homepage: 'https://bitbucket.org/mailchimp/mandrill-api-node',
+41 silly resolved     repository:
+41 silly resolved      { type: 'git',
+41 silly resolved        url: 'https://bitbucket.org/mailchimp/mandrill-api-node' },
+41 silly resolved     main: 'mandrill',
+41 silly resolved     dependencies: {},
+41 silly resolved     devDependencies: {},
+41 silly resolved     optionalDependencies: {},
+41 silly resolved     engines: { node: '*' },
+41 silly resolved     gitHead: '8b81196655d5fc8c27e03a530af19e0694fe035a',
+41 silly resolved     _id: 'mandrill-api@1.0.45',
+41 silly resolved     scripts: {},
+41 silly resolved     _shasum: '163939cf486bd18277b0f3baf412c3e65d84a72d',
+41 silly resolved     _from: 'mandrill-api@',
+41 silly resolved     _npmVersion: '2.1.18',
+41 silly resolved     _nodeVersion: '0.10.35',
+41 silly resolved     _npmUser: { name: 'mailchimp', email: 'dev@mailchimp.com' },
+41 silly resolved     dist:
+41 silly resolved      { shasum: '163939cf486bd18277b0f3baf412c3e65d84a72d',
+41 silly resolved        tarball: 'http://registry.npmjs.org/mandrill-api/-/mandrill-api-1.0.45.tgz' },
+41 silly resolved     maintainers: [ [Object] ],
+41 silly resolved     directories: {},
+41 silly resolved     _resolved: 'https://registry.npmjs.org/mandrill-api/-/mandrill-api-1.0.45.tgz',
+41 silly resolved     readme: 'ERROR: No README data found!' } ]
+42 info install mandrill-api@1.0.45 into /opt/reactjs/SANTIAGOLABS/tengo-restriccion
+43 info installOne mandrill-api@1.0.45
+44 verbose node_modules/mandrill-api unbuild
+45 verbose tar unpack /Users/federico/.npm/mandrill-api/1.0.45/package.tgz
+46 silly lockFile b8937621-iccion-node-modules-mandrill-api tar:///opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/mandrill-api
+47 verbose lock tar:///opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/mandrill-api /Users/federico/.npm/b8937621-iccion-node-modules-mandrill-api.lock
+48 silly lockFile 076811de--mandrill-api-1-0-45-package-tgz tar:///Users/federico/.npm/mandrill-api/1.0.45/package.tgz
+49 verbose lock tar:///Users/federico/.npm/mandrill-api/1.0.45/package.tgz /Users/federico/.npm/076811de--mandrill-api-1-0-45-package-tgz.lock
+50 silly gunzTarPerm modes [ '755', '644' ]
+51 silly gunzTarPerm extractEntry package.json
+52 silly gunzTarPerm extractEntry LICENSE
+53 silly gunzTarPerm extractEntry mandrill.js
+54 silly gunzTarPerm extractEntry mandrill.coffee
+55 silly lockFile b8937621-iccion-node-modules-mandrill-api tar:///opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/mandrill-api
+56 silly lockFile b8937621-iccion-node-modules-mandrill-api tar:///opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/mandrill-api
+57 silly lockFile 076811de--mandrill-api-1-0-45-package-tgz tar:///Users/federico/.npm/mandrill-api/1.0.45/package.tgz
+58 silly lockFile 076811de--mandrill-api-1-0-45-package-tgz tar:///Users/federico/.npm/mandrill-api/1.0.45/package.tgz
+59 info preinstall mandrill-api@1.0.45
+60 verbose readDependencies using package.json deps
+61 verbose readDependencies using package.json deps
+62 silly resolved []
+63 verbose about to build /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/mandrill-api
+64 info build /opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules/mandrill-api
+65 verbose linkStuff [ false,
+65 verbose linkStuff   false,
+65 verbose linkStuff   false,
+65 verbose linkStuff   '/opt/reactjs/SANTIAGOLABS/tengo-restriccion/node_modules' ]
+66 info linkStuff mandrill-api@1.0.45
+67 verbose linkBins mandrill-api@1.0.45
+68 verbose linkMans mandrill-api@1.0.45
+69 verbose rebuildBundles mandrill-api@1.0.45
+70 info install mandrill-api@1.0.45
+71 info postinstall mandrill-api@1.0.45
+72 verbose saving { 'mandrill-api': '^1.0.45' }
+73 error Error: EACCES, open '/opt/reactjs/SANTIAGOLABS/tengo-restriccion/package.json'
+73 error  { [Error: EACCES, open '/opt/reactjs/SANTIAGOLABS/tengo-restriccion/package.json']
+73 error   errno: 3,
+73 error   code: 'EACCES',
+73 error   path: '/opt/reactjs/SANTIAGOLABS/tengo-restriccion/package.json' }
+74 error Please try running this command again as root/Administrator.
+75 error System Darwin 13.4.0
+76 error command "/Users/federico/.nvm/v0.10.36/bin/node" "/Users/federico/.nvm/v0.10.36/bin/npm" "install" "mandrill-api" "--save"
+77 error cwd /opt/reactjs/SANTIAGOLABS/tengo-restriccion
+78 error node -v v0.10.36
+79 error npm -v 1.4.28
+80 error path /opt/reactjs/SANTIAGOLABS/tengo-restriccion/package.json
+81 error code EACCES
+82 error errno 3
+83 error stack Error: EACCES, open '/opt/reactjs/SANTIAGOLABS/tengo-restriccion/package.json'
+84 verbose exit [ 3, true ]
