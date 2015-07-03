@@ -70,15 +70,10 @@ export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
     }
 
     const $ = cheerio.load(html.toString());
-    let jsonArray = [];
 
+    const numerosRestriccion = $('.col-sm-12.restrictiontop > *').text().trim().split('\n');
 
-    $('.col-sm-12.restrictiontop').find("h3,a").each(function(){
-      var obj = $(this);
-      jsonArray.push(obj.html().trim());
-    });
-
-    resolve(jsonArray);
+    resolve(numerosRestriccion);
   });
 });
 

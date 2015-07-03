@@ -9,14 +9,13 @@ import * as CRUD from './helpers/CRUD.js';
 /**
  * User's Schema
  * @param {string} email
- * @param {string} patente
+ * @param {string} numeroRestriccion
  * @param {boolean} notify whether or not to send notifications to user
  */
 const Schema = mongoose.Schema({
   email            : { type: String, unique: true },
   notify           : { type: Boolean, default: true },
-  patente          : String,
-  selloVerde       : Boolean,
+  selloVerde       : { type: Boolean, required: true },
   numeroRestriccion: { type: Number, required: true }
 });
 const User = mongoose.model('User', Schema);
@@ -27,7 +26,7 @@ const User = mongoose.model('User', Schema);
  * @param {object} UserData an object according to User's Schema
  */
 export function create(userData) {
-  CRUD.create(User, addNumeroRestriccion(userData))
+  CRUD.create(User, userData)
     .then( doc => console.log('Saved User!', doc) )
     .catch( err => console.error('Error while creating User!', err));
 }
@@ -53,27 +52,4 @@ export function allWithRestriction(numbers) {
         resolve(doc);
       });
   });
-}
-
-
-/**
- * Get the restricted patente number
- * @param  {string} patente
- * @return {number}
- */
-function restrictedPatenteNumber(patente) {
-  const number = parseInt(patente.slice(-1));
-  if (Number.isNaN(number)) {
-    throw Error("Error: Couldn't get restricted patente number; maybe patente is empty or incorrect?");
-  }
-  return number;
-}
-
-/**
- * Calulates and adds numeroRestriccion from userData.patente
- * @param {object} userData an object according to User's Schema
- * @return {object}
- */
-function addNumeroRestriccion(userData) {
-  return Object.assign(userData, {numeroRestriccion: restrictedPatenteNumber(userData.patente)} );
 }

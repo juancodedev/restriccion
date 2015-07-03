@@ -1,10 +1,10 @@
 //TODO: probar allWithRestriction
 /*
 User.create({
-  email     : 'a@a.cl',
-  patente   : 'dsads-132',
-  selloVerde: true
-})
+  email            : '1@gris.cl',
+  selloVerde       : false,
+  numeroRestriccion: 1
+});
 */
 
 //TODO: probar restrictedPatenteNumber

@@ -12,7 +12,7 @@ describe('scrape', function(){
         'Emergencia Ambiental'];
 
       const mockPreemergencia = [
-        'Lunes 29 de Junio: sin sello verde 9-0-1-2 3-4, con sello verde 1-2',
+        'Viernes 3 de Julio: sin sello verde 1-2-3-4 -9-0, con sello verde 7-8',
         'Preemergencia Ambiental'];
 
       const mockAlerta = [
@@ -29,7 +29,7 @@ describe('scrape', function(){
           // Make sure that the day is correct, but we "ignore" the rest,
           // because of parseNumerosRestriccion implementation
           const fechaEmergencia    = new Date((new Date(numerosEmergencia.fecha.getTime())).setDate(30));
-          const fechaPreemergencia = new Date((new Date(numerosPreemergencia.fecha.getTime())).setDate(29));
+          const fechaPreemergencia = new Date((new Date(numerosPreemergencia.fecha.getTime())).setDate(3));
           const fechaAlerta        = new Date((new Date(numerosAlerta.fecha.getTime())).setDate(28));
 
           numerosEmergencia
@@ -47,8 +47,8 @@ describe('scrape', function(){
               fecha  : fechaPreemergencia,
               estatus: "Preemergencia Ambiental",
               numeros: {
-                conSello: [1, 2],
-                sinSello: [9, 0, 1, 2, 3, 4]
+                conSello: [7, 8],
+                sinSello: [1, 2, 3, 4, 9, 0]
               }
             });
 
@@ -94,7 +94,7 @@ describe('scrape', function(){
       });
 
 
-      it('object should have formated numeros', function(){
+      it('object should have formated "numeros"', function(){
         parseNumerosRestriccion(mockEmergencia)
             .should.have.deep.property('numeros.conSello')
             .and.be.a('array');
@@ -121,7 +121,7 @@ describe('scrape', function(){
       });
 
 
-      it('object should have proper fecha type', function(){
+      it('object should have proper "fecha" type', function(){
         const mockFechaInvalida =
                 ['fechaErronea: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4', 'Emergencia Ambiental'];
 
@@ -142,7 +142,7 @@ describe('scrape', function(){
       });
 
 
-      it('object should have proper estatus type', function(){
+      it('object should have proper "estatus" type', function(){
         parseNumerosRestriccion(mockEmergencia).should
                 .have.property('estatus')
                 .and.to.match(/ambiental/i);
@@ -160,14 +160,27 @@ describe('scrape', function(){
 
   describe('#scrapeNumerosRestriccion', function(){
       var scrapeNumerosRestriccion =
-            scrape.scrapeNumerosRestriccion
-              .then(function (result) { return result; });
+        scrape.scrapeNumerosRestriccion
+          .then(function(x){ return x; });
+
 
       it('finds dom node', function(){
           return scrapeNumerosRestriccion.should.eventually
                   .be.a('array')
                   .and.to.have.length.above(0);
       });
-  });
 
+      it('returns expected "fecha/numeros" text pattern', function(){
+        return scrapeNumerosRestriccion.should.eventually
+                .have.property(0)
+                .and.to.match(/.*\b(\d{1,2}) de .*: sin sello verde \d-.*\d, con sello verde \d-.*\d/i);
+
+      });
+
+      it('returns expected "estatus" text pattern', function(){
+        return scrapeNumerosRestriccion.should.eventually
+                .have.property(1)
+                .and.to.match(/.* ambiental/i);
+      });
+  });
 });
