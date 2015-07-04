@@ -13,7 +13,6 @@ User.create({
 });
 */
 
-//TODO: probar restrictedPatenteNumber
 describe('User', function(){
       const mockUsuarioBueno = {
         email            : 'email@gmail.com',
