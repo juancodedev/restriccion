@@ -30,9 +30,19 @@ describe('User', function(){
       };
 
       describe('create', function(){
+
+          after(function(){
+
+          });
+
           it('should create the user sent in the query', function(done){
             User.create(mockUsuarioBueno).then(function(x){
-              console.log(x);
+              x.should.have.property('email', 'email@gmail.com');
+              x.should.have.property('notify',true);
+              x.should.have.property('selloVerde',true);
+              x.should.have.property('numeroRestriccion',1);
+              //console.log(x);
+
               done();
             });
           });
@@ -41,4 +51,6 @@ describe('User', function(){
              User.create(mockUsuarioMalo);
           });
       });
+
+
 });
