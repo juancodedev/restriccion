@@ -6,6 +6,7 @@ const User = require('./app/models/User.js');
 
 scrape.fetchNumerosRestriccion()
   .then(function(datosRestriccion) {
+    console.log(datosRestriccion);
     RestrictionDay.set(datosRestriccion);
     return User.allWithRestriction(datosRestriccion.numeros);
   })

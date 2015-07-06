@@ -19,18 +19,22 @@ describe('scrape', function(){
         'Domingo 28 de Junio: sin sello verde 7-8-9-0, con sello verde sin restriccion',
         'Alerta Ambiental'];
 
+      const mockNormal = ['Lunes 6 de Julio: sin sello verde 5-6-7-8', 'Restricción Vehicular'];
+
       const parseNumerosRestriccion = scrape.parseNumerosRestriccion;
 
       it('should return expected result', function(){
           const numerosEmergencia    = parseNumerosRestriccion(mockEmergencia);
           const numerosPreemergencia = parseNumerosRestriccion(mockPreemergencia);
           const numerosAlerta        = parseNumerosRestriccion(mockAlerta);
+          const numerosNormal        = parseNumerosRestriccion(mockNormal);
 
           // Make sure that the day is correct, but we "ignore" the rest,
           // because of parseNumerosRestriccion implementation
           const fechaEmergencia    = new Date((new Date(numerosEmergencia.fecha.getTime())).setDate(30));
           const fechaPreemergencia = new Date((new Date(numerosPreemergencia.fecha.getTime())).setDate(3));
           const fechaAlerta        = new Date((new Date(numerosAlerta.fecha.getTime())).setDate(28));
+          const fechaNormal        = new Date((new Date(numerosNormal.fecha.getTime())).setDate(6));
 
           numerosEmergencia
             .should.be.deep.equal({
@@ -61,6 +65,16 @@ describe('scrape', function(){
                 sinSello: [7, 8, 9, 0]
               }
             });
+
+            numerosNormal
+              .should.be.deep.equal({
+                fecha  : fechaNormal,
+                estatus: "Restricción Vehicular",
+                numeros: {
+                  conSello: [],
+                  sinSello: [5, 6, 7, 8]
+                }
+              });
 
             numerosEmergencia
               .should.not.be.deep.equal({
@@ -173,14 +187,14 @@ describe('scrape', function(){
       it('returns expected "fecha/numeros" text pattern', function(){
         return scrapeNumerosRestriccion.should.eventually
                 .have.property(0)
-                .and.to.match(/.*\b(\d{1,2}) de .*: sin sello verde \d-.*\d, con sello verde \d-.*\d/i);
+                .and.to.match(/^.*\b(\d{1,2}) de .*: sin sello verde \d-.*\d(, con sello verde \d-.*\d)?$/i);
 
       });
 
       it('returns expected "estatus" text pattern', function(){
         return scrapeNumerosRestriccion.should.eventually
                 .have.property(1)
-                .and.to.match(/.* ambiental/i);
+                .and.to.match(/^(.*\bambiental|Restricción Vehicular)$/i);
       });
   });
 });
