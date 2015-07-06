@@ -18,7 +18,17 @@ const Schema = mongoose.Schema({
   selloVerde       : { type: Boolean, required: true },
   numeroRestriccion: { type: Number, required: true }
 });
+
+/*
+ * Validations
+ */
+Schema.path('email').validate(email => {
+   var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+   return emailRegex.test(email);
+}, 'The e-mail field cannot be empty.');
+
 const User = mongoose.model('User', Schema);
+
 
 
 /**
@@ -28,7 +38,7 @@ const User = mongoose.model('User', Schema);
 export function create(userData) {
   return CRUD.create(User, userData)
   //.then( doc => { console.log('Saved User!', doc); return doc; })
-  .catch( err => { console.error('Error while creating User!', err); return err; });
+  .catch( err => { throw Error(err); });
 }
 
 
