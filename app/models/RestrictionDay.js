@@ -37,7 +37,7 @@ export function set(restrictionDayData) {
   const query = {'_id': data._id};
 
   CRUD.upsert(RestrictionDay, query, data)
-    .then( doc => console.log("Saved RestrictionDay!", doc) )
+    //.then( doc => console.log("Saved RestrictionDay!", doc) )
     .catch( err => console.error("Error while creating RestrictionDay!", err));
 }
 
@@ -47,7 +47,7 @@ export function set(restrictionDayData) {
  */
 export function create(restrictionDayData) {
   CRUD.create(RestrictionDay, addId(restrictionDayData))
-    .then( doc => console.log("Saved RestrictionDay!", doc) )
+    //.then( doc => console.log("Saved RestrictionDay!", doc) )
     .catch( err => console.error("Error while creating RestrictionDay!", err));
 }
 
