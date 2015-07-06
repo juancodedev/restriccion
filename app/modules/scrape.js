@@ -24,7 +24,7 @@ export function parseNumerosRestriccion(jsonArray) {
 
     const fechaRegex = /.*\b(\d{1,2}) de .*:.*/;
 
-    let sinSello = jsonArray[0].replace(/^.*sin sello verde ((\d.*\d),.*|\d.*\d)$/, '$2');
+    let sinSello = jsonArray[0].replace(/^.*sin sello verde ((\d.*\d),.*|(\d.*\d))$/, '$2');
     sinSello = sinSello.trim().replace(/ /g, '-');
     sinSello = sinSello.split('-');
     sinSello = parseNumbers(sinSello);
