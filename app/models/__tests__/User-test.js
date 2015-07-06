@@ -1,4 +1,5 @@
 require('babel/register');
+require('../../modules/connectToDB.js');
 const chai = require('chai');
 const User = require('../User.js');
 chai.use(require('chai-as-promised'));
@@ -29,8 +30,11 @@ describe('User', function(){
       };
 
       describe('create', function(){
-          it('should create the user sent in the query', function(){
-             User.create(mockUsuarioBueno);
+          it('should create the user sent in the query', function(done){
+            User.create(mockUsuarioBueno).then(function(x){
+              console.log(x);
+              done();
+            });
           });
 
           it('should throw an error', function(){

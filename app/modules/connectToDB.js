@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const db = 'mongodb://localhost/tengo-restriccion-dev'; // ToDo: DB-Config
+import {db} from '../config/db.js';
 mongoose.connect(db);
 
 mongoose.connection.on('error', () => console.error(`Error connecting to: ${db}`));

@@ -26,9 +26,9 @@ const User = mongoose.model('User', Schema);
  * @param {object} UserData an object according to User's Schema
  */
 export function create(userData) {
-  CRUD.create(User, userData)
-    .then( doc => console.log('Saved User!', doc) )
-    .catch( err => console.error('Error while creating User!', err));
+  return CRUD.create(User, userData)
+  .then( doc => { console.log('Saved User!', doc); return doc; })
+  .catch( err => { console.error('Error while creating User!', err); return err; });
 }
 
 
