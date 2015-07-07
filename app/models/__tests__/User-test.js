@@ -3,6 +3,7 @@ const dbConnection = require('../../modules/connectToDB.js');
 const chai = require('chai');
 const User = require('../User.js');
 chai.use(require('chai-as-promised'));
+chai.use(require('chai-things'));
 chai.should();
 
 
@@ -25,7 +26,7 @@ describe('User', function(){
 
     after(function(done){
       dbConnection.db.dropDatabase(function(){
-        dbConnection.close();
+        //dbConnection.close();
         done();
       });
     });
@@ -48,16 +49,100 @@ describe('User', function(){
   });
 
   describe('#allWithRestriction', function(){
+    const mockUsuarioUno = { email: 'one@gmail.com', notify: true, selloVerde: true, numeroRestriccion: 1 };
+    const mockUsuarioDos = { email: 'two@gmail.com', notify: true, selloVerde: true, numeroRestriccion: 3 };
+    const mockUsuarioTres = { email: 'three@gmail.com', notify: true, selloVerde: false, numeroRestriccion: 9 };
+    const mockUsuarioCuatro = { email: 'four@gmail.com', notify: true, selloVerde: false, numeroRestriccion: 2 };
+
+    const mockNumbersUno = {
+      conSello: [],
+      sinSello: [9, 0, 1, 2]
+    };
+
+    const mockNumbersDos = {
+      conSello: [1, 3],
+      sinSello: [8, 9, 0, 1]
+    };
 
     after(function(done){
       dbConnection.db.dropDatabase(function(){
-        dbConnection.close();
+        //dbConnection.close();
         done();
       });
     });
 
-    //TODO: probar allWithRestriction
+    before(function(done){
+      Promise.all([User.create(mockUsuarioUno),
+      User.create(mockUsuarioDos),
+      User.create(mockUsuarioTres),
+      User.create(mockUsuarioCuatro)])
+      .then(function(){
+        done();
+      });
+    });
+
+    // TODO: probar allWithRestriction
     // crear 4 usuarios validos con diferentes numeros y sellos
     // asegurarse que allWithRestriction devuelve los usuarios correctos
+    it('should return an array with the users three and four', function(done){
+        User.allWithRestriction(mockNumbersUno).then(function(result){
+          result.should.be.an('array');
+          result.should.all.have.property('email');
+          result.should.all.have.property('notify');
+          result.should.all.have.property('selloVerde');
+          result.should.all.have.property('numeroRestriccion');
+
+          //result.should.include.something.that.deep.equals({email: 'three@gmail.com', notify: true, selloVerde: false, numeroRestriccion: 9 });
+          result.forEach(function(item){
+            item.should.satisfy(function(i){
+              return i.email === 'three@gmail.com' || i.email === 'four@gmail.com';
+            });
+
+            item.should.satisfy(function(i){
+              return i.notify === true;
+            });
+
+            item.should.satisfy(function(i){
+              return i.selloVerde === false;
+            });
+
+            item.should.satisfy(function(i){
+              return i.numeroRestriccion === 2 || i.numeroRestriccion === 9;
+            });
+
+          });
+          done();
+        });
+    });
+
+    it('should an array with the users one, two and three ', function(done){
+        User.allWithRestriction(mockNumbersDos).then(function(result){
+          result.should.be.an('array');
+          result.should.all.have.property('email');
+          result.should.all.have.property('notify');
+          result.should.all.have.property('selloVerde');
+          result.should.all.have.property('numeroRestriccion');
+          console.log(result);
+          result.forEach(function(item){
+            item.should.satisfy(function(i){
+              return i.email === 'one@gmail.com' || i.email === 'two@gmail.com' || i.email === 'three@gmail.com';
+            });
+
+            item.should.satisfy(function(i){
+              return i.notify === true;
+            });
+
+            item.should.satisfy(function(i){
+              return i.selloVerde === false || i.selloVerde === true;
+            });
+
+            item.should.satisfy(function(i){
+              return i.numeroRestriccion === 1 || i.numeroRestriccion === 3 || i.numeroRestriccion === 9;
+            });
+          });
+          done();
+        });
+    });
+
   });
 });
