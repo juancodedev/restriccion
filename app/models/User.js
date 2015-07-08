@@ -63,3 +63,10 @@ export function allWithRestriction(numbers) {
       });
   });
 }
+
+
+/**
+ * un-subscribe an User from notifications
+ * @param {string} email
+ */
+// TODO: cambiamos notify a false para el usuario

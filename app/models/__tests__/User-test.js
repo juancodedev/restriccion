@@ -84,7 +84,7 @@ describe('User', function(){
           result.should.be.an('array');
           result.should.all.have.property('email');
           result.should.all.have.property('notify');
-          result.should.all.have.property('selldasoVerde');
+          result.should.all.have.property('selloVerde');
           result.should.all.have.property('numeroRestriccion');
 
           result.forEach(function(item){
