@@ -84,22 +84,16 @@ describe('User', function(){
           result.should.be.an('array');
           result.should.all.have.property('email');
           result.should.all.have.property('notify');
-          result.should.all.have.property('selldasoVerde');
+          result.should.all.have.property('selloVerde');
           result.should.all.have.property('numeroRestriccion');
 
-          result.forEach(function(item){
-            item.should.satisfy(function(i){
-              return i.email === 'three@gmail.com' || i.email === 'four@gmail.com';
-            });
 
-            item.should.satisfy(function(i){
-              return i.selloVerde === false;
-            });
+          result.should.contain.a.thing.with.property('email', 'three@gmail.com');
+          result.should.contain.a.thing.with.property('email', 'four@gmail.com');
 
-            item.should.satisfy(function(i){
-              return i.numeroRestriccion === 2 || i.numeroRestriccion === 9;
-            });
-          });
+          result.should.not.contain.a.thing.with.property('email', 'one@gmail.com');
+          result.should.not.contain.a.thing.with.property('email', 'two@gmail.com');
+
         });
 
         const t2 = User.allWithRestriction(mockNumbersDos)
@@ -110,22 +104,16 @@ describe('User', function(){
             result.should.all.have.property('selloVerde');
             result.should.all.have.property('numeroRestriccion');
 
-            result.forEach(function(item){
-              item.should.satisfy(function(i){
-                return i.email === 'one@gmail.com' || i.email === 'two@gmail.com' || i.email === 'three@gmail.com';
-              });
+            result.should.contain.a.thing.with.property('email', 'one@gmail.com');
+            result.should.contain.a.thing.with.property('email', 'two@gmail.com');
+            result.should.contain.a.thing.with.property('email', 'three@gmail.com');
 
-              item.should.satisfy(function(i){
-                return i.selloVerde === false || i.selloVerde === true;
-              });
-
-              item.should.satisfy(function(i){
-                return i.numeroRestriccion === 1 || i.numeroRestriccion === 3 || i.numeroRestriccion === 9;
-              });
-            });
+            result.should.not.contain.a.thing.with.property('email', 'four@gmail.com');
           });
 
-        Promise.all([t1, t2]).then(done).catch(done);
+        Promise.all([t1, t2]).then(function(){
+          done();
+        }).catch(done);
     });
   });
 });
