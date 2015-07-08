@@ -12,7 +12,8 @@ User.create({
 
 scrape.fetchNumerosRestriccion()
   .then(function(datosRestriccion) {
-    console.log(datosRestriccion);
+    console.log('DONE!');
+    //console.log(datosRestriccion);
 //    RestrictionDay.set(datosRestriccion);
 //    return User.allWithRestriction(datosRestriccion.numeros);
   });
