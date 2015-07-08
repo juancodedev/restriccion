@@ -1,6 +1,6 @@
 import request from 'request';
 import cheerio from 'cheerio';
-import {compose, map, filter} from 'ramda';
+import {compose, map, filter, trim, split} from 'ramda';
 
 /**
  * Fetches numerosRestriccion from web page and parses the data
@@ -72,10 +72,15 @@ export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
 
     const $ = cheerio.load(html.toString());
 
-    // TODO: hacer lo mismo con ramda ;D
-    const numerosRestriccion = $('.col-sm-12.restrictiontop > *').text().trim().split('\n').map(x => x.trim());
+    const filterElements = compose(
+      map(trim),
+      split('\n'),
+      trim
+    );
 
-    //console.log(numerosRestriccion);
+    const numerosRestriccion = filterElements($('.col-sm-12.restrictiontop > *').text());
+
+    console.log(numerosRestriccion);
 
     resolve(numerosRestriccion);
   });
