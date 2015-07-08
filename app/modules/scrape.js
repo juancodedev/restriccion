@@ -72,8 +72,10 @@ export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
 
     const $ = cheerio.load(html.toString());
 
-    const numerosRestriccion = $('.col-sm-12.restrictiontop > *').text().trim().split('\n');
+    // TODO: hacer lo mismo con ramda ;D
+    const numerosRestriccion = $('.col-sm-12.restrictiontop > *').text().trim().split('\n').map(x => x.trim());
 
+    //console.log(numerosRestriccion);
 
     resolve(numerosRestriccion);
   });
