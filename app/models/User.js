@@ -70,3 +70,9 @@ export function allWithRestriction(numbers) {
  * @param {string} email
  */
 // TODO: cambiamos notify a false para el usuario
+export function unSubscribe(email) {
+
+  return CRUD.update(User, {email}, {notify: false})
+  .then( doc => { console.log('Query succeeded!', doc); return doc; })
+  .catch( err => { throw Error(err); });
+}

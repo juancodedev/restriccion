@@ -40,3 +40,24 @@ export function upsert(Model, query, data) {
       });
   });
 }
+
+/**
+ * Updates a record
+ * @param  {object} Model the Mongoose Model to work on
+ * @param  {object} query an object containing the query to search for existing documents. ie: {'_id': someId}
+ * @param  {object} object with the fields to be replaced
+ * @return {object} Promise containing the updated document
+ */
+export function update(Model, query, document) {
+  return new Promise((resolve, reject) => {
+    Model
+      .update(query, document, (err, status) => {
+        if (err) { reject(err); }
+
+        if(status.nModified === 0){
+          reject(Error('User not found!'));
+        }
+        resolve(status);
+      });
+  });
+}
