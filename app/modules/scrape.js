@@ -1,6 +1,6 @@
 import request from 'request';
 import cheerio from 'cheerio';
-import {compose, map, filter, trim, split} from 'ramda';
+import {compose, map, filter, trim, split, replace, test} from 'ramda';
 
 /**
  * Fetches numerosRestriccion from web page and parses the data
@@ -24,18 +24,29 @@ export function parseNumerosRestriccion(jsonArray) {
 
     const fechaRegex = /.*\b(\d{1,2}) de .*:.*/;
 
-    let sinSello = jsonArray[0].replace(/^.*sin sello verde (\d[\d- ]*)(,.*)?$/, '$1');
-    sinSello = sinSello.trim().replace(/ /g, '-');
-    sinSello = sinSello.split('-');
-    sinSello = parseNumbers(sinSello);
+    const composeSinSello = compose(
+      parseNumbers,
+      split('-'),
+      replace(/ /g, '-'),
+      trim,
+      replace(/^.*sin sello verde (\d[\d- ]*)(,.*)?$/, '$1')
+    );
 
-    let conSello = /^.*, con sello verde (.*)$/.test(jsonArray[0]) ?
-        jsonArray[0].replace(/.*, con sello verde(.*)/, '$1') : false;
+    let sinSello = composeSinSello(jsonArray[0]);
 
-    if(conSello){
-      conSello = conSello.trim().replace(/ /g, '-');
-      conSello = conSello.split('-');
-      conSello = parseNumbers(conSello);
+
+    const composeConSello = compose(
+      parseNumbers,
+      split('-'),
+      replace(/ /g, '-'),
+      trim(),
+      replace(/.*, con sello verde(.*)/, '$1')
+    );
+
+    let conSello = false;
+
+    if(test(/^.*, con sello verde (.*)$/, jsonArray[0])){
+      conSello = composeConSello(jsonArray[0]);
     }
 
 
