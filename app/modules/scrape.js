@@ -65,24 +65,22 @@ export function parseNumerosRestriccion(jsonArray) {
 export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
   request.get({
     url: 'http://www.uoct.cl/restriccion-vehicular/'
-  }, function (error, response, html) {
-    response.setEncoding('utf-8');
-
+  }, (error, response, html) => {
     if(error || !(response.statusCode === 200) ) {
       reject( Error("Error al scrapear los numeros con restriccion!") );
     }
 
+    response.setEncoding('utf-8');
+
     const $ = cheerio.load(html.toString());
 
-    const filterElements = compose(
-      map(trim),
-      split('\n'),
-      trim
-    );
+    const filterElements =
+            compose(
+              map(trim),
+              split('\n'),
+              trim);
 
-    const numerosRestriccion = filterElements($('.col-sm-12.restrictiontop > *').text());
-
-    resolve(numerosRestriccion);
+    resolve( filterElements($('.col-sm-12.restrictiontop > *').text()) );
   });
 });
 
