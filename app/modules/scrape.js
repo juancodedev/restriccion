@@ -1,6 +1,6 @@
 import request from 'request';
 import cheerio from 'cheerio';
-import {compose, map, filter, trim, split, replace, test} from 'ramda';
+import {compose, map, filter, trim, split, replace, test, ifElse, empty} from 'ramda';
 
 /**
  * Fetches numerosRestriccion from web page and parses the data
@@ -17,53 +17,44 @@ export function fetchNumerosRestriccion(){
  * @return {object}
  */
 export function parseNumerosRestriccion(jsonArray) {
-    const parseNumbers =
-            compose(
-              filter(Number.isInteger),
-              map(parseInt));
+  const getNumbers =
+          compose(
+            filter(Number.isInteger),
+            map(parseInt));
 
-    const fechaRegex = /.*\b(\d{1,2}) de .*:.*/;
+  const parseNumbers =
+          compose(
+            getNumbers,
+            split('-'),
+            replace(/ /g, '-'),
+            trim());
 
-    const composeSinSello = compose(
-      parseNumbers,
-      split('-'),
-      replace(/ /g, '-'),
-      trim,
-      replace(/^.*sin sello verde (\d[\d- ]*)(,.*)?$/, '$1')
-    );
+  const conSelloRegex = replace(/.*, con sello verde(.*)/, '$1');
+  const sinSelloRegex = replace(/^.*sin sello verde (\d[\d- ]*)(,.*)?$/, '$1');
+  const fechaRegex = /.*\b(\d{1,2}) de .*:.*/;
+  const parseSinSello = compose(parseNumbers, sinSelloRegex);
 
-    let sinSello = composeSinSello(jsonArray[0]);
+  const parseConSello =
+    ifElse(test(/^.*, con sello verde (.*)$/),
+      compose(parseNumbers, conSelloRegex), empty);
 
 
-    const composeConSello = compose(
-      parseNumbers,
-      split('-'),
-      replace(/ /g, '-'),
-      trim(),
-      replace(/.*, con sello verde(.*)/, '$1')
-    );
+  //TODO: ocupar ifElse para sacar la fecha o tirar el error
+  if(!(fechaRegex.test(jsonArray[0]))) {
+    throw Error("Couldn't get 'fecha' while scraping");
+  }
 
-    let conSello = false;
+  const day = jsonArray[0].replace(fechaRegex, '$1');
 
-    if(test(/^.*, con sello verde (.*)$/, jsonArray[0])){
-      conSello = composeConSello(jsonArray[0]);
+
+  return {
+    fecha  : getDate(day),
+    estatus: jsonArray[1],
+    numeros: {
+      sinSello: parseSinSello(jsonArray[0]),
+      conSello: parseConSello(jsonArray[0])
     }
-
-
-    if(!(fechaRegex.test(jsonArray[0]))) {
-      throw Error("Couldn't get 'fecha' while scraping");
-    }
-
-    const day = jsonArray[0].replace(fechaRegex, '$1');
-
-    return {
-      fecha  : getDate(day),
-      estatus: jsonArray[1],
-      numeros: {
-        sinSello: sinSello,
-        conSello: conSello ? conSello : []
-      }
-    };
+  };
 }
 
 

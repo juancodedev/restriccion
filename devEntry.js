@@ -1,8 +1,8 @@
 require('./app/modules/connectToDB.js');
 const scrape = require('./app/modules/scrape.js');
 //const RestrictionDay = require('./app/models/RestrictionDay.js');
-const User = require('./app/models/User.js');
-import {sendEmail} from './app/modules/mailSender';
+//const User = require('./app/models/User.js');
+//import {sendEmail} from './app/modules/mailSender';
 
 /**
 var emails = [{
