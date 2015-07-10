@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+     <link type="text/css" rel="stylesheet" href="stylesheets/materialize.css"  media="screen,projection"/>
+     <link type="text/css" rel="stylesheet" href="stylesheets/santiagolab.css"  media="screen,projection"/>
+   </head>
+
+   <body>
+     <div class="container">
+        <div class="top center-align">
+          <img class="responsive-img logo" src="imgs/logo.svg" alt="tengorestriccion" />
+          <h2></h2>
+        </div>
+        <div class="main">
+            <section class="info">
+              <div class="date picker__date-display">
+                <div class="picker__weekday-display">Martes</div>
+                <div class="picker__month-display">
+                  <div>Jul</div>
+                </div>
+                <div class="picker__day-display">
+                  <div>7</div>
+                </div>
+                <div class="picker__year-display">
+                  <div>2015</div>
+                </div>
+                <h5>Alerta ambiental</h5>
+              </div>
+              <div class="restriccion">
+                <h3>Patentes terminadas en:</h3>
+                <div class="numeros">
+                  <div class="sinSello">
+                    <h4 class="num">3-4-5-6-1-2</h4>
+                    <h5>Sin sello verde</h5>
+                  </div>
+                  <div class="conSello">
+                    <h4 class="num">3-4</h4>
+                    <h5>Con sello verde</h5>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <hr>
+            <section class="subscripcion">
+              <h4 class="white-text">Subscríbete para recibir una notificación cuanto estes en restricción</h4>
+              <form action="">
+                <div class="row">
+                   <div class="input-field select col s12 m7">
+                     <select>
+                      <option value="" disabled selected>Selecciona último dígito de tu patente</option>
+                      <option value="1">0</option>
+                      <option value="2">1</option>
+                      <option value="3">2</option>
+                      <option value="4">3</option>
+                      <option value="5">4</option>
+                      <option value="6">5</option>
+                      <option value="7">6</option>
+                      <option value="8">7</option>
+                      <option value="9">8</option>
+                      <option value="10">9</option>
+                    </select>
+                   </div>
+                   <div class="col m3 s12 offset-m2">
+                     <p>
+                      <input name="sello" type="radio" id="sin_sello" />
+                      <label for="sin_sello">Sin sello verde</label>
+                    </p>
+                    <p>
+                      <input name="sello" type="radio" id="con_sello" />
+                      <label for="con_sello">Con sello verde</label>
+                    </p>
+                   </div>
+                 </div>
+                 <div class="row">
+                   <div class="input-field col s12">
+                     <input id="email" type="email" class="validate">
+                     <label for="email">Email</label>
+                   </div>
+                 </div>
+                 <div class="row">
+                   <a class="waves-effect waves-light btn-large"><i class="material-icons left"></i>Enviar</a>
+                 </div>
+              </form>
+            </section>
+            <hr>
+            <div class="stgoLab">
+              <h5>Desarrollado por:</h5>
+              <img class="responsive-img" src="imgs/logo-santiagolab.svg" alt="SantiagoLab" />
+            </div>
+        </div>
+     </div>
+
+     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+     <script type="text/javascript" src="js/materialize.min.js"></script>
+     <script type="text/javascript">
+     $(document).ready(function() {
+        $('select').material_select();
+      });
+     </script>
+
+   </body>
+ </html>
