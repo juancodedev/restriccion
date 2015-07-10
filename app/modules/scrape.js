@@ -67,7 +67,7 @@ export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
     response.setEncoding('utf-8');
 
     if(error || !(response.statusCode === 200) ) {
-      reject(console.error("Error al scrapear los numeros con restriccion!"));
+      reject( Error("Error al scrapear los numeros con restriccion!") );
     }
 
     const $ = cheerio.load(html.toString());
@@ -79,8 +79,6 @@ export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
     );
 
     const numerosRestriccion = filterElements($('.col-sm-12.restrictiontop > *').text());
-
-    console.log(numerosRestriccion);
 
     resolve(numerosRestriccion);
   });

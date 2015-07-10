@@ -53,10 +53,8 @@ export function update(Model, query, document) {
     Model
       .update(query, document, (err, status) => {
         if (err) { reject(err); }
+        if (status.nModified === 0) { reject( Error('User not found, or couldn\'t be updated!') ); }
 
-        if(status.nModified === 0){
-          reject(Error('User not found!'));
-        }
         resolve(status);
       });
   });

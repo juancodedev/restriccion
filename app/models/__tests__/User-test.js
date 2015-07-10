@@ -3,6 +3,7 @@ const dbConnection = require('../../modules/connectToDB.js');
 const chai = require('chai');
 const User = require('../User.js');
 chai.use(require('chai-things'));
+chai.use(require('chai-as-promised'));
 chai.should();
 
 
@@ -117,6 +118,7 @@ describe('User', function(){
     });
   });
 
+
   describe('#unSubscribe', function(){
     const mockUsuario = { email: 'one@gmail.com', notify: true, selloVerde: true, numeroRestriccion: 1 };
 
@@ -126,6 +128,7 @@ describe('User', function(){
       });
     });
 
+
     before(function(done){
       User.create(mockUsuario)
       .then(function(){
@@ -133,41 +136,17 @@ describe('User', function(){
       });
     });
 
-    it('should return the status with nModified 1', function(done){
-        const mail = 'one@gmail.com';
 
-        const t1 = User.unSubscribe(mail)
-        .then(function(user){
-          user.should.have.property('nModified', 1);
-        });
-
-        Promise.all([t1]).then(function(){
-          done();
-        }).catch(done);
+    it('should un-subscribe the User', function(){
+      return User.unSubscribe('one@gmail.com')
+              .should.eventually.have.property('nModified', 1);
     });
 
-    it('should throw an Error', function(){
-      const mailDos = 'two@gmail.com';
 
-      return User.unSubscribe(mailDos)
-      .should.be.rejectedWith(/Error/);
+    it('should throw if User doesn\'t exist', function(){
+      return User.unSubscribe('two@gmail.com')
+              .should.eventually.be.rejectedWith(/Error/);
 
-      /**
-      const mailDos = 'two@gmail.com';
-
-      const t1 = User.unSubscribe(mailDos)
-      .then(function(){
-        done();
-      });
-
-      Promise.all([t1]).then(function(){
-        done();
-      }).catch(function(user){
-        console.log('UHHHHHH: ' + user);
-        user.should.be.rejectedWith(/Error/);
-        done();
-      });
-        **/
     });
   });
 });

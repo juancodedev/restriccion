@@ -73,6 +73,6 @@ export function allWithRestriction(numbers) {
 export function unSubscribe(email) {
 
   return CRUD.update(User, {email}, {notify: false})
-  .then( doc => { console.log('Query succeeded!', doc); return doc; })
+  //.then( doc => { console.log('Query succeeded!', doc); return doc; })
   .catch( err => { throw Error(err); });
 }
