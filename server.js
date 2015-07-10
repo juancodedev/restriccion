@@ -1,4 +1,5 @@
-require('./app/modules/connectToDB.js');
+require('./app/modules/connectToDB');
+const serverConfig = require('./app/config/server');
 
 const path = require('path');
 const route = require('koa-route');
@@ -28,5 +29,5 @@ app.use(route.get('/', home));
 
 
 /* Listen */
-app.listen(3000);
-console.log('listening on port 3000');
+app.listen(serverConfig.port);
+console.log(`listening on port ${serverConfig.port}`);
