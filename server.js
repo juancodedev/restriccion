@@ -1,45 +1,32 @@
+require('./app/modules/connectToDB.js');
+
 const path = require('path');
-//const route = require('koa-route');
+const route = require('koa-route');
 const koa = require('koa');
 const hbs = require('koa-hbs');
+const serve = require('koa-static');
 
+
+/* Controllers */
+const home = require('./app/controllers/home');
+
+
+/* Middleware */
 const app = koa();
+
+app.use(
+  serve(path.join(__dirname, 'app', 'public')));
 
 app.use(hbs.middleware({
   viewPath: path.join(__dirname, 'app', 'views')
 }));
 
-app.use(function *() {
-  yield this.render('main', {
-    title  : 'koa-hbs',
-    content: 'Hola!'
-  });
-});
 
-/*
-const db = {
-  tobi: { name: 'tobi', species: 'ferret' },
-  loki: { name: 'loki', species: 'ferret' },
-  jane: { name: 'jane', species: 'ferret' }
-};
+/* Routes */
+app.use(route.get('/', home));
+//app.use(route.post('/users', userController.post));
 
-const pets = {
-  list: function *(){
-    const names = Object.keys(db);
-    this.body = 'pets: ' + names.join(', ');
-  },
 
-  show: function *(name){
-    const pet = db[name];
-    if (!pet) { return this.throw('cannot find that pet', 404); }
-    this.body = pet.name + ' is a ' + pet.species;
-  }
-};
-
-app.use(route.get('/pets', pets.list));
-app.use(route.get('/pets/:name', pets.show));
-
-*/
-
+/* Listen */
 app.listen(3000);
 console.log('listening on port 3000');

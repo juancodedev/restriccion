@@ -4,7 +4,8 @@
   "description": "App para notificacion de restriccion vehicular segun patente",
   "scripts": {
     "start": "NODE_ENV=production node dist/server.js",
-    "test": "eslint . && NODE_ENV=test mocha --reporter spec 'app/**/__tests__/*-test.js'"
+    "test": "eslint . && NODE_ENV=test mocha --reporter spec 'app/**/__tests__/*-test.js'",
+    "dev": "NODE_ENV=development nodemon server.js"
   },
   "author": "SantiagoLab.cl <contact@santiagolab.cl>",
   "license": "MIT",

@@ -1,0 +1,12 @@
+{
+  "verbose": true,
+  "execMap": {
+    "js": "babel-node --debug"
+  },
+  "ignore": [
+    ".git",
+    "node_modules",
+    "tmp"
+  ],
+  "ext": "js json hbs css"
+}

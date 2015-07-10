@@ -29,6 +29,15 @@ const RestrictionDay = mongoose.model('RestrictionDay', Schema);
 
 
 /**
+ * Gets the latest RestrictionDay record
+ * @return {promise} the latest RestrictionDay record
+ */
+export function getLatest() {
+  return RestrictionDay.findOne({}, {}, { sort: { _id: -1 } });
+}
+
+
+/**
  * Creates or Updates a RestrictionDay record
  * @param {object} restrictionDayData an object according to RestrictionDay's Schema
  */
@@ -41,6 +50,7 @@ export function set(restrictionDayData) {
     .catch( err => console.error("Error while creating RestrictionDay!", err));
 }
 
+
 /**
  * Creates a RestrictionDay record
  * @param {object} restrictionDayData an object according to RestrictionDay's Schema
@@ -50,6 +60,7 @@ export function create(restrictionDayData) {
     //.then( doc => console.log("Saved RestrictionDay!", doc) )
     .catch( err => console.error("Error while creating RestrictionDay!", err));
 }
+
 
 /**
  * calulates and adds _id from restrictionDayData.fecha
