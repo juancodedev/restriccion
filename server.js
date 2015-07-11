@@ -7,7 +7,6 @@ const path = require('path');
 const koa = require('koa');
 const route = require('koa-route');
 const serve = require('koa-static');
-const views = require('koa-views');
 
 
 /* Controllers */
@@ -26,13 +25,6 @@ app.use(function *(next){
 
 app.use(
   serve(path.join(__dirname, 'app', 'public')));
-
-app.use(
-  views(path.join(__dirname, 'app', 'views'), {
-    map: {
-      html: 'underscore'
-    }
-}));
 
 
 /* Routes */
