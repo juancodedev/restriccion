@@ -20,7 +20,7 @@ h4{
 }
 
 h4.num {
-  letter-spacing: 7px;
+  letter-spacing: 3px;
   font-weight: 400;
 }
 
@@ -40,7 +40,7 @@ h5 {
 .logo{ width: 780px; }
 
 .top{
-  padding: 4vw 0 2vw 0;
+  padding: 4vw 0 4vw 0;
 }
 
 .main{
@@ -50,9 +50,9 @@ h5 {
 .date{
   h5{
     background-color: rgba(23, 23, 23, 0.62);
-    line-height: 2;
+    line-height: 1.5;
     margin: 2vh 0 0 0;
-    padding: 0 11px;
+    padding: 5px 11px;
     color: #FFC017;
     font-weight: 300;
     letter-spacing: 1px;
@@ -61,7 +61,9 @@ h5 {
   &.picker__date-display{
     background-color: #63655B;
     padding-bottom: 0;
-    margin-bottom: 4vh;
+    margin-bottom: 3vh;
+    flex-basis: 25%;
+    min-width: 240px;
   }
   .picker__weekday-display {
     background-color: #56594D;
@@ -69,13 +71,13 @@ h5 {
     margin-bottom: 6px;
   }
   .picker__day-display {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
   .picker__month-display {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
   .picker__year-display {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -89,7 +91,7 @@ h5 {
   .conSello, .sinSello {
     padding: 15px 20px;
     border: 1px solid #464E3D;
-    margin-bottom: 4vh;
+    margin: 0 1vw 4vh 1vw;
     & h5{
       font-weight: 200;
       font-size: 1.4rem;
@@ -151,6 +153,9 @@ form{
 
     h3{ font-size: 1.5rem; }
   }
+  form .select-wrapper input.select-dropdown {
+    font-size: 1.1rem;
+  }
   .date{
     padding-top: 5px;
     display: flex;
@@ -161,17 +166,21 @@ form{
     div{
       height: 30px;
       background: transparent;
-      font-size: 1.7rem;
+      font-size: 1.15rem;
       display: inline-block;
       height: 24px;
       line-height: 1.9rem;
       padding: 0;
-      margin: 0 4px 0 4px;
+      margin: 0 2px 0 2px;
+      text-transform: capitalize;
     }
     .picker__weekday-display{
       background: transparent;
-      font-size: 1.3rem;
+      font-size: 1.15rem;
       margin: 0 4px 0 4px;
+    }
+    .picker__day-display {
+      flex-basis: 22px;
     }
     h5{
       display: block;
