@@ -1,3 +1,4 @@
+import moment from 'moment';
 import readFile from '../modules/readfile-promise';
 import server from '../config/server.js';
 import path from 'path';
@@ -14,6 +15,27 @@ export default function* (){
        `src="http://localhost:${server.webpackPort}/js/client.js"`);
   }
 
+  const props = {
+    _id    : '2015-07-01',
+    fecha  : moment('2015-07-01T17:18:04.343Z'),
+    estatus: 'Preemergencia Ambiental',
+    numeros: {
+        conSello: [
+            3,
+            4
+        ],
+        sinSello: [
+            3,
+            4,
+            5,
+            6,
+            1,
+            2
+        ]
+    }
+  };
+
   // inject React App
-  this.body = template.replace('<%= reactApp %>', ReactDOMServer.renderToString(React.createElement(App)));
+  this.body = template.replace('<%= reactApp %>',
+    ReactDOMServer.renderToString(React.createElement(App, props)));
 }

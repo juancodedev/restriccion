@@ -29,7 +29,7 @@ describe('scrape', function(){
       const numerosAlerta        = parseNumerosRestriccion(mockAlerta);
       const numerosNormal        = parseNumerosRestriccion(mockNormal);
 
-      // Make sure that the day is correct, but we "ignore" the rest,
+      // Make sure that the day is correct, but we 'ignore' the rest,
       // because of parseNumerosRestriccion implementation
       const fechaEmergencia    = new Date((new Date(numerosEmergencia.fecha.getTime())).setDate(30));
       const fechaPreemergencia = new Date((new Date(numerosPreemergencia.fecha.getTime())).setDate(3));
@@ -39,7 +39,7 @@ describe('scrape', function(){
       numerosEmergencia
         .should.be.deep.equal({
           fecha  : fechaEmergencia,
-          estatus: "Emergencia Ambiental",
+          estatus: 'Emergencia Ambiental',
           numeros: {
             conSello: [1, 2, 3, 4],
             sinSello: [5, 6, 7, 8, 9, 0, 1, 2]
@@ -49,7 +49,7 @@ describe('scrape', function(){
       numerosPreemergencia
         .should.be.deep.equal({
           fecha  : fechaPreemergencia,
-          estatus: "Preemergencia Ambiental",
+          estatus: 'Preemergencia Ambiental',
           numeros: {
             conSello: [7, 8],
             sinSello: [1, 2, 3, 4, 9, 0]
@@ -59,7 +59,7 @@ describe('scrape', function(){
       numerosAlerta
         .should.be.deep.equal({
           fecha  : fechaAlerta,
-          estatus: "Alerta Ambiental",
+          estatus: 'Alerta Ambiental',
           numeros: {
             conSello: [],
             sinSello: [7, 8, 9, 0]
@@ -69,7 +69,7 @@ describe('scrape', function(){
         numerosNormal
           .should.be.deep.equal({
             fecha  : fechaNormal,
-            estatus: "Restricción Vehicular",
+            estatus: 'Restricción Vehicular',
             numeros: {
               conSello: [],
               sinSello: [5, 6, 7, 8]
@@ -79,7 +79,7 @@ describe('scrape', function(){
         numerosEmergencia
           .should.not.be.deep.equal({
             fecha  : fechaEmergencia,
-            estatus: "Emergtal",
+            estatus: 'Emergtal',
             numeros: {
               conSello: [1, 1, 1],
               sinSello: [2, 9, 4, 2]
@@ -89,7 +89,7 @@ describe('scrape', function(){
           numerosPreemergencia
             .should.not.be.deep.equal({
               fecha  : fechaPreemergencia,
-              estatus: "Prial",
+              estatus: 'Prial',
               numeros: {
                 conSello: [],
                 sinSello: [8, 8]
@@ -99,7 +99,7 @@ describe('scrape', function(){
           numerosAlerta
             .should.not.be.deep.equal({
               fecha  : fechaAlerta,
-              estatus: "Alertal",
+              estatus: 'Alertal',
               numeros: {
                 conSello: [3, 3],
                 sinSello: [9, 9, 9]
@@ -172,10 +172,8 @@ describe('scrape', function(){
   });
 
 
-  describe('#scrapeNumerosRestriccion', function(){
-    var scrapeNumerosRestriccion =
-      scrape.scrapeNumerosRestriccion
-        .then(function(x){ return x; });
+  describe('#scrapeNumerosRestriccion()', function(){
+    var scrapeNumerosRestriccion = scrape.scrapeNumerosRestriccion();
 
 
     it('finds dom node', function(){

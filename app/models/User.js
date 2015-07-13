@@ -12,7 +12,7 @@ import * as CRUD from './helpers/CRUD.js';
  * @param {string} numeroRestriccion
  * @param {boolean} notify whether or not to send notifications to user
  */
-const Schema = mongoose.Schema({
+const schema = mongoose.Schema({
   email            : { type: String, unique: true },
   notify           : { type: Boolean, default: true },
   selloVerde       : { type: Boolean, required: true },
@@ -22,12 +22,12 @@ const Schema = mongoose.Schema({
 /*
  * Validations
  */
-Schema.path('email').validate(email => {
+schema.path('email').validate(email => {
    var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
    return emailRegex.test(email);
 }, 'The e-mail field cannot be empty.');
 
-const User = mongoose.model('User', Schema);
+const User = mongoose.model('User', schema);
 
 
 

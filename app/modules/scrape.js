@@ -7,7 +7,7 @@ import {compose, map, filter, trim, split, replace, test, ifElse, empty} from 'r
  * @return {promise}
  */
 export function fetchNumerosRestriccion(){
-    return scrapeNumerosRestriccion.then(parseNumerosRestriccion);
+    return scrapeNumerosRestriccion().then(parseNumerosRestriccion);
 }
 
 
@@ -62,27 +62,29 @@ export function parseNumerosRestriccion(jsonArray) {
  * Scrapes the website and resolves with an array
  * @return {promise}
  */
-export const scrapeNumerosRestriccion = new Promise(function(resolve, reject){
-  request.get({
-    url: 'http://www.uoct.cl/restriccion-vehicular/'
-  }, (error, response, html) => {
-    if(error || !(response.statusCode === 200) ) {
-      reject( Error("Error al scrapear los numeros con restriccion!") );
-    }
+export function scrapeNumerosRestriccion(){
+  return new Promise(function(resolve, reject){
+    request.get({
+      url: 'http://www.uoct.cl/restriccion-vehicular/'
+    }, (error, response, html) => {
+      if(error || !(response.statusCode === 200) ) {
+        reject( Error('Error al scrapear los numeros con restriccion!') );
+      }
 
-    response.setEncoding('utf-8');
+      response.setEncoding('utf-8');
 
-    const $ = cheerio.load(html.toString());
+      const $ = cheerio.load(html.toString());
 
-    const filterElements =
-            compose(
-              map(trim),
-              split('\n'),
-              trim);
+      const filterElements =
+              compose(
+                map(trim),
+                split('\n'),
+                trim);
 
-    resolve( filterElements($('.col-sm-12.restrictiontop > *').text()) );
+      resolve( filterElements($('.col-sm-12.restrictiontop > *').text()) );
+    });
   });
-});
+}
 
 
 /**
