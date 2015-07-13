@@ -20,7 +20,8 @@ h5 {
   font-weight: 100; }
 
 .stgoLab {
-  margin-bottom: 4vw; }
+  margin-bottom: 4vw;
+  text-align: center; }
   .stgoLab h5 {
     letter-spacing: 2px; }
   .stgoLab img {
