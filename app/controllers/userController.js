@@ -3,13 +3,27 @@ const User = require('../models/User.js');
 
 export function* create(){
   try{
-    yield User.create(this.request.body);
-    console.log('worked');
-    this.body = 'worked';
+    const doc = yield User.create(this.request.body);
+
+    //console.log('User registered');
+    this.status = 201;
+    this.body = doc;
   }
   catch(e){
-    console.log('failed');
-    this.body = 'failed';
+    //console.log('Registration Failed');
+    this.status = 409;
+    this.body = {
+    error: {
+     errors: [
+      {
+       reason : 'conflict',
+       message: 'El correo que ingresado ya está registrado. Por favor ingrese otro.'
+      }
+     ],
+     code: 409,
+     message: 'El correo que ingresado ya está registrado. Por favor ingrese otro.'
+     }
+    };
   }
 
 }

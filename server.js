@@ -38,3 +38,5 @@ app.use(route.post('/users', userController.create));
 /* Listen */
 app.listen(serverConfig.port);
 console.log(`listening on port ${serverConfig.port}`);
+
+module.exports.app = app;
