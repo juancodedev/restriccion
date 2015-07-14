@@ -37,8 +37,8 @@ const User = mongoose.model('User', schema);
  */
 export function create(userData) {
   return CRUD.create(User, userData)
-  //.then( doc => { console.log('Saved User!', doc); return doc; })
-  .catch( err => { throw Error(err); });
+    //.then( doc => { console.log('Saved User!', doc); return doc; })
+    .catch( err => { throw Error(err); });
 }
 
 

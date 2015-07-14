@@ -41,6 +41,14 @@ describe('User', function(){
         });
     });
 
+    it('should fail on second create', function(){
+      return User.create(mockUsuarioBueno)
+        .then(function(){
+          return User.create(mockUsuarioBueno);
+        })
+        .should.eventually.be.rejectedWith(/duplicate key error/);
+    });
+
     it('should throw an error', function(){
       return User.create(mockUsuarioMalo)
         .should.be.rejectedWith(/ValidationError/);
