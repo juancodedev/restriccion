@@ -28,7 +28,7 @@ schema.path('email').validate(email => {
 }, 'The e-mail field cannot be empty.');
 
 const User = mongoose.model('User', schema);
-
+export const model = User;
 
 
 /**

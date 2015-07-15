@@ -1,33 +1,32 @@
-require('babel/register');
-const chai = require('chai');
-const scrape = require('../scrape.js');
+import chai from 'chai';
+import * as scrape from '../scrape.js';
 chai.use(require('chai-as-promised'));
 chai.should();
 
 
-describe('scrape', function(){
-  describe('#parseNumerosRestriccion', function(){
-    const mockEmergencia = [
+describe('scrape', () => {
+  describe('#parseNumerosRestriccion', () => {
+    const emergencia = [
       'Martes 30 de Junio: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4',
       'Emergencia Ambiental'];
 
-    const mockPreemergencia = [
+    const preemergencia = [
       'Viernes 3 de Julio: sin sello verde 1-2-3-4 -9-0, con sello verde 7-8',
       'Preemergencia Ambiental'];
 
-    const mockAlerta = [
+    const alerta = [
       'Domingo 28 de Junio: sin sello verde 7-8-9-0, con sello verde sin restriccion',
       'Alerta Ambiental'];
 
-    const mockNormal = ['Lunes 6 de Julio: sin sello verde 5-6-7-8', 'Restricción Vehicular'];
+    const normal = ['Lunes 6 de Julio: sin sello verde 5-6-7-8', 'Restricción Vehicular'];
 
     const parseNumerosRestriccion = scrape.parseNumerosRestriccion;
 
-    it('should return expected result', function(){
-      const numerosEmergencia    = parseNumerosRestriccion(mockEmergencia);
-      const numerosPreemergencia = parseNumerosRestriccion(mockPreemergencia);
-      const numerosAlerta        = parseNumerosRestriccion(mockAlerta);
-      const numerosNormal        = parseNumerosRestriccion(mockNormal);
+    it('should return expected result', () => {
+      const numerosEmergencia    = parseNumerosRestriccion(emergencia);
+      const numerosPreemergencia = parseNumerosRestriccion(preemergencia);
+      const numerosAlerta        = parseNumerosRestriccion(alerta);
+      const numerosNormal        = parseNumerosRestriccion(normal);
 
       // Make sure that the day is correct, but we 'ignore' the rest,
       // because of parseNumerosRestriccion implementation
@@ -108,87 +107,87 @@ describe('scrape', function(){
       });
 
 
-      it('object should have formated "numeros"', function(){
-        parseNumerosRestriccion(mockEmergencia)
+      it('object should have formated "numeros"', () => {
+        parseNumerosRestriccion(emergencia)
             .should.have.deep.property('numeros.conSello')
             .and.be.a('array');
 
-        parseNumerosRestriccion(mockPreemergencia)
+        parseNumerosRestriccion(preemergencia)
             .should.have.deep.property('numeros.conSello')
             .and.be.a('array');
 
-        parseNumerosRestriccion(mockAlerta)
+        parseNumerosRestriccion(alerta)
             .should.have.deep.property('numeros.conSello')
             .and.be.a('array');
 
-        parseNumerosRestriccion(mockEmergencia)
+        parseNumerosRestriccion(emergencia)
             .should.have.deep.property('numeros.sinSello')
             .and.be.a('array');
 
-        parseNumerosRestriccion(mockPreemergencia)
+        parseNumerosRestriccion(preemergencia)
             .should.have.deep.property('numeros.sinSello')
             .and.be.a('array');
 
-        parseNumerosRestriccion(mockAlerta)
+        parseNumerosRestriccion(alerta)
             .should.have.deep.property('numeros.sinSello')
             .and.be.a('array');
       });
 
 
-      it('object should have proper "fecha" type', function(){
-        const mockFechaInvalida =
+      it('object should have proper "fecha" type', () => {
+        const fechaInvalida =
                 ['fechaErronea: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4', 'Emergencia Ambiental'];
 
-        parseNumerosRestriccion(mockEmergencia).should
+        parseNumerosRestriccion(emergencia).should
                 .have.property('fecha')
                 .and.be.a('date');
 
-        parseNumerosRestriccion(mockPreemergencia).should
+        parseNumerosRestriccion(preemergencia).should
                 .have.property('fecha')
                 .and.be.a('date');
 
-        parseNumerosRestriccion(mockAlerta).should
+        parseNumerosRestriccion(alerta).should
                 .have.property('fecha')
                 .and.be.a('date');
 
-        (function(){ parseNumerosRestriccion(mockFechaInvalida); })
+        (() => { parseNumerosRestriccion(fechaInvalida); })
                           .should.throw(/Couldn't get 'fecha' while scraping/);
       });
 
 
-      it('object should have proper "estatus" type', function(){
-        parseNumerosRestriccion(mockEmergencia).should
+      it('object should have proper "estatus" type', () => {
+        parseNumerosRestriccion(emergencia).should
                 .have.property('estatus')
                 .and.to.match(/ambiental/i);
 
-        parseNumerosRestriccion(mockPreemergencia).should
+        parseNumerosRestriccion(preemergencia).should
                 .have.property('estatus')
                 .and.to.match(/ambiental/i);
 
-        parseNumerosRestriccion(mockAlerta).should
+        parseNumerosRestriccion(alerta).should
                 .have.property('estatus')
                 .and.to.match(/ambiental/i);
       });
   });
 
 
-  describe('#scrapeNumerosRestriccion()', function(){
+  describe('#scrapeNumerosRestriccion()', () => {
     var scrapeNumerosRestriccion = scrape.scrapeNumerosRestriccion();
 
 
-    it('finds dom node', function(){
+    it('finds dom node', () => {
       return scrapeNumerosRestriccion.should.eventually
               .be.a('array')
               .and.to.have.length.above(0);
     });
 
-    it('returns expected "fecha/numeros" text pattern', function(){
+    it('returns expected "fecha/numeros" text pattern', () => {
       return scrapeNumerosRestriccion.should.eventually
               .have.property(0)
               .and.to.match(/^.*\b(\d{1,2}) de .*: sin sello verde \d-.*\d(, con sello verde \d-.*\d)?$/i);
     });
 
-    it('returns expected "estatus" text pattern', function(){
+    it('returns expected "estatus" text pattern', () => {
       return scrapeNumerosRestriccion.should.eventually
               .have.property(1)
               .and.to.match(/^(.*\bambiental|Restricción Vehicular)$/i);
