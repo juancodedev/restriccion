@@ -9,6 +9,8 @@ export function* latest(){
     this.body = doc;
   }
   catch(e){
+    console.error(e);
+    
     this.status = 500;
     this.body = {
       errors: [

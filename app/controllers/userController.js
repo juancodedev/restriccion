@@ -9,6 +9,8 @@ export function* create(){
     this.body = doc;
   }
   catch(e){
+    console.error(e);
+
     this.status = 409;
     this.body = {
       errors: [
