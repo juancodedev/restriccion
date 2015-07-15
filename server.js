@@ -19,14 +19,11 @@ import * as restrictionDayController from './app/controllers/restrictionDayContr
  * Middleware
  */
 
-
 /* App */
 export const app = koa();
 
-
 /* Koa Body Parser */
 app.use(koaBody());
-
 
 /* Logger */
 if (process.env.NODE_ENV !== 'test') {
@@ -38,7 +35,6 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
-
 /* Serve static Assets */
 if (process.env.NODE_ENV !== 'production') {
   app.use(
@@ -49,6 +45,7 @@ if (process.env.NODE_ENV !== 'production') {
 /**
  * Routes
  */
+
 /* Home */
 app.use(route.get('/', index));
 
