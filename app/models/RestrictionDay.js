@@ -45,9 +45,9 @@ export function set(restrictionDayData) {
   const data  = addId(restrictionDayData);
   const query = {'_id': data._id};
 
-  CRUD.upsert(RestrictionDay, query, data)
+  CRUD.upsert(RestrictionDay, query, data);
     //.then( doc => console.log('Saved RestrictionDay!', doc) )
-    .catch( err => console.error('Error while creating RestrictionDay!', err));
+    //.catch( err => console.error('Error while creating RestrictionDay!', err));
 }
 
 
@@ -56,9 +56,9 @@ export function set(restrictionDayData) {
  * @param {object} restrictionDayData an object according to RestrictionDay's Schema
  */
 export function create(restrictionDayData) {
-  CRUD.create(RestrictionDay, addId(restrictionDayData))
+  CRUD.create(RestrictionDay, addId(restrictionDayData));
     //.then( doc => console.log('Saved RestrictionDay!', doc) )
-    .catch( err => console.error('Error while creating RestrictionDay!', err));
+    //.catch( err => console.error('Error while creating RestrictionDay!', err));
 }
 
 

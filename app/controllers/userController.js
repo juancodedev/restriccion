@@ -1,15 +1,17 @@
 import * as User from '../models/User';
+import {log} from '../modules/logger';
 
 export function* create(){
+  const query = this.request.body;
   this.type = 'application/json';
 
   try{
-    const doc = yield User.create(this.request.body);
+    const doc = yield User.create(query);
     this.status = 201;
     this.body = doc;
   }
-  catch(e){
-    console.error(e);
+  catch(error){
+    log.error({'userController#create': { query, error }});
 
     this.status = 409;
     this.body = {

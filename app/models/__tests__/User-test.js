@@ -46,7 +46,7 @@ describe('User', () => {
 
     it('should throw an error', () => {
       return User.create(usuarioMalo)
-        .should.be.rejectedWith(/ValidationError/);
+        .should.be.rejectedWith(/validation failed/);
     });
   });
 

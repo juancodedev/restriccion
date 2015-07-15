@@ -4,36 +4,64 @@ import koa from 'koa';
 import route from 'koa-route';
 import koaBody from 'koa-body';
 import serve from 'koa-static';
+import {logRequest} from './app/modules/logger';
 
 
-/* Controllers */
+/**
+ * Controllers
+ */
 import index from './app/server/index';
 import * as userController from './app/controllers/userController';
 import * as restrictionDayController from './app/controllers/restrictionDayController';
 
-/* Middleware */
+
+/**
+ * Middleware
+ */
+
+
+/* App */
 export const app = koa();
 
+
+/* Koa Body Parser */
 app.use(koaBody());
 
+
+/* Logger */
 if (process.env.NODE_ENV !== 'test') {
   app.use(function *(next){
     var start = new Date();
     yield next;
     var ms = new Date() - start;
-    console.log('%s : %s %s - %s', this.ip, this.method, this.url, ms);
+    logRequest.info('%s : %s %s - %s ms', this.ip, this.method, this.url, ms);
   });
 }
 
-app.use(
-  serve(path.join(__dirname, 'app', 'public')));
+
+/* Serve static Assets */
+if (process.env.NODE_ENV !== 'production') {
+  app.use(
+    serve(path.join(__dirname, 'app', 'public')));
+}
 
 
-/* Routes */
+/**
+ * Routes
+ */
+/* Home */
 app.use(route.get('/', index));
-app.use(route.get('/restriction_day', restrictionDayController.latest));
-app.use(route.post('/users', userController.create));
 
-/* Listen */
+/* Restriction day */
+app.use(route.get('/restriction_day', restrictionDayController.latest));
+
+/* Users */
+app.use(route.put('/users', userController.create));
+  app.use(route.post('/users', userController.create));
+
+
+/**
+ * Listen
+ */
 app.listen(serverConfig.port);
 console.log(`listening on port ${serverConfig.port}`);
