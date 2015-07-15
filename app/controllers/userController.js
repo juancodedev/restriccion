@@ -13,6 +13,7 @@ export function* create(){
   catch(error){
     log.error({'userController#create': { query, error }});
 
+    // TODO: LEER EL ERROR Y MOSTRAR EL ERROR ACORDE
     this.status = 409;
     this.body = {
       errors: [

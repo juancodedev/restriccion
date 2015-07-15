@@ -5,6 +5,7 @@
 
 import mongoose from 'mongoose';
 import * as CRUD from './helpers/CRUD.js';
+import {log} from '../modules/logger';
 
 /**
  * User's Schema
@@ -36,9 +37,11 @@ export const model = User;
  * @param {object} UserData an object according to User's Schema
  */
 export function create(userData) {
-  return CRUD.create(User, userData);
-    //.then( doc => { console.log('Saved User!', doc); return doc; })
-    //.catch( err => { throw Error(err); });
+  return CRUD.create(User, userData)
+    .catch( error => {
+      log.error({'User#create': { userData, error }});
+      return Promise.reject(error);
+    });
 }
 
 
@@ -57,8 +60,11 @@ export function allWithRestriction(numbers) {
           { selloVerde: 'false', numeroRestriccion: {$in: numbers.sinSello} }
         ]
       })
-      .exec((err, doc) => {
-        if (err) { reject(err); }
+      .exec((error, doc) => {
+        if (error) {
+          log.error({'User#allWithRestriction': { numbers, error }});
+          reject(error);
+        }
         resolve(doc);
       });
   });
@@ -71,8 +77,9 @@ export function allWithRestriction(numbers) {
  */
 // TODO: cambiamos notify a false para el usuario
 export function unSubscribe(email) {
-
-  return CRUD.update(User, {email}, {notify: false});
-  //.then( doc => { console.log('Query succeeded!', doc); return doc; })
-  //.catch( err => { throw Error(err); });
+  return CRUD.update(User, {email}, {notify: false})
+    .catch( error => {
+      log.error({'User#unSubscribe': { email, error }});
+      return Promise.reject(error);
+    });
 }

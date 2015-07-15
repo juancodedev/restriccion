@@ -6,6 +6,7 @@
 import mongoose from 'mongoose';
 import moment from 'moment';
 import * as CRUD from './helpers/CRUD.js';
+import {log} from '../modules/logger';
 
 /**
  * RestrictionDay's Schema
@@ -33,7 +34,11 @@ const RestrictionDay = mongoose.model('RestrictionDay', schema);
  * @return {promise} the latest RestrictionDay record
  */
 export function getLatest() {
-  return RestrictionDay.findOne({}, {}, { sort: { _id: -1 } });
+  return RestrictionDay.findOne({}, {}, { sort: { _id: -1 } })
+    .catch( error => {
+      log.error({'RestrictionDay#getLatest': { error }});
+      return Promise.reject(error);
+    });
 }
 
 
@@ -45,9 +50,11 @@ export function set(restrictionDayData) {
   const data  = addId(restrictionDayData);
   const query = {'_id': data._id};
 
-  CRUD.upsert(RestrictionDay, query, data);
-    //.then( doc => console.log('Saved RestrictionDay!', doc) )
-    //.catch( err => console.error('Error while creating RestrictionDay!', err));
+  CRUD.upsert(RestrictionDay, query, data)
+    .catch( error => {
+      log.error({'RestrictionDay#set': { restrictionDayData, error }});
+      return Promise.reject(error);
+    });
 }
 
 
@@ -56,9 +63,11 @@ export function set(restrictionDayData) {
  * @param {object} restrictionDayData an object according to RestrictionDay's Schema
  */
 export function create(restrictionDayData) {
-  CRUD.create(RestrictionDay, addId(restrictionDayData));
-    //.then( doc => console.log('Saved RestrictionDay!', doc) )
-    //.catch( err => console.error('Error while creating RestrictionDay!', err));
+  CRUD.create(RestrictionDay, addId(restrictionDayData))
+    .catch( error => {
+      log.error({'RestrictionDay#create': { restrictionDayData, error }});
+      return Promise.reject(error);
+    });
 }
 
 
