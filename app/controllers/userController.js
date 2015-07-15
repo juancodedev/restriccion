@@ -1,7 +1,8 @@
-//import User from '../models/User';
-const User = require('../models/User.js');
+import * as User from '../models/User';
 
 export function* create(){
+  this.type = 'application/json';
+
   try{
     const doc = yield User.create(this.request.body);
     this.status = 201;
@@ -10,16 +11,13 @@ export function* create(){
   catch(e){
     this.status = 409;
     this.body = {
-    error: {
-     errors: [
-      {
-       reason : 'conflict',
-       message: 'El correo que ingresado ya está registrado. Por favor ingrese otro.'
-      }
-     ],
-     code   : 409,
-     message: 'El correo que ingresado ya está registrado. Por favor ingrese otro.'
-     }
+      errors: [
+        {
+          status     : 409,
+          title      : 'Ya registrado',
+          description: 'El correo que ingresado ya está registrado. Por favor ingrese otro'
+        }
+      ]
     };
   }
 

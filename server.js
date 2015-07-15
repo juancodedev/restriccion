@@ -9,6 +9,7 @@ import serve from 'koa-static';
 /* Controllers */
 import index from './app/server/index';
 import * as userController from './app/controllers/userController';
+import * as restrictionDayController from './app/controllers/restrictionDayController';
 
 /* Middleware */
 export const app = koa();
@@ -30,7 +31,7 @@ app.use(
 
 /* Routes */
 app.use(route.get('/', index));
-//app.use(route.post('/users', userController.post));
+app.use(route.get('/restriction_day', restrictionDayController.latest));
 app.use(route.post('/users', userController.create));
 
 /* Listen */
