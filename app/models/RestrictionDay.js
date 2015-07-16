@@ -35,6 +35,7 @@ const RestrictionDay = mongoose.model('RestrictionDay', schema);
  */
 export function getLatest() {
   return RestrictionDay.findOne({}, {}, { sort: { _id: -1 } })
+    .then( x => x )
     .catch( error => {
       log.error({'RestrictionDay#getLatest': { error }});
       return Promise.reject(error);

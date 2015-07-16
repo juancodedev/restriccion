@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "App para notificacion de restriccion vehicular segun patente",
   "scripts": {
-    "start": "parallelshell \"NODE_ENV=development node index.js\"  \"node webpack-server.js\" \"npm run watch\"",
+    "start": "parallelshell \"NODE_ENV=development nodemon index.js\"  \"node webpack-server.js\" \"npm run watch\"",
     "start_win": "parallelshell \"set NODE_ENV=development&&node index.js\"  \"node webpack-server.js\" \"npm run watch\"",
     "production": "NODE_ENV=production nodemon index.js",
     "test": "eslint . && NODE_ENV=test mocha --compilers js:babel/register --reporter spec 'app/**/__tests__/*-test.js'",
