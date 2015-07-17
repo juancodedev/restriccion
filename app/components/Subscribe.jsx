@@ -4,7 +4,7 @@ export default class Subscribe extends React.Component {
   render() {
     return (
       <section className="subscripcion">
-        <h4 className="white-text">Subscríbete para recibir una notificación cuanto estes en restricción</h4>
+        <h4 className="white-text">Te notificamos cuanto estes en restricción</h4>
         <form action="">
           <div className="row">
              <div className="input-field select col s12 m7">

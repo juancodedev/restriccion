@@ -7,7 +7,7 @@ import Footer from './Footer.jsx';
 export default class App extends React.Component {
   constructor() {
     super();
-    this.state = {
+    this.state = {info: {
       _id    : '2015-07-01',
       fecha  : moment('2015-07-01T17:18:04.343Z'),
       estatus: 'Preemergencia Ambiental',
@@ -25,14 +25,16 @@ export default class App extends React.Component {
               2
           ]
       }
-    };
+    }};
   }
 
   render() {
     return (
       <div>
         <Header />
-        <Main />
+        <Main
+          info = {this.state.info}
+           />
         <hr/>
         <Footer />
       </div>

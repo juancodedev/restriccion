@@ -6,7 +6,12 @@ export default class Main extends React.Component {
   render() {
     return (
         <div className="main">
-          <Info />
+          <Info
+            conSello = {this.props.info.numeros.conSello}
+            sinSello = {this.props.info.numeros.sinSello}
+            fecha = {this.props.info.fecha}
+            estatus = {this.props.info.estatus}
+             />
           <hr />
           <Subscribe />
         </div>
