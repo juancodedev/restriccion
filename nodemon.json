@@ -5,5 +5,5 @@
     "node_modules",
     "tmp"
   ],
-  "ext": "js json hbs css"
+  "ext": "js jsx json css"
 }
