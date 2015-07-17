@@ -1,10 +1,12 @@
 {
+    "parser": "babel-eslint",
     "ecmaFeatures": {
         "blockBindings": true,
         "forOf": true,
         "arrowFunctions": true,
         "jsx": true,
-        "modules": true
+        "modules": true,
+        "classes": true
     },
     "rules": {
         "semi": 2,

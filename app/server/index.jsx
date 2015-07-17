@@ -4,8 +4,17 @@ import server from '../config/server.js';
 import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
+import * as reducers from '../reducers';
+import {setLatestRestrictionDay} from '../actions/RestrictionDayActions';
 import App from '../components/App.jsx';
-import RestrictionDayHandler from '../components/RestrictionDayHandler.jsx';
+
+
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const reducer = combineReducers(reducers);
+const store = createStoreWithMiddleware(reducer);
+
 
 export default function* (){
   const templatePath = path.join(__dirname, '..', 'views', 'main.html');
@@ -17,11 +26,15 @@ export default function* (){
        `src="http://localhost:${server.webpackPort}/js/client.js"`);
   }
 
-  // Get Initial App State
-  const initialState = yield getLatest();
+  // Setup Redux & Get Initial App State
+  const latestRestrictionDay = yield getLatest();
+  store.dispatch(setLatestRestrictionDay(latestRestrictionDay));
+  const state = store.getState();
+  const initialAppStateInjection = `<script>window.__initialAppState=${JSON.stringify(state)}</script>`;
 
   // Inject React App
-  this.body = template.replace('<%= reactApp %>',
-    ReactDOMServer.renderToString(<RestrictionDayHandler children={App} initialState={initialState} />)
+  const stateInjectedTemplate = template.replace('<%= reactAppInitialState %>', initialAppStateInjection);
+  this.body = stateInjectedTemplate.replace('<%= reactApp %>',
+    ReactDOMServer.renderToString(<App store={store} />)
   );
 }

@@ -1,21 +1,45 @@
 import React from 'react';
 import moment from 'moment';
+import { connect } from 'react-redux';
+
 moment.locale('es');
+
+/* ES7/2016 Stage-1 es7.decorators */
+@connect(state => ({
+  restrictionDay: state.restrictionDay
+}))
 
 export default class Info extends React.Component {
   render() {
-    const conSello = this.props.conSello.join('-');
-    const sinSello = this.props.sinSello.join('-');
-    const dayName = this.props.fecha.format('dddd');
-    const day = this.props.fecha.format('DD');
-    const month = this.props.fecha.format('MMMM');
-    const year = this.props.fecha.format('YYYY');
-    const estatus = this.props.estatus;
+    const {conSello, sinSello, estatus} = this.props.restrictionDay;
+    const fecha = moment(this.props.restrictionDay.fecha);
+    const day = fecha.format('DD');
+    const month = fecha.format('MMMM');
+    const year = fecha.format('YYYY');
+
+    function displayNumeros(numeros) {
+      if (numeros.length <= 0) {
+        return 'Sin Restricción';
+      }
+      return numeros.join('-');
+    }
+
+    function displayDayName(date) {
+      const dayName = date.format('dddd');
+      const today = moment(new Date());
+
+      if (date.format('DD') === today.format('DD')) {
+        return `Hoy ${dayName}`;
+      } else if (today.diff(date, 'days') === 1) {
+        return `Mañana ${dayName}`;
+      }
+      return `Para el Dia ${dayName}`;
+    }
 
     return (
       <section className="info">
         <div className="date picker__date-display">
-          <div className="picker__weekday-display">Hoy {dayName}</div>
+          <div className="picker__weekday-display">{displayDayName(fecha)}</div>
           <div className="picker__day-display">
             <div>{day}</div>
           </div>
@@ -31,11 +55,11 @@ export default class Info extends React.Component {
           <h3>Patentes terminadas en:</h3>
           <div className="numeros">
             <div className="sinSello">
-              <h4 className="num">{sinSello}</h4>
+              <h4 className="num">{displayNumeros(sinSello)}</h4>
               <h5>Sin sello verde</h5>
             </div>
             <div className="conSello">
-              <h4 className="num">{conSello}</h4>
+              <h4 className="num">{displayNumeros(conSello)}</h4>
               <h5>Con sello verde</h5>
             </div>
           </div>
