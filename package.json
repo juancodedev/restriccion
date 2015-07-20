@@ -4,18 +4,22 @@
   "description": "App para notificacion de restriccion vehicular segun patente",
   "scripts": {
     "start": "parallelshell \"NODE_ENV=development nodemon index.js\"  \"node webpack-server.js\" \"npm run watch\"",
-    "start_win": "parallelshell \"set NODE_ENV=development&&node index.js\"  \"node webpack-server.js\" \"npm run watch\"",
+    "win": "parallelshell \"set NODE_ENV=development&&node index.js\"  \"node webpack-server.js\" \"npm run watch\"",
     "production": "NODE_ENV=production nodemon index.js",
     "test": "eslint . && NODE_ENV=test mocha --compilers js:babel/register --reporter spec 'app/**/__tests__/*-test.js'",
-    "build": "NODE_ENV=production npm run build:bundle",
-    "build:bundle": "webpack -p --config webpack.config.production.js",
-    "build:css": "node-sass app/public/scss/screen.scss -o app/public/css/ --source-map app/public/scss/screen.css.map && postcss --use autoprefixer -d app/public/css/ app/public/css/screen.css",
-    "watch": "onchange \"app/public/scss/**/*.scss\" -- npm run build:css"
+    "build": "NODE_ENV=production npm run build:bundle && npm run build:css",
+    "build:bundle": "webpack -p --config webpack.config.production.js && uglifyjs public/js/client.js --compress --mangle -o public/js/client.js",
+    "build:css:dev": "node-sass public/scss/screen.scss -o public/css/ --source-map public/scss/screen.css.map && postcss --use autoprefixer -d public/css/ public/css/screen.css",
+    "build:css": "npm run build:css:dev && cleancss -o public/css/screen.css public/css/screen.css",
+    "watch": "onchange \"public/scss/**/*.scss\" -- npm run build:css:dev"
   },
   "author": "SantiagoLab.cl <contact@santiagolab.cl>",
   "license": "MIT",
   "dependencies": {
     "babel-eslint": "^3.1.23",
+    "babel": "^5.6.14",
+    "babel-core": "^5.6.18",
+    "babel-loader": "^5.3.1",
     "bunyan": "^1.4.0",
     "chai": "^3.0.0",
     "chai-as-promised": "^5.1.0",
@@ -40,9 +44,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^5.2.0",
-    "babel": "^5.6.14",
-    "babel-core": "^5.6.18",
-    "babel-loader": "^5.3.1",
+    "clean-css": "^3.3.6",
     "eslint": "^0.24.1",
     "eslint-plugin-react": "^2.7.0",
     "koa-static": "^1.4.9",
@@ -51,9 +53,10 @@
     "onchange": "^1.1.0",
     "postcss-cli": "^1.3.1",
     "react-hot-loader": "^1.2.8",
-    "webpack": "^1.10.1",
-    "webpack-dev-server": "^1.10.1",
     "supertest": "^1.0.1",
-    "supertest-as-promised": "^2.0.2"
+    "supertest-as-promised": "^2.0.2",
+    "uglify-js": "^2.4.23",
+    "webpack": "^1.10.1",
+    "webpack-dev-server": "^1.10.1"
   }
 }

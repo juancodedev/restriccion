@@ -5,11 +5,12 @@ module.exports = {
       './app/client/index.jsx'
     ],
     output: {
-      path      : path.join(__dirname, 'app', 'public', 'js'),
-      filename  : 'bundle.js',
+      path      : path.join(__dirname, 'public', 'js'),
+      filename  : 'client.js',
       publicPath: '/'
     },
     module: {
+        noParse: [/moment.js/],
         loaders: [
             {
               test   : /\.jsx?$/,

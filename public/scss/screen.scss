@@ -1,6 +1,6 @@
 $primary-color: #D9FF39;
-$primary-color-light: #D9FF39;
-$primary-color-dark: #D9FF39;
+$primary-color-light: $primary-color;
+$primary-color-dark: $primary-color;
 $secondary-color: #3A3B3F;
 
 
@@ -138,7 +138,7 @@ form{
     color: #63655B;
   }
   .select-wrapper {
-    span.caret { color: #D9FF39; }
+    span.caret { color: $primary-color; }
     .dropdown-content li { line-height: 1rem; }
     input.select-dropdown {
       font-size: 1.4rem;

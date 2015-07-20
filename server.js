@@ -38,7 +38,7 @@ if (process.env.NODE_ENV !== 'test') {
 /* Serve static Assets */
 if (process.env.NODE_ENV !== 'production') {
   app.use(
-    serve(path.join(__dirname, 'app', 'public')));
+    serve(path.join(__dirname, 'public')));
 }
 
 

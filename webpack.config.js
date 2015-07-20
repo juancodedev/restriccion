@@ -18,6 +18,7 @@ module.exports = {
       new webpack.NoErrorsPlugin()
     ],
     module: {
+        noParse: [/moment.js/],
         loaders: [
             {
               test   : /\.jsx?$/,
