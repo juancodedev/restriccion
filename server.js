@@ -5,7 +5,12 @@ import route from 'koa-route';
 import koaBody from 'koa-body';
 import serve from 'koa-static';
 import {logRequest} from './app/modules/logger';
+import {startScraping} from './app/modules/startScrapeJobs';
 
+/**
+ * starts the scraping jobs
+ */
+startScraping(0);
 
 /**
  * Controllers
