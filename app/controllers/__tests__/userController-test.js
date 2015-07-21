@@ -16,7 +16,7 @@ describe('userController', () => {
       const usuarioValido = { email: 'one@gmail.com', notify: true, selloVerde: true, numeroRestriccion: 1 };
 
       request(app.listen())
-        .post('/users')
+        .put('/users')
         .send(usuarioValido)
         .expect(201)
         .end(done);
@@ -26,12 +26,12 @@ describe('userController', () => {
       const usuarioValido = { email: 'one@gmail.com', notify: true, selloVerde: true, numeroRestriccion: 1 };
 
       request(app.listen())
-        .post('/users')
+        .put('/users')
         .send(usuarioValido)
         .expect(201)
         .then( () => {
           request(app.listen())
-            .post('/users')
+            .put('/users')
             .send(usuarioValido)
             .expect(409)
             .end(done);
@@ -42,7 +42,7 @@ describe('userController', () => {
       const usuarioInvalido = { email: 'oneil.com', notify: true, selloVerde: true, numeroRestriccion: 1 };
 
       request(app.listen())
-        .post('/users')
+        .put('/users')
         .send(usuarioInvalido)
         .expect(409)
         .end(done);

@@ -1,6 +1,7 @@
 /*global $*/
 import React from 'react';
 import {merge} from 'ramda';
+import {put} from 'axios';
 
 export default class Subscribe extends React.Component {
   constructor() {
@@ -52,7 +53,9 @@ export default class Subscribe extends React.Component {
              </div>
            </div>
            <div className="row">
-             <a className="waves-effect waves-light btn-large"><i className="material-icons left"></i>Enviar</a>
+             <a onClick={this._handleSubmit.bind(this)} className="waves-effect waves-light btn-large">
+               <i className="material-icons left"></i>Enviar
+              </a>
            </div>
         </form>
       </section>
@@ -78,5 +81,15 @@ export default class Subscribe extends React.Component {
   _handleRestrictionDigitChange() {
     this.setState(
       merge(this.state, {numeroRestriccion: this.refs.restrictionDigitSelect.value}));
+  }
+
+  async _handleSubmit() {
+    try {
+      const response = await put('/users', this.state);
+      console.log(response);
+    }
+    catch (error) {
+      console.log(error);
+    }
   }
 }
