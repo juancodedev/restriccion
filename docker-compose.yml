@@ -1,0 +1,13 @@
+mongodb:
+  image: mongo
+  volumes:
+    - "./mongodb-data:/data/db"
+web:
+  build: .
+  command: npm run production
+  volumes:
+    - .:/app
+  ports:
+    - "8000:8000"
+  links:
+    - mongodb
