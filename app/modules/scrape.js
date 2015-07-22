@@ -2,6 +2,7 @@ import request from 'request';
 import cheerio from 'cheerio';
 import {compose, map, filter, trim, split, replace, test, ifElse, empty} from 'ramda';
 
+
 /**
  * Fetches numerosRestriccion from web page and parses the data
  * @return {promise}

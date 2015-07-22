@@ -1,24 +1,45 @@
 import mandrill from 'mandrill-api/mandrill';
 import kue from 'kue';
-
+import {splitEvery} from 'ramda';
 const jobs = kue.createQueue();
 const mandrillClient = new mandrill.Mandrill('cIGy-GA91BW6mj574DVK4A');
 
 jobs.process('new_email', function (job, done){
   console.log('JOB: ' + JSON.stringify(job));
-  sendEmail(job.data.email, done);
+  sendEmail(job.data.emails, done);
 });
 
+
+/**
+ * sendEmails
+ * @param  {array} emailArray is the array sent to be divided
+ *
+ */
+export function sendEmails(emailArray) {
+  const divideUsers = splitEvery(150);
+  const newArray = divideUsers(emailArray);
+
+  newArray.forEach(em => {
+    var emails = em.map(i => {
+      var obj = {};
+      obj.email = i;
+      obj.name = '';
+      obj.type = 'to';
+      return obj;
+    });
+
+    addEmailToQueue(emails);
+  });
+}
 
 /**
  * Adds an email Job to the queue
  * @param  {array} email array with the recipient data
  * @return {promise}
  */
-export function addEmailToQueue(email){
-  return new Promise(function(resolve, reject){
+export function addEmailToQueue(emails){
     const emailJob = jobs.create('new_email', {
-      email
+      emails
     })
       //priority of the job
       .priority('high')
@@ -32,19 +53,16 @@ export function addEmailToQueue(email){
     emailJob
      .on('complete', function (){
        console.log('El correo ha sido enviado');
-       resolve();
      })
      .on('failed', function (){
        console.log('Falló el envío del correo');
-       reject();
      });
 
     emailJob.save(function(err){
       if(err){
-        reject();
+        console.log('Error al guardar el trabajo');
       }
     });
-  });
 }
 
 
@@ -54,11 +72,13 @@ export function addEmailToQueue(email){
  * @param  {Function} done  callback from the job process
  * @return {none}
  */
-export function sendEmail(email, done){
+export function sendEmail(emails, done){
+  console.log('ENVIANDO CORREO A: ' + JSON.stringify(emails));
+
   const templateName = 'tengoRestriccion';
   const message = {
     'inline_css': true,
-    'to'        : email
+    'to'        : emails
   };
 
   const templateContent = [
