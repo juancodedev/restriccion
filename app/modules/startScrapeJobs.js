@@ -45,7 +45,7 @@ jobs.process('new_scrape', function (job, done){
 });
 
 
-export function startScraping(ms){
+export default function startScraping(ms){
     const scrapeJob = jobs.create('new_scrape')
     //Milliseconds of delay of the job
     .delay(ms)

@@ -1,3 +1,4 @@
+import {__PRODUCTION__, __TEST__} from './app/config/envs';
 import serverConfig from './app/config/server';
 import path from 'path';
 import koa from 'koa';
@@ -5,12 +6,7 @@ import route from 'koa-route';
 import koaBody from 'koa-body';
 import serve from 'koa-static';
 import {logRequest} from './app/modules/logger';
-import {startScraping} from './app/modules/startScrapeJobs';
 
-/**
- * starts the scraping jobs
- */
-startScraping(0);
 
 /**
  * Controllers
@@ -31,7 +27,7 @@ export const app = koa();
 app.use(koaBody());
 
 /* Logger */
-if (process.env.NODE_ENV !== 'test') {
+if (__TEST__) {
   app.use(function *(next){
     var start = new Date();
     yield next;
@@ -41,7 +37,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 /* Serve static Assets */
-if (process.env.NODE_ENV !== 'production') {
+if (__PRODUCTION__) {
   app.use(
     serve(path.join(__dirname, 'public')));
 }

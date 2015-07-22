@@ -1,15 +1,16 @@
+import {__PRODUCTION__, __TEST__} from '../config/envs';
 import bunyan from 'bunyan';
 import path from 'path';
 
 function logLevel(level = 'info') {
-  if (process.env.NODE_ENV === 'test') {
+  if (__TEST__) {
     return 'fatal';
   }
   return level;
 }
 
 function streamType(file) {
-  if (process.env.NODE_ENV === 'production') {
+  if (__PRODUCTION__) {
     if (!file) { throw Error('Must specify a Valid Filename on production'); }
 
     return [{

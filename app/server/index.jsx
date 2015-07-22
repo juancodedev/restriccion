@@ -1,6 +1,7 @@
 import readFile from '../modules/readfile-promise';
 import {getLatest} from '../models/RestrictionDay';
 import server from '../config/server.js';
+import {__DEVELOPMENT__} from '../config/envs';
 import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -21,7 +22,7 @@ export default function* (){
   let template = yield readFile(templatePath, {encoding: 'utf8'});
 
   // Inject webpack hot bundle on development env
-  if (process.env.NODE_ENV === 'development') {
+  if (__DEVELOPMENT__) {
     template = template.replace('src="js/client.js"',
        `src="http://localhost:${server.webpackPort}/js/client.js"`);
   }

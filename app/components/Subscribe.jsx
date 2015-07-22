@@ -92,12 +92,13 @@ export default class Subscribe extends React.Component {
   _setFormState(key, value, isValid) {
     this.setState(
       merge(this.state, {
-        user : {[key]: value},
+        user : merge(this.state.user, {[key]: value}),
         valid: merge(this.state.valid, {[key]: isValid})
       }));
   }
 
   async _handleSubmit() {
+    console.log(this.state);
     try {
       const response = await put('/users', this.state.user);
       console.log(response);

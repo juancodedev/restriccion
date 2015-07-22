@@ -1,3 +1,5 @@
+import {__ENVIRONMENT__} from '../config/envs';
+
 const db = {
   test       : {db: 'mongodb://localhost/tengo-restriccion-test'},
   development: {db: 'mongodb://localhost/tengo-restriccion-dev'},
@@ -5,4 +7,4 @@ const db = {
   prod       : {db: 'mongodb://mongodb/tengo-restriccion'}
 };
 
-export default db[process.env.NODE_ENV] ? db[process.env.NODE_ENV] : db.development;
+export default db[__ENVIRONMENT__];
