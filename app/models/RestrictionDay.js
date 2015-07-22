@@ -51,7 +51,7 @@ export function set(restrictionDayData) {
   const data  = addId(restrictionDayData);
   const query = {'_id': data._id};
 
-  CRUD.upsert(RestrictionDay, query, data)
+  return CRUD.upsert(RestrictionDay, query, data)
     .catch( error => {
       log.error({'RestrictionDay#set': { restrictionDayData, error }});
       return Promise.reject(error);
