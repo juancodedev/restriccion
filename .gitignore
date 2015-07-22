@@ -1,4 +1,4 @@
-*.DS_Store*.
+*.DS_*
 *.sass-cache*
 *.log
 node_modules
