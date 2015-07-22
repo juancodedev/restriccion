@@ -2,11 +2,21 @@
 import React from 'react';
 import {merge} from 'ramda';
 import {put} from 'axios';
+import {isEmail} from 'validator';
+import {getValidatorClass, allValid} from '../utils/formHelper';
+
 
 export default class Subscribe extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      user : {},
+      valid: {
+        email            : null,
+        selloVerde       : null,
+        numeroRestriccion: null
+      }
+    };
   }
 
   componentDidMount() {
@@ -15,6 +25,9 @@ export default class Subscribe extends React.Component {
   }
 
   render() {
+    const emailClass = `${getValidatorClass(this.state.valid.email)}`;
+    const submitClass = `${allValid(this.state.valid) ? null : 'disabled'} waves-effect waves-light btn-large`;
+
     return (
       <section className="subscripcion">
         <h4 className="white-text">Te notificamos cuanto estes en restricción</h4>
@@ -48,12 +61,12 @@ export default class Subscribe extends React.Component {
            </div>
            <div className="row">
              <div className="input-field col s12">
-               <input onChange={this._handleChange.bind(this, 'email')} id="email" type="email" className="validate" />
+               <input onChange={this._handleEmailChange.bind(this)} id="email" type="email" className={emailClass} />
                <label htmlFor="email">Email</label>
              </div>
            </div>
            <div className="row">
-             <a onClick={this._handleSubmit.bind(this)} className="waves-effect waves-light btn-large">
+             <a onClick={this._handleSubmit.bind(this)} className={submitClass}>
                <i className="material-icons left"></i>Enviar
               </a>
            </div>
@@ -62,30 +75,31 @@ export default class Subscribe extends React.Component {
     );
   }
 
-  _handleChange(key, e) {
-    let value;
-    if (key === 'conSelloVerde') {
-      key = 'selloVerde';
-      value = true;
-    } else if (key === 'sinSelloVerde') {
-      key = 'selloVerde';
-      value = false;
-    } else {
-      value = e.currentTarget.value;
-    }
+  _handleChange(key) {
+    const value = (key === 'conSelloVerde');
+    this._setFormState('selloVerde', value, true);
+  }
 
-    this.setState(
-      merge(this.state, {[key]: value})); //TODO: e.target en react 0.14.0-beta2
+  _handleEmailChange(e) {
+    const value = e.currentTarget.value; //TODO: e.target en react 0.14.0-beta2
+    this._setFormState('email', value, isEmail(value));
   }
 
   _handleRestrictionDigitChange() {
+    this._setFormState('numeroRestriccion', this.refs.restrictionDigitSelect.value, true);
+  }
+
+  _setFormState(key, value, isValid) {
     this.setState(
-      merge(this.state, {numeroRestriccion: this.refs.restrictionDigitSelect.value}));
+      merge(this.state, {
+        user : {[key]: value},
+        valid: merge(this.state.valid, {[key]: isValid})
+      }));
   }
 
   async _handleSubmit() {
     try {
-      const response = await put('/users', this.state);
+      const response = await put('/users', this.state.user);
       console.log(response);
     }
     catch (error) {

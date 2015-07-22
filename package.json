@@ -42,7 +42,8 @@
     "react-redux": "^0.2.2",
     "redux": "^1.0.0-rc",
     "redux-thunk": "^0.1.0",
-    "request": "^2.58.0"
+    "request": "^2.58.0",
+    "validator": "^3.41.2"
   },
   "devDependencies": {
     "autoprefixer": "^5.2.0",
