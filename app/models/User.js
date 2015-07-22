@@ -4,11 +4,10 @@
  */
 
 import mongoose from 'mongoose';
+import randToken from 'rand-token'
 import * as CRUD from './helpers/CRUD.js';
 import {log} from '../modules/logger';
 
-// Create a token generator with the default settings:
-const randToken = require('rand-token');
 
 /**
  * User's Schema
@@ -81,7 +80,6 @@ export function allWithRestriction(numbers) {
  * un-subscribe an User from notifications
  * @param {string} email
  */
-// TODO: cambiamos notify a false para el usuario
 export function unSubscribe(email) {
   return CRUD.update(User, {email}, {notify: false})
     .catch( error => {
