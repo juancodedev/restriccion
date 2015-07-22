@@ -27,3 +27,7 @@ export function* create(){
   }
 
 }
+
+export function* unsubscribe(){
+  this.body = 'done!';
+}

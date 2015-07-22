@@ -31,8 +31,8 @@ jobs.process('new_scrape', function (job, done){
                 return user.email;
               });
               //console.log('Se enviarán los correos...');
-              //console.log('emails: ' + JSON.stringify(emails));
-              sendEmails(emails);
+              console.log('INFOSCRAPING: ' + JSON.stringify(scrapedData));
+              sendEmails(emails, scrapedData);
             });
           }
         }

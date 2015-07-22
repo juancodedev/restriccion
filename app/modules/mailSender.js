@@ -5,8 +5,8 @@ const jobs = kue.createQueue();
 const mandrillClient = new mandrill.Mandrill('cIGy-GA91BW6mj574DVK4A');
 
 jobs.process('new_email', function (job, done){
-  console.log('JOB: ' + JSON.stringify(job));
-  sendEmail(job.data.emails, done);
+  //console.log('JOB: ' + JSON.stringify(job));
+  sendEmail(job.data.emails, job.data.info, done);
 });
 
 
@@ -15,7 +15,7 @@ jobs.process('new_email', function (job, done){
  * @param  {array} emailArray is the array sent to be divided
  *
  */
-export function sendEmails(emailArray) {
+export function sendEmails(emailArray, info) {
   const divideUsers = splitEvery(150);
   const newArray = divideUsers(emailArray);
 
@@ -27,8 +27,7 @@ export function sendEmails(emailArray) {
       obj.type = 'to';
       return obj;
     });
-
-    addEmailToQueue(emails);
+    addEmailToQueue(emails, info); //change to emails instead of em in production
   });
 }
 
@@ -37,9 +36,10 @@ export function sendEmails(emailArray) {
  * @param  {array} email array with the recipient data
  * @return {promise}
  */
-export function addEmailToQueue(emails){
+export function addEmailToQueue(emails, info){
     const emailJob = jobs.create('new_email', {
-      emails
+      emails,
+      info
     })
       //priority of the job
       .priority('high')
@@ -72,31 +72,57 @@ export function addEmailToQueue(emails){
  * @param  {Function} done  callback from the job process
  * @return {none}
  */
-export function sendEmail(emails, done){
-  console.log('ENVIANDO CORREO A: ' + JSON.stringify(emails));
+export function sendEmail(emails, info, done){
+  //console.log('INFO: ' + JSON.stringify(info));
+
+  var mergeVars = [];
+
+  emails.forEach(em => {
+    var obj = {};
+    obj.rcpt = em.email;
+    obj.vars = [];
+    var param1 = {};
+    param1.name = 'EMAIL';
+    param1.content = em.email;
+    var param2 = {};
+    param2.name = 'TOKEN';
+    param2.content = em.token;
+    obj.vars.push(param1);
+    obj.vars.push(param2);
+    mergeVars.push(obj);
+  });
+
+  //console.log(JSON.stringify(mergeVars));
+
 
   const templateName = 'tengoRestriccion';
   const message = {
     'inline_css': true,
-    'to'        : emails
+    'to'        : emails,
+    'merge'     : true,
+    'merge_vars': mergeVars
   };
 
   const templateContent = [
     {
       'name'   : 'fecha',
-      'content': 'test fecha'
+      'content': info.fecha
     },
     {
       'name'   : 'estatus',
-      'content': 'test estatus'
+      'content': info.estatus
     },
     {
       'name'   : 'conSello',
-      'content': 'test de números con sello'
+      'content': (info.numeros.conSello.length > 0) ? info.numeros.conSello.join('-') : 'Sin restricción'
     },
     {
       'name'   : 'sinSello',
-      'content': 'test de números sin sello'
+      'content': info.numeros.sinSello.join('-')
+    },
+    {
+      'name'   : 'CLIENT_NAME',
+      'content': 'www.youtube.com'
     }
   ];
 
@@ -109,6 +135,7 @@ export function sendEmail(emails, done){
   }, function(err){
     console.log('ERROR: ' + JSON.stringify(err));
   });
+
 
   done();
 }

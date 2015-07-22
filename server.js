@@ -59,7 +59,7 @@ app.use(route.get('/restriction_day', restrictionDayController.latest));
 
 /* Users */
 app.use(route.put('/users', userController.create));
-  app.use(route.post('/users', userController.create));
+  app.use(route.get('/users', userController.unsubscribe));
 
 
 /**
