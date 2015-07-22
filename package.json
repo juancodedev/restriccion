@@ -37,6 +37,7 @@
     "mongoose": "^4.0.7",
     "parallelshell": "^1.2.0",
     "ramda": "^0.17.1",
+    "rand-token": "^0.2.1",
     "react": "^0.14.0-beta1",
     "react-dom": "^0.14.0-beta1",
     "react-redux": "^0.2.2",

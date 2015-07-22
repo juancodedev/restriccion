@@ -7,6 +7,9 @@ import mongoose from 'mongoose';
 import * as CRUD from './helpers/CRUD.js';
 import {log} from '../modules/logger';
 
+// Create a token generator with the default settings:
+const randToken = require('rand-token');
+
 /**
  * User's Schema
  * @param {string} email
@@ -17,7 +20,8 @@ const schema = mongoose.Schema({
   email            : { type: String, unique: true },
   notify           : { type: Boolean, default: true },
   selloVerde       : { type: Boolean, required: true },
-  numeroRestriccion: { type: Number, required: true }
+  numeroRestriccion: { type: Number, required: true },
+  token            : { type: String, required: true, unique: true }
 });
 
 /*
@@ -37,6 +41,8 @@ export const model = User;
  * @param {object} UserData an object according to User's Schema
  */
 export function create(userData) {
+  const userToken = randToken.generate(16);
+  userData.token = userToken;
   return CRUD.create(User, userData)
     .catch( error => {
       log.error({'User#create': { userData, error }});
