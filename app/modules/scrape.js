@@ -1,6 +1,6 @@
 import request from 'request';
 import cheerio from 'cheerio';
-import {compose, map, filter, trim, split, replace, test, ifElse, empty} from 'ramda';
+import {compose, map, filter, trim, split, replace, test, ifElse, always} from 'ramda';
 
 
 /**
@@ -37,7 +37,7 @@ export function parseNumerosRestriccion(jsonArray) {
 
   const parseConSello =
     ifElse(test(/^.*, con sello verde (.*)$/),
-      compose(parseNumbers, conSelloRegex), empty);
+      compose(parseNumbers, conSelloRegex), always([]));
 
 
   //TODO: ocupar ifElse para sacar la fecha o tirar el error
