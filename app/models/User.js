@@ -89,3 +89,15 @@ export function unSubscribe(email) {
       return Promise.reject(error);
     });
 }
+
+/**
+ * finds a user by the email
+ * @param  {string} email
+ */
+export function find(email){
+  return User.find({email: email})
+    .catch( error => {
+      log.error({'User#find': { email, error}});
+      return Promise.reject(error);
+    });
+}

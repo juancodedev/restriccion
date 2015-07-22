@@ -29,5 +29,18 @@ export function* create(){
 }
 
 export function* unsubscribe(){
-  this.body = 'done!';
+  try{
+    const paramEmail = this.request.query.email;
+    const paramToken = this.request.query.token;
+    User.find(paramEmail)
+      .then(function(){
+        this.body = 'User found';
+      })
+      .catch(function(){
+        this.body = 'User not found';
+      });
+  }
+  catch(error){
+    this.body = 'Error: ' + error;
+  }
 }
