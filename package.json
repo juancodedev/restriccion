@@ -5,7 +5,7 @@
   "scripts": {
     "start": "parallelshell \"NODE_ENV=development nodemon index.js\"  \"node webpack-server.js\" \"npm run watch\"",
     "win": "parallelshell \"set NODE_ENV=development&&node index.js\"  \"node webpack-server.js\" \"npm run watch\"",
-    "production": "NODE_ENV=prod node index.js",
+    "production": "NODE_ENV=production node index.js",
     "test": "eslint . && NODE_ENV=test mocha --compilers js:babel/register --reporter spec 'app/**/__tests__/*-test.js'",
     "docker": "npm install && npm rebuild && npm run build",
     "build": "NODE_ENV=production npm run build:bundle && npm run build:css",

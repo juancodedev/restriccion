@@ -27,7 +27,7 @@ export const app = koa();
 app.use(koaBody());
 
 /* Logger */
-if (__TEST__) {
+if (!__TEST__) {
   app.use(function *(next){
     var start = new Date();
     yield next;
@@ -37,7 +37,7 @@ if (__TEST__) {
 }
 
 /* Serve static Assets */
-if (__PRODUCTION__) {
+if (!__PRODUCTION__) {
   app.use(
     serve(path.join(__dirname, 'public')));
 }

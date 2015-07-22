@@ -6,7 +6,6 @@ import Footer from './Footer.jsx';
 
 
 export default class App extends React.Component {
-  /* ES7/2016 Stage-0 es7.classProperties */
   static propTypes = {
     store: PropTypes.object.isRequired
   };

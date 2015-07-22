@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 moment.locale('es');
 
-/* ES7/2016 Stage-1 es7.decorators */
+
 @connect(state => ({
   restrictionDay: state.restrictionDay
 }))

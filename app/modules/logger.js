@@ -15,7 +15,7 @@ function streamType(file) {
 
     return [{
       type  : 'rotating-file',
-      path  : path.join(__dirname, 'log', file),
+      path  : path.join(__dirname, '..', '..', 'log', file),
       period: '1d',
       count : 15
     }];
@@ -30,7 +30,7 @@ export const logRequest =
   bunyan.createLogger({
     name   : 'AppRequests',
     level  : logLevel(),
-    streams: streamType()
+    streams: streamType('requests.log')
   });
 
 export const log =
