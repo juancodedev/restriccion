@@ -66,9 +66,9 @@ jobs.process('new_scrape', async function (job, done){
 
 
 function flattenTime(dateTime) {
-  dateTime.setHours(0);
-  dateTime.setMinutes(0);
-  dateTime.setSeconds(0);
+  //dateTime.setHours(0);
+  //dateTime.setMinutes(0);
+  //dateTime.setSeconds(0);
   return dateTime;
 }
 
@@ -76,5 +76,6 @@ function flattenTime(dateTime) {
 async function notifyRestrictedUsers(numbers, restrictionDayData) {
   const users = User.allWithRestriction(numbers);
   const emails = project([emails], users);
+  console.log('USERS: ' + users);
   sendEmails(emails, restrictionDayData);
 }

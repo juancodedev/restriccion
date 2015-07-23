@@ -94,10 +94,18 @@ export function unSubscribe(email) {
  * finds a user by the email
  * @param  {string} email
  */
-export function find(email){
-  return User.find({email: email})
-    .catch( error => {
-      log.error({'User#find': { email, error}});
-      return Promise.reject(error);
+export function find(obj){
+  return new Promise(function(resolve, reject){
+    User.find(obj)
+    .exec((error, doc) => {
+      if (error) {
+        log.error({'User#find': { obj, error}});
+        reject(error);
+      }
+      if(doc.length === 0){
+        reject(Error('User not found'));
+      }
+      resolve(doc[0]);
     });
+  });
 }

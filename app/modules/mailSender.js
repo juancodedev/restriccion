@@ -73,7 +73,7 @@ export function addEmailToQueue(emails, info){
  * @return {none}
  */
 export function sendEmail(emails, info, done){
-  //console.log('INFO: ' + JSON.stringify(info));
+  console.log('EMAILS: ' + JSON.stringify(emails));
 
   var mergeVars = [];
 

@@ -19,7 +19,7 @@ scrape.fetchNumerosRestriccion()
   })
   .then(function(){
     // Schedule Scrape and Notify Users Job
-    if(__PRODUCTION__) { scheduleScrapeAndNotifyUsers(1000 * 1, 1000 * 60 * 60); }
+    if(true) { scheduleScrapeAndNotifyUsers(1000 * 1, 1000 * 60 * 60); }
 
     // Run the Server
     require('./server.js');
