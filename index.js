@@ -8,7 +8,7 @@ require('./app/modules/connectToDB');
 const __PRODUCTION__ = require('./app/config/envs').__PRODUCTION__;
 const RestrictionDay = require('./app/models/RestrictionDay.js');
 const scrape = require('./app/modules/scrape.js');
-//const scheduleScrapeAndNotifyUsers = require('./app/jobs/scrapeAndNotifyUsers');
+const scheduleScrapeAndNotifyUsers = require('./app/jobs/scrapeAndNotifyUsers');
 
 
 // First Scrape
