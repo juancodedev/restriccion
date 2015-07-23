@@ -4,6 +4,7 @@
  */
 
 import mongoose from 'mongoose';
+import {isEmail} from 'validator';
 import randToken from 'rand-token';
 import * as CRUD from './helpers/CRUD.js';
 import {log} from '../modules/logger';
@@ -27,9 +28,8 @@ const schema = mongoose.Schema({
  * Validations
  */
 schema.path('email').validate(email => {
-   var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-   return emailRegex.test(email);
-}, 'The e-mail field cannot be empty.');
+   return isEmail(email);
+}, 'The e-mail field must be a valid e-mail address');
 
 const User = mongoose.model('User', schema);
 export const model = User;
