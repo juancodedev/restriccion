@@ -61,8 +61,8 @@ export function allWithRestriction(numbers) {
   return new Promise(function(resolve, reject){
     User.find(
       { $or: [
-          { selloVerde: 'true', numeroRestriccion: {$in: numbers.conSello} },
-          { selloVerde: 'false', numeroRestriccion: {$in: numbers.sinSello} }
+          { selloVerde: true, numeroRestriccion: {$in: numbers.conSello}, notify: true },
+          { selloVerde: false, numeroRestriccion: {$in: numbers.sinSello}, notify: true }
         ]
       })
       .exec((error, doc) => {
