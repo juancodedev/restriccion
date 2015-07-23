@@ -1,6 +1,5 @@
 import kue from 'kue';
 import {log} from '../modules/logger';
-import {project} from 'ramda';
 import {fetchNumerosRestriccion} from '../modules/scrape';
 import * as RestrictionDay from '../models/RestrictionDay';
 import * as User from '../models/User';

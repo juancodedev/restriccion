@@ -4,7 +4,7 @@
  */
 
 import mongoose from 'mongoose';
-import randToken from 'rand-token'
+import randToken from 'rand-token';
 import * as CRUD from './helpers/CRUD.js';
 import {log} from '../modules/logger';
 
