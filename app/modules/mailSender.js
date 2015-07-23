@@ -1,6 +1,10 @@
 import mandrill from 'mandrill-api/mandrill';
+import moment from 'moment';
+import {log} from '../modules/logger';
 import {__MANDRILL_KEY__} from '../config/mandrill';
+
 const mandrillClient = new mandrill.Mandrill(__MANDRILL_KEY__);
+moment.locale('es');
 
 
 /**
@@ -12,7 +16,6 @@ const mandrillClient = new mandrill.Mandrill(__MANDRILL_KEY__);
 export function sendEmail(emails, info, done){
 
   var mergeVars = [];
-
   emails.forEach(em => {
     var obj = {};
     obj.rcpt = em.email;
@@ -28,8 +31,6 @@ export function sendEmail(emails, info, done){
     mergeVars.push(obj);
   });
 
-  //console.log(JSON.stringify(mergeVars));
-
 
   const templateName = 'tengoRestriccion';
   const message = {
@@ -42,7 +43,7 @@ export function sendEmail(emails, info, done){
   const templateContent = [
     {
       'name'   : 'fecha',
-      'content': info.fecha
+      'content': moment(info.fecha).format('dddd DD MMMM YYYY')
     },
     {
       'name'   : 'estatus',
@@ -55,10 +56,6 @@ export function sendEmail(emails, info, done){
     {
       'name'   : 'sinSello',
       'content': info.numeros.sinSello.join('-')
-    },
-    {
-      'name'   : 'CLIENT_NAME',
-      'content': 'www.youtube.com'
     }
   ];
 
@@ -66,12 +63,11 @@ export function sendEmail(emails, info, done){
     'template_name'   : templateName,
     'template_content': templateContent,
     'message'         : message
-  }, function(result){
-    console.log('RESULT: ' + JSON.stringify(result));
-  }, function(err){
-    console.log('ERROR: ' + JSON.stringify(err));
+  }, result => {
+    log.info({'mailSender#sendEmail': { result }});
+  }, error => {
+    log.error({'mailSender#sendEmail': { error }});
   });
-
 
   done();
 }
