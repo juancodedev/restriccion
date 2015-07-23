@@ -42,15 +42,25 @@ export function* unsubscribe(){
   try{
     const paramEmail = this.request.query.email;
     const paramToken = this.request.query.token;
-    User.find(paramEmail)
+
+    User.find({email: paramEmail})
+      .then(function(user){
+        console.log('USER: ' + JSON.stringify(user));
+        if(user.token !== paramToken){
+          throw Error('Token inválido');
+        }
+        return User.unSubscribe(user.email);
+      })
       .then(function(){
-        this.body = 'User found';
+        console.log('Usuario eliminado de la lista de correos');
       })
       .catch(function(){
-        this.body = 'User not found';
+        console.log('Error en la solicitud.');
       });
+
+    this.body = 'REVISANDOO....';
   }
   catch(error){
-    this.body = 'Error: ' + error;
+    this.body = 'Error!';
   }
 }
