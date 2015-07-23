@@ -70,6 +70,25 @@ export default class Subscribe extends React.Component {
                <i className="material-icons left"></i>Enviar
               </a>
            </div>
+           <div className="row">
+             <div className="preloader-wrapper big active">
+                <div className="spinner-layer spinner-yellow-only">
+                  <div className="circle-clipper left">
+                    <div className="circle"></div>
+                  </div><div className="gap-patch">
+                    <div className="circle"></div>
+                  </div><div className="circle-clipper right">
+                    <div className="circle"></div>
+                  </div>
+                </div>
+              </div>
+           </div>
+           <div className="row alertForm alertTrue">
+             <span>Se realizo tu registro con exito!</span>
+           </div>
+           <div className="row alertForm alertFalse">
+             <span>Lo siento! Surgio un error, vuelve a revisar tu formulario.</span>
+           </div>
         </form>
       </section>
     );
