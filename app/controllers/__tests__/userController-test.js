@@ -44,7 +44,7 @@ describe('userController', () => {
       request(app.listen())
         .put('/users')
         .send(usuarioInvalido)
-        .expect(409)
+        .expect(500)
         .end(done);
     });
   });
