@@ -1,8 +1,9 @@
 import mandrill from 'mandrill-api/mandrill';
+import {__MANDRILL_KEY__} from '../config/mandrill';
 import kue from 'kue';
 import {splitEvery} from 'ramda';
 const jobs = kue.createQueue();
-const mandrillClient = new mandrill.Mandrill('cIGy-GA91BW6mj574DVK4A');
+const mandrillClient = new mandrill.Mandrill(__MANDRILL_KEY__);
 
 jobs.process('new_email', function (job, done){
   //console.log('JOB: ' + JSON.stringify(job));
