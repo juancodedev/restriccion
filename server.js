@@ -30,13 +30,15 @@ app.use(helmet.frameguard());
 app.use(helmet.hidePoweredBy());
 app.use(helmet.ieNoOpen());
 app.use(helmet.noSniff());
-app.use(helmet.contentSecurityPolicy({
-  defaultSrc: ["'self'"],
-  scriptSrc : ["'self'", 'cdnjs.cloudflare.com'],
-  styleSrc  : ["'self'", 'cdnjs.cloudflare.com'],
-  imgSrc    : ["'self'"],
-  fontSrc   : ["'self'", 'cdnjs.cloudflare.com']
-}));
+if(__PRODUCTION__) {
+  app.use(helmet.contentSecurityPolicy({
+    defaultSrc: ["'self'"],
+    scriptSrc : ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
+    styleSrc  : ["'self'", 'cdnjs.cloudflare.com'],
+    imgSrc    : ["'self'"],
+    fontSrc   : ["'self'", 'cdnjs.cloudflare.com']
+  }));
+}
 
 /* Koa Body Parser */
 app.use(koaBody());
