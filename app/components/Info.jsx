@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import moment from 'moment';
 import 'moment/locale/es';
 import { connect } from 'react-redux';
@@ -11,6 +11,10 @@ moment.locale('es');
 }))
 
 export default class Info extends React.Component {
+  static propTypes = {
+    restrictionDay: PropTypes.object.isRequired
+  };
+
   render() {
     const {conSello, sinSello, estatus} = this.props.restrictionDay;
     const fecha = moment(this.props.restrictionDay.fecha);

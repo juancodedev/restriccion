@@ -1,0 +1,19 @@
+.Loading {
+  height: 0;
+
+  &.initial {
+    opacity: 0;
+  }
+  
+  &.hidden {
+    @extend .fadeOut;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+  }
+
+  &.visible {
+    @extend .fadeIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+  }
+}

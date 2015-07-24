@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Main extends React.Component {
+export default class Footer extends React.Component {
   render() {
     return (
       <div className="stgoLab">

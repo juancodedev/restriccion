@@ -4,14 +4,18 @@ import {merge} from 'ramda';
 import {put} from 'axios';
 import {isEmail} from 'validator';
 import {getValidatorClass, allValid} from '../utils/formHelper';
+import Loading from './Loading.jsx';
+import Alert from './Alert.jsx';
 
 
 export default class Subscribe extends React.Component {
   constructor() {
     super();
     this.state = {
-      user : {},
-      valid: {
+      user   : {},
+      alert  : { message: '', isError: false, show: false, initial: true },
+      loading: { initial: true, show: false },
+      valid  : {
         email            : null,
         selloVerde       : null,
         numeroRestriccion: null
@@ -33,8 +37,8 @@ export default class Subscribe extends React.Component {
         <h4 className="white-text">¿Te avisamos cuanto tengas restricción?</h4>
         <form action="">
           <div className="row">
-             <div className="input-field select col s12 m7">
-               <select ref="restrictionDigitSelect" defaultValue="0">
+            <div className="input-field select col s12 m7">
+              <select ref="restrictionDigitSelect" defaultValue="0">
                 <option value="" disabled>Selecciona último dígito de tu patente </option>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -47,9 +51,9 @@ export default class Subscribe extends React.Component {
                 <option value="8">8</option>
                 <option value="9">9</option>
               </select>
-             </div>
-             <div className="col m3 s12 offset-m2">
-               <p>
+            </div>
+            <div className="col m3 s12 offset-m2">
+              <p>
                 <input onChange={this._handleChange.bind(this, 'sinSelloVerde')} name="sello" type="radio" id="sin_sello" />
                 <label htmlFor="sin_sello">Sin sello verde</label>
               </p>
@@ -57,38 +61,31 @@ export default class Subscribe extends React.Component {
                 <input onChange={this._handleChange.bind(this, 'conSelloVerde')} name="sello" type="radio" id="con_sello" />
                 <label htmlFor="con_sello">Con sello verde</label>
               </p>
-             </div>
-           </div>
-           <div className="row">
-             <div className="input-field col s12">
-               <input onChange={this._handleEmailChange.bind(this)} id="email" type="email" className={emailClass} />
-               <label htmlFor="email">Email</label>
-             </div>
-           </div>
-           <div className="row">
-             <a onClick={this._handleSubmit.bind(this)} className={submitClass}>
-               <i className="material-icons left"></i>Enviar
-              </a>
-           </div>
-           <div className="row">
-             <div className="preloader-wrapper big active">
-                <div className="spinner-layer spinner-yellow-only">
-                  <div className="circle-clipper left">
-                    <div className="circle"></div>
-                  </div><div className="gap-patch">
-                    <div className="circle"></div>
-                  </div><div className="circle-clipper right">
-                    <div className="circle"></div>
-                  </div>
-                </div>
+            </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <input onChange={this._handleEmailChange.bind(this)} id="email" type="email" className={emailClass} />
+                <label htmlFor="email">Email</label>
               </div>
-           </div>
-           <div className="row alertForm alertTrue">
-             <span>Se realizo tu registro con exito!</span>
-           </div>
-           <div className="row alertForm alertFalse">
-             <span>Lo siento! Surgio un error, vuelve a revisar tu formulario.</span>
-           </div>
+            </div>
+            <div className="row">
+              <a onClick={this._handleSubmit.bind(this)} className={submitClass}>
+                <i className="material-icons left"></i>Enviar
+              </a>
+            </div>
+            <div className="row">
+              <Loading
+                initial = {this.state.loading.initial}
+                show    = {this.state.loading.show} />
+
+              <Alert
+                message = {this.state.alert.message}
+                isError = {this.state.alert.isError}
+                initial = {this.state.alert.initial}
+                show    = {this.state.alert.show}
+                onClick = {this._handleAlertClick.bind(this)} />
+            </div>
         </form>
       </section>
     );
@@ -96,19 +93,19 @@ export default class Subscribe extends React.Component {
 
   _handleChange(key) {
     const value = (key === 'conSelloVerde');
-    this._setFormState('selloVerde', value, true);
+    this._setFormInputState('selloVerde', value, true);
   }
 
   _handleEmailChange(e) {
-    const value = e.currentTarget.value; //TODO: e.target en react 0.14.0-beta2
-    this._setFormState('email', value, isEmail(value));
+    const value = e.currentTarget.value; //TODO: e.target en react > 0.14.0-beta2
+    this._setFormInputState('email', value, isEmail(value));
   }
 
   _handleRestrictionDigitChange() {
-    this._setFormState('numeroRestriccion', this.refs.restrictionDigitSelect.value, true);
+    this._setFormInputState('numeroRestriccion', this.refs.restrictionDigitSelect.value, true);
   }
 
-  _setFormState(key, value, isValid) {
+  _setFormInputState(key, value, isValid) {
     this.setState(
       merge(this.state, {
         user : merge(this.state.user, {[key]: value}),
@@ -117,13 +114,36 @@ export default class Subscribe extends React.Component {
   }
 
   async _handleSubmit() {
-    console.log(this.state);
+    this.setState(
+      merge(this.state, { loading: {initial: false, show: true} }));
+
     try {
-      const response = await put('/users', this.state.user);
-      console.log(response);
+      await put('/users', this.state.user);
+      this.setState(
+        merge(this.state, {
+          alert: {
+            message: 'Recibido!, te notificaremos cuando tengas restricción =)',
+            isError: false,
+            show   : true,
+            initial: false
+          }}));
     }
     catch (error) {
-      console.log(error);
+      this.setState(
+        merge(this.state, {
+          alert: { message: error.data.errors[0].description, isError: true, show: true, initial: false } }));
     }
+    finally {
+      this.setState(
+        merge(this.state, { loading: {initial: false, show: false} }));
+    }
+  }
+
+  _handleAlertClick() {
+    this.setState(
+      merge(this.state, {
+        alert: merge(this.state.alert, { show: false, initial: false })
+      })
+    );
   }
 }

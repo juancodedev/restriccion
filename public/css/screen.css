@@ -1,3 +1,33 @@
+.Alert {
+  height: 0; }
+  .Alert.initial {
+    opacity: 0; }
+  .Alert.hidden {
+    -webkit-animation-duration: 0.5s;
+            animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+            animation-fill-mode: both; }
+  .Alert.visible {
+    -webkit-animation-duration: 0.5s;
+            animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+            animation-fill-mode: both; }
+
+.Loading {
+  height: 0; }
+  .Loading.initial {
+    opacity: 0; }
+  .Loading.hidden {
+    -webkit-animation-duration: 0.5s;
+            animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+            animation-fill-mode: both; }
+  .Loading.visible {
+    -webkit-animation-duration: 0.5s;
+            animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+            animation-fill-mode: both; }
+
 body {
   background: #3A3B3F;
   text-rendering: optimizeLegibility; }
@@ -208,37 +238,53 @@ form {
   100% {
     opacity: 1; } }
 
-.fadeIn {
+.fadeIn, .Alert.visible, .Loading.visible {
   -webkit-animation-name: fadeIn;
-  animation-name: fadeIn; }
+          animation-name: fadeIn; }
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+.fadeOut, .Alert.hidden, .Loading.hidden {
+  -webkit-animation-name: fadeOut;
+          animation-name: fadeOut; }
 
 @-webkit-keyframes fadeInUp {
   0% {
     opacity: 0;
     -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0); }
+            transform: translate3d(0, 100%, 0); }
   100% {
     opacity: 1;
     -webkit-transform: none;
-    transform: none; } }
+            transform: none; } }
 
 @keyframes fadeInUp {
   0% {
     opacity: 0;
     -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0); }
+            transform: translate3d(0, 100%, 0); }
   100% {
     opacity: 1;
     -webkit-transform: none;
-    transform: none; } }
+            transform: none; } }
 
 .fadeInUp {
   -webkit-animation-name: fadeInUp;
-  animation-name: fadeInUp;
+          animation-name: fadeInUp;
   -webkit-animation-duration: 1s;
-  animation-duration: 1s;
+          animation-duration: 1s;
   -webkit-animation-fill-mode: both;
-  animation-fill-mode: both; }
+          animation-fill-mode: both; }
 
 @media screen and (max-width: 400px) {
   .restriccion .conSello, .restriccion .sinSello {
