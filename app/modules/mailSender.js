@@ -6,12 +6,10 @@ import {__MANDRILL_KEY__} from '../config/mandrill';
 const mandrillClient = new mandrill.Mandrill(__MANDRILL_KEY__);
 moment.locale('es');
 
-
+// TODO: actualizar documentacion y nombres de variables
 /**
- * Sends the email to the address received as parameter
+ * Sends Restriction Notification Emails to Users
  * @param  {array}   email array with the recipient data
- * @param  {Function} done  callback from the job process
- * @return {none}
  */
 export function sendEmail(emails, info, done){
 
