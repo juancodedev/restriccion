@@ -23,7 +23,7 @@ describe('User', () => {
     numeroRestriccion: '0'
   };
 
-  describe('#create', () => {
+  describe('create', () => {
 
     it('should create the user sent in the query',  done => {
       User.create(usuarioBueno)
@@ -50,7 +50,7 @@ describe('User', () => {
     });
   });
 
-  describe('#allWithRestriction', () => {
+  describe('allWithRestriction', () => {
     const usuarioUno = { email: 'one@gmail.com', notify: true, selloVerde: true, numeroRestriccion: 1 };
     const usuarioDos = { email: 'two@gmail.com', notify: true, selloVerde: true, numeroRestriccion: 3 };
     const usuarioTres = { email: 'three@gmail.com', notify: true, selloVerde: false, numeroRestriccion: 9 };
@@ -66,35 +66,14 @@ describe('User', () => {
       sinSello: [8, 9, 0, 1]
     };
 
-    before( done => {
+    it('returns an array with the restricted users',  done => {
+
       Promise.all([User.create(usuarioUno),
       User.create(usuarioDos),
       User.create(usuarioTres),
       User.create(usuarioCuatro)])
       .then(() => {
-        done();
-      });
-    });
-
-    it('returns an array with the restricted users',  done => {
-      const t1 = User.allWithRestriction(numbersUno)
-        .then(function(result){
-          result.should.be.an('array');
-          result.should.all.have.property('email');
-          result.should.all.have.property('notify');
-          result.should.all.have.property('selloVerde');
-          result.should.all.have.property('numeroRestriccion');
-
-
-          result.should.contain.a.thing.with.property('email', 'three@gmail.com');
-          result.should.contain.a.thing.with.property('email', 'four@gmail.com');
-
-          result.should.not.contain.a.thing.with.property('email', 'one@gmail.com');
-          result.should.not.contain.a.thing.with.property('email', 'two@gmail.com');
-
-        });
-
-        const t2 = User.allWithRestriction(numbersDos)
+        const t1 = User.allWithRestriction(numbersUno)
           .then(function(result){
             result.should.be.an('array');
             result.should.all.have.property('email');
@@ -102,40 +81,56 @@ describe('User', () => {
             result.should.all.have.property('selloVerde');
             result.should.all.have.property('numeroRestriccion');
 
-            result.should.contain.a.thing.with.property('email', 'one@gmail.com');
-            result.should.contain.a.thing.with.property('email', 'two@gmail.com');
-            result.should.contain.a.thing.with.property('email', 'three@gmail.com');
 
-            result.should.not.contain.a.thing.with.property('email', 'four@gmail.com');
+            result.should.contain.a.thing.with.property('email', 'three@gmail.com');
+            result.should.contain.a.thing.with.property('email', 'four@gmail.com');
+
+            result.should.not.contain.a.thing.with.property('email', 'one@gmail.com');
+            result.should.not.contain.a.thing.with.property('email', 'two@gmail.com');
+
           });
 
-        Promise.all([t1, t2]).then(() => {
-          done();
-        }).catch(done);
+          const t2 = User.allWithRestriction(numbersDos)
+            .then(function(result){
+              result.should.be.an('array');
+              result.should.all.have.property('email');
+              result.should.all.have.property('notify');
+              result.should.all.have.property('selloVerde');
+              result.should.all.have.property('numeroRestriccion');
+
+              result.should.contain.a.thing.with.property('email', 'one@gmail.com');
+              result.should.contain.a.thing.with.property('email', 'two@gmail.com');
+              result.should.contain.a.thing.with.property('email', 'three@gmail.com');
+
+              result.should.not.contain.a.thing.with.property('email', 'four@gmail.com');
+            });
+
+          Promise.all([t1, t2]).then(() => {
+            done();
+          }).catch(done);
+      });
     });
   });
 
 
-  describe('#unSubscribe', () => {
+  describe('unSubscribe', () => {
     const usuario = { email: 'one@gmail.com', notify: true, selloVerde: true, numeroRestriccion: 1 };
 
-    before( done => {
-      User.create(usuario)
-      .then(() => {
-        done();
-      });
-    });
-
     it('should un-subscribe the User', () => {
-      return User.unSubscribe('one@gmail.com')
-              .should.eventually.have.property('nModified', 1);
+      return User.create(usuario)
+        .then(() => {
+          return User.unSubscribe('one@gmail.com')
+                  .should.eventually.have.property('nModified', 1);
+        });
     });
 
 
     it('should throw if User doesn\'t exist', () => {
-      return User.unSubscribe('two@gmail.com')
-              .should.eventually.be.rejectedWith(/Error/);
-
+      return User.create(usuario)
+        .then(() => {
+          return User.unSubscribe('two@gmail.com')
+                  .should.eventually.be.rejectedWith(/Error/);
+        });
     });
   });
 });
