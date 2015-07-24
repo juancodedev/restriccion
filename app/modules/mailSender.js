@@ -2,6 +2,7 @@ import mandrill from 'mandrill-api/mandrill';
 import moment from 'moment';
 import {log} from '../modules/logger';
 import {__MANDRILL_KEY__} from '../config/mandrill';
+//import {map} from 'ramda';
 
 const mandrillClient = new mandrill.Mandrill(__MANDRILL_KEY__);
 moment.locale('es');
@@ -9,12 +10,17 @@ moment.locale('es');
 // TODO: actualizar documentacion y nombres de variables
 /**
  * Sends Restriction Notification Emails to Users
- * @param  {array}   email array with the recipient data
+ * @param  {array}    users array
+ * @param  {object}   object with the latest scraped data
+ * @param  {function} callback
  */
-export function sendEmail(emails, info, done){
+export function sendEmail(users, info, done){
 
-  var mergeVars = [];
-  emails.forEach(em => {
+
+  const emails = users.map(user => user.email);
+
+  const mergeVars = users.map(em => {
+
     var obj = {};
     obj.rcpt = em.email;
     obj.vars = [];
@@ -26,7 +32,8 @@ export function sendEmail(emails, info, done){
     param2.content = em.token;
     obj.vars.push(param1);
     obj.vars.push(param2);
-    mergeVars.push(obj);
+
+    return obj;
   });
 
 

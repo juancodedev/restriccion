@@ -68,10 +68,9 @@ jobs.process('new_scrape', async function (job, done){
  * @return {date}
  */
 function flattenTime(dateTime) {
-  //const unixTime = dateTime.getTime();
-  //const flatDate = unixTime.toString().substr(0, 7);
-  //return new Date(Number.parseInt(flatDate));
-  return dateTime;
+  const unixTime = dateTime.getTime();
+  const flatDate = unixTime.toString().substr(0, 7);
+  return new Date(Number.parseInt(flatDate));
 }
 
 

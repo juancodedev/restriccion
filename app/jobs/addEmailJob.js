@@ -11,12 +11,12 @@ jobs.process('new_email', function (job, done){
 
 /**
  * prepareEmails
- * @param  {array} emailArray is the array sent to be divided
- *
+ * @param  {array} userArray is the array sent to be divided
+ * @param  {object} info is the object with the latest scraped data
  */
-export function prepareEmails(emailArray, info) {
+export function prepareEmails(userArray, info) {
   const divideUsers = splitEvery(150);
-  const newArray = divideUsers(emailArray);
+  const newArray = divideUsers(userArray);
 
   //Add emails to Queue
   newArray.forEach(em => {
@@ -27,11 +27,10 @@ export function prepareEmails(emailArray, info) {
 
 /**
  * Adds an email Job to the queue
- * @param  {array} email array with the recipient data
+ * @param  {array, object} email array with the recipient data and scrapedInfo object
  * @return {promise}
  */
 export function addEmailToQueue(emails, info){
-  console.log('working...');
     const emailJob = jobs.create('new_email', {
       emails,
       info
