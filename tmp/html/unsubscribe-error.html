@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <meta charset="utf-8" />
+     <!--Import materialize.css-->
+     <link type="text/css" rel="stylesheet" href="stylesheets/materialize.css"  media="screen,projection"/>
+     <link type="text/css" rel="stylesheet" href="stylesheets/screen.css"  media="screen,projection"/>
+
+     <!--Let browser know website is optimized for mobile-->
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   </head>
+
+   <body>
+     <div class="container">
+        <div class="top center-align">
+          <img class="responsive-img logo" src="imgs/logo.svg" alt="tengorestriccion">
+          <h2></h2>
+        </div>
+        <hr>
+<div class="main">
+            <section class="info">
+
+            <h4 class="red-text text-accent-3">Error en cancelar la subscripción, intenta nuevamente.<br>Escribenos a <a
+            href="mailto:consultas@santiagolab.cl?subject=Unsubscribe error" target="_top" style="color:#D9FF39;">consultas@santiagolab.cl</a></h4>
+
+            </section>
+
+
+            <hr>
+            <div class="stgoLab">
+              <h5>Desarrollado por:</h5>
+              <a href="http://www.santiagolab.cl/"><img class="responsive-img" src="imgs/logo-santiagolab.svg" alt="SantiagoLab"></a>
+            </div>
+        </div>
+     </div>
+
+     <!--Import jQuery before materialize.js-->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+     <script type="text/javascript" src="js/materialize.min.js"></script>
+     <script type="text/javascript">
+     $(document).ready(function() {
+        $('select').material_select();
+      });
+     </script>
+   </body>
+ </html>
