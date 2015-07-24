@@ -49,4 +49,49 @@ describe('userController', () => {
     });
   });
 
+  describe('unSubscribe', () => {
+    it('should unsubscribe a user', done => {
+      const usuarioValido = { email: 'unsubscribe@gmail.com', notify: true, selloVerde: true, numeroRestriccion: 1 };
+      User.create(usuarioValido)
+      .then(function(){
+        return User.find('unsubscribe@gmail.com');
+      })
+      .then(user => {
+        request(app.listen())
+          .get('/users?email=' + user.email + '&token=' + user.token )
+          .expect(200)
+          .end(done);
+      });
+    });
+
+    it('should not unSubscribe user with wrong token', done => {
+      const usuarioValido = { email: 'unsubscribe@gmail.com', notify: true, selloVerde: true, numeroRestriccion: 1 };
+      User.create(usuarioValido)
+      .then(function(){
+        return User.find('unsubscribe@gmail.com');
+      })
+      .then(user => {
+        request(app.listen())
+          .get('/users?email=' + user.email + '&token=ABC')
+          .expect(400)
+          .end(done);
+      });
+    });
+
+    it('should not unSubscribe user with wrong email', done => {
+      const usuarioValido = { email: 'unsubscribe@gmail.com', notify: true, selloVerde: true, numeroRestriccion: 1 };
+      User.create(usuarioValido)
+      .then(function(){
+        return User.find('unsubscribe@gmail.com');
+      })
+      .then(user => {
+        request(app.listen())
+          .get('/users?email=ABC&token=' + user.token )
+          .expect(400)
+          .end(done);
+      });
+    });
+
+  });
+
 });
