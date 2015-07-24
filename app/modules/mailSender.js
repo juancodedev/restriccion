@@ -1,69 +1,10 @@
 import mandrill from 'mandrill-api/mandrill';
-import kue from 'kue';
-import {splitEvery} from 'ramda';
-const jobs = kue.createQueue();
-const mandrillClient = new mandrill.Mandrill('cIGy-GA91BW6mj574DVK4A');
+import moment from 'moment';
+import {log} from '../modules/logger';
+import {__MANDRILL_KEY__} from '../config/mandrill';
 
-jobs.process('new_email', function (job, done){
-  //console.log('JOB: ' + JSON.stringify(job));
-  sendEmail(job.data.emails, job.data.info, done);
-});
-
-
-/**
- * sendEmails
- * @param  {array} emailArray is the array sent to be divided
- *
- */
-export function sendEmails(emailArray, info) {
-  const divideUsers = splitEvery(150);
-  const newArray = divideUsers(emailArray);
-
-  newArray.forEach(em => {
-    var emails = em.map(i => {
-      var obj = {};
-      obj.email = i;
-      obj.name = '';
-      obj.type = 'to';
-      return obj;
-    });
-    addEmailToQueue(emails, info); //change to emails instead of em in production
-  });
-}
-
-/**
- * Adds an email Job to the queue
- * @param  {array} email array with the recipient data
- * @return {promise}
- */
-export function addEmailToQueue(emails, info){
-    const emailJob = jobs.create('new_email', {
-      emails,
-      info
-    })
-      //priority of the job
-      .priority('high')
-      //Attempts if the job fails
-      .attempts(5)
-      //Delay before another attempt when failed
-      .backoff({delay: 30000, type: 'fixed'})
-      //time to remain active before it is set to failed
-      .ttl(10000);
-
-    emailJob
-     .on('complete', function (){
-       console.log('El correo ha sido enviado');
-     })
-     .on('failed', function (){
-       console.log('Falló el envío del correo');
-     });
-
-    emailJob.save(function(err){
-      if(err){
-        console.log('Error al guardar el trabajo');
-      }
-    });
-}
+const mandrillClient = new mandrill.Mandrill(__MANDRILL_KEY__);
+moment.locale('es');
 
 
 /**
@@ -73,10 +14,8 @@ export function addEmailToQueue(emails, info){
  * @return {none}
  */
 export function sendEmail(emails, info, done){
-  //console.log('INFO: ' + JSON.stringify(info));
 
   var mergeVars = [];
-
   emails.forEach(em => {
     var obj = {};
     obj.rcpt = em.email;
@@ -92,8 +31,6 @@ export function sendEmail(emails, info, done){
     mergeVars.push(obj);
   });
 
-  //console.log(JSON.stringify(mergeVars));
-
 
   const templateName = 'tengoRestriccion';
   const message = {
@@ -106,7 +43,7 @@ export function sendEmail(emails, info, done){
   const templateContent = [
     {
       'name'   : 'fecha',
-      'content': info.fecha
+      'content': moment(info.fecha).format('dddd DD MMMM YYYY')
     },
     {
       'name'   : 'estatus',
@@ -119,10 +56,6 @@ export function sendEmail(emails, info, done){
     {
       'name'   : 'sinSello',
       'content': info.numeros.sinSello.join('-')
-    },
-    {
-      'name'   : 'CLIENT_NAME',
-      'content': 'www.youtube.com'
     }
   ];
 
@@ -130,12 +63,11 @@ export function sendEmail(emails, info, done){
     'template_name'   : templateName,
     'template_content': templateContent,
     'message'         : message
-  }, function(result){
-    console.log('RESULT: ' + JSON.stringify(result));
-  }, function(err){
-    console.log('ERROR: ' + JSON.stringify(err));
+  }, result => {
+    log.info({'mailSender#sendEmail': { result }});
+  }, error => {
+    log.error({'mailSender#sendEmail': { error }});
   });
-
 
   done();
 }

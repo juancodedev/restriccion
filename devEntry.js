@@ -1,9 +1,9 @@
 require('./app/modules/connectToDB.js');
 const scrape = require('./app/modules/scrape.js');
 //const RestrictionDay = require('./app/models/RestrictionDay.js');
-//const User = require('./app/models/User.js');
+const User = require('./app/models/User.js');
 //import {addEmailToQueue} from './app/modules/mailSender';
-import {sendEmails} from './app/modules/mailSender';
+//import {sendEmails} from './app/modules/mailSender';
 //import {startScraping} from './app/modules/startScrapeJobs';
 //import {startScraping} from './app/modules/startScrapeJobs.js';
 
@@ -61,11 +61,19 @@ User.create(us8);
 
 **/
 
+User.find('slabsuno@mailinator.com')
+.then(function(data){
+  console.log(data);
+})
+.catch(function(err){
+  console.log('ERROR: ' + err.message);
+});
+
 
 
 
 //startScraping(0);
-
+/**
 scrape.fetchNumerosRestriccion()
   .then(function(datosRestriccion) {
     //RestrictionDay.set(datosRestriccion);
@@ -101,7 +109,7 @@ scrape.fetchNumerosRestriccion()
   .then(function(data) { console.log(data); })
   .catch(function(err) { console.error(err); });
 
-
+**/
 
 
 /**

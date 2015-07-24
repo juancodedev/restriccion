@@ -13,34 +13,54 @@ export function* create(){
   catch(error){
     log.error({'userController#create': { query, error }});
 
-    // TODO: LEER EL ERROR Y MOSTRAR EL ERROR ACORDE
-    this.status = 409;
-    this.body = {
-      errors: [
-        {
-          status     : 409,
-          title      : 'Ya registrado',
-          description: 'El correo que ingresado ya está registrado. Por favor ingrese otro'
-        }
-      ]
-    };
-  }
+    if (/duplicate key error index.*email/.test(error)) {
+      this.status = 409;
+      this.body = {
+        errors: [
+          {
+            status     : this.status,
+            title      : 'Ya registrado',
+            description: 'El email que ingresaste ya está registrado. Intenta con otro email'
+          }]};
+    } else {
+      this.status = 500;
+      this.body = {
+        errors: [
+          {
+            status     : this.status,
+            title      : 'Error al crear el Usuario',
+            description: 'No Pudimos crear el Usuario. Revisa tus datos e intenta nuevamente!'
+          }
+        ]
+      };
+    }
 
+  }
 }
 
 export function* unsubscribe(){
   try{
     const paramEmail = this.request.query.email;
     const paramToken = this.request.query.token;
-    User.find(paramEmail)
+
+    User.find({email: paramEmail})
+      .then(function(user){
+        console.log('USER: ' + JSON.stringify(user));
+        if(user.token !== paramToken){
+          throw Error('Token inválido');
+        }
+        return User.unSubscribe(user.email);
+      })
       .then(function(){
-        this.body = 'User found';
+        console.log('Usuario eliminado de la lista de correos');
       })
       .catch(function(){
-        this.body = 'User not found';
+        console.log('Error en la solicitud.');
       });
+
+    this.body = 'REVISANDOO....';
   }
   catch(error){
-    this.body = 'Error: ' + error;
+    this.body = 'Error!';
   }
 }

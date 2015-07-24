@@ -4,11 +4,11 @@
  */
 
 import mongoose from 'mongoose';
+import {isEmail} from 'validator';
+import randToken from 'rand-token';
 import * as CRUD from './helpers/CRUD.js';
 import {log} from '../modules/logger';
 
-// Create a token generator with the default settings:
-const randToken = require('rand-token');
 
 /**
  * User's Schema
@@ -28,9 +28,8 @@ const schema = mongoose.Schema({
  * Validations
  */
 schema.path('email').validate(email => {
-   var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-   return emailRegex.test(email);
-}, 'The e-mail field cannot be empty.');
+   return isEmail(email);
+}, 'The e-mail field must be a valid e-mail address');
 
 const User = mongoose.model('User', schema);
 export const model = User;
@@ -62,8 +61,8 @@ export function allWithRestriction(numbers) {
   return new Promise(function(resolve, reject){
     User.find(
       { $or: [
-          { selloVerde: 'true', numeroRestriccion: {$in: numbers.conSello} },
-          { selloVerde: 'false', numeroRestriccion: {$in: numbers.sinSello} }
+          { selloVerde: true, numeroRestriccion: {$in: numbers.conSello}, notify: true },
+          { selloVerde: false, numeroRestriccion: {$in: numbers.sinSello}, notify: true }
         ]
       })
       .exec((error, doc) => {
@@ -81,7 +80,6 @@ export function allWithRestriction(numbers) {
  * un-subscribe an User from notifications
  * @param {string} email
  */
-// TODO: cambiamos notify a false para el usuario
 export function unSubscribe(email) {
   return CRUD.update(User, {email}, {notify: false})
     .catch( error => {
@@ -94,10 +92,18 @@ export function unSubscribe(email) {
  * finds a user by the email
  * @param  {string} email
  */
-export function find(email){
-  return User.find({email: email})
-    .catch( error => {
-      log.error({'User#find': { email, error}});
-      return Promise.reject(error);
+export function find(obj){
+  return new Promise(function(resolve, reject){
+    User.find(obj)
+    .exec((error, doc) => {
+      if (error) {
+        log.error({'User#find': { obj, error}});
+        reject(error);
+      }
+      if(doc.length === 0){
+        reject(Error('User not found'));
+      }
+      resolve(doc[0]);
     });
+  });
 }

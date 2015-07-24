@@ -1,6 +1,7 @@
 *.DS_*
 *.sass-cache*
 *.log
+*dump.rdb
 devEntry.js
 node_modules
 scss/**/*.map

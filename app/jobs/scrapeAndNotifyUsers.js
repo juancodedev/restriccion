@@ -1,10 +1,9 @@
 import kue from 'kue';
 import {log} from '../modules/logger';
-import {project} from 'ramda';
 import {fetchNumerosRestriccion} from '../modules/scrape';
 import * as RestrictionDay from '../models/RestrictionDay';
-import * as User from '../models/User.js';
-import {sendEmails} from '../modules/mailSender';
+import * as User from '../models/User';
+import {prepareEmails} from './addEmailJob';
 
 const jobs = kue.createQueue();
 
@@ -47,12 +46,11 @@ jobs.process('new_scrape', async function (job, done){
   try {
     const scrapedData = await fetchNumerosRestriccion();
     const latestRestrictionDay = await RestrictionDay.getLatest();
-
     const scrapedRestrictionDayDate = flattenTime(scrapedData.fecha);
     const storedRestrictionDayDate = flattenTime(latestRestrictionDay.fecha);
 
     if (scrapedRestrictionDayDate > storedRestrictionDayDate) {
-      notifyRestrictedUsers(latestRestrictionDay.numeros, scrapedData);
+      notifyRestrictedUsers(scrapedData);
     }
 
     await RestrictionDay.set(scrapedData);
@@ -64,17 +62,20 @@ jobs.process('new_scrape', async function (job, done){
   }
 });
 
-
+/**
+ * Sets a Date time(hours, minutes...) to 0
+ * @param  {date} dateTime
+ * @return {date}
+ */
 function flattenTime(dateTime) {
-  dateTime.setHours(0);
-  dateTime.setMinutes(0);
-  dateTime.setSeconds(0);
+  //const unixTime = dateTime.getTime();
+  //const flatDate = unixTime.toString().substr(0, 7);
+  //return new Date(Number.parseInt(flatDate));
   return dateTime;
 }
 
 
-async function notifyRestrictedUsers(numbers, restrictionDayData) {
-  const users = User.allWithRestriction(numbers);
-  const emails = project([emails], users);
-  sendEmails(emails, restrictionDayData);
+async function notifyRestrictedUsers(restrictionDayData) {
+  const users = await User.allWithRestriction(restrictionDayData.numeros);
+  prepareEmails(users, restrictionDayData);
 }

@@ -1,5 +1,7 @@
 import request from 'request';
 import cheerio from 'cheerio';
+import {__RESTRICTIONDATA_URL__} from '../config/scraping';
+import {log} from '../modules/logger';
 import {compose, map, filter, trim, split, replace, test, ifElse, always} from 'ramda';
 
 
@@ -8,7 +10,14 @@ import {compose, map, filter, trim, split, replace, test, ifElse, always} from '
  * @return {promise}
  */
 export function fetchNumerosRestriccion(){
-    return scrapeNumerosRestriccion().then(parseNumerosRestriccion);
+    return scrapeNumerosRestriccion()
+            .catch( error => {
+              log.error({'scrape#fetchNumerosRestriccion': {
+                message: `Error while scraping ${__RESTRICTIONDATA_URL__}`,
+                error
+              }});
+            })
+            .then(parseNumerosRestriccion);
 }
 
 
@@ -66,10 +75,11 @@ export function parseNumerosRestriccion(jsonArray) {
 export function scrapeNumerosRestriccion(){
   return new Promise(function(resolve, reject){
     request.get({
-      url: 'http://www.uoct.cl/restriccion-vehicular/'
+      url: __RESTRICTIONDATA_URL__
     }, (error, response, html) => {
       if(error || !(response.statusCode === 200) ) {
-        reject( Error('Error al scrapear los numeros con restriccion!') );
+        error = error || response;
+        reject(error);
       }
 
       response.setEncoding('utf-8');

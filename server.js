@@ -4,6 +4,7 @@ import path from 'path';
 import koa from 'koa';
 import route from 'koa-route';
 import koaBody from 'koa-body';
+import helmet from 'koa-helmet';
 import serve from 'koa-static';
 import {logRequest} from './app/modules/logger';
 
@@ -22,6 +23,22 @@ import * as restrictionDayController from './app/controllers/restrictionDayContr
 
 /* App */
 export const app = koa();
+
+/* Helmet CSPs */
+app.use(helmet.xssFilter());
+app.use(helmet.frameguard());
+app.use(helmet.hidePoweredBy());
+app.use(helmet.ieNoOpen());
+app.use(helmet.noSniff());
+if(__PRODUCTION__) {
+  app.use(helmet.contentSecurityPolicy({
+    defaultSrc: ["'self'"],
+    scriptSrc : ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
+    styleSrc  : ["'self'", 'cdnjs.cloudflare.com'],
+    imgSrc    : ["'self'"],
+    fontSrc   : ["'self'", 'cdnjs.cloudflare.com']
+  }));
+}
 
 /* Koa Body Parser */
 app.use(koaBody());
