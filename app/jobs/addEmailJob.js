@@ -1,7 +1,13 @@
 import kue from 'kue';
 import {splitEvery} from 'ramda';
 import {sendEmail} from '../modules/mailSender';
-const jobs = kue.createQueue();
+import {host} from '../config/redis';
+
+const jobs = kue.createQueue({
+  redis: {
+    host: host
+  }
+});
 
 
 jobs.process('new_email', function (job, done){
