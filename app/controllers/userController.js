@@ -45,24 +45,25 @@ export function* unsubscribe(){
     const paramEmail = this.request.query.email;
     const paramToken = this.request.query.token;
 
-    User.find({email: paramEmail})
-      .then(function(user){
-        console.log('USER: ' + JSON.stringify(user));
-        if(user.token !== paramToken){
-          throw Error('Token inválido');
-        }
-        return User.unSubscribe(user.email);
-      })
-      .then(function(){
-        console.log('Usuario eliminado de la lista de correos');
-      })
-      .catch(function(){
-        console.log('Error en la solicitud.');
-      });
+    const user = yield User.find({email: paramEmail});
 
+    if(user.token !== paramToken){
+      throw Error('Token inválido!');
+    }
+
+    const uns = yield User.unSubscribe(user.email);
+
+    if(uns.nModified !== 1){
+      throw Error('Error al cancelar subscripción!');
+    }
+
+    this.status = 200;
     this.body = 'REVISANDOO....';
   }
   catch(error){
+    console.log('Entro al catch');
+    this.status = 400;
     this.body = 'Error!';
   }
+
 }
