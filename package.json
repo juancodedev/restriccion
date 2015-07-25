@@ -7,7 +7,7 @@
     "win": "parallelshell \"set NODE_ENV=development&&node index.js\"  \"node webpack-server.js\" \"npm run watch\"",
     "production": "NODE_ENV=production pm2 start index.js",
     "test": "eslint . && NODE_ENV=test mocha --compilers js:babel/register --reporter spec 'app/**/__tests__/*-test.js'",
-    "docker": "npm install && npm rebuild && npm run build",
+    "docker": "npm install && npm run build",
     "build": "NODE_ENV=production npm run build:bundle && npm run build:css",
     "build:bundle": "webpack -p --config webpack.config.production.js && uglifyjs public/js/client.js --compress --mangle -o public/js/client.js",
     "build:css:dev": "node-sass public/scss/screen.scss -o public/css/ --source-map public/scss/screen.css.map && postcss --use autoprefixer -d public/css/ public/css/screen.css",
