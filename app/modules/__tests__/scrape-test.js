@@ -20,6 +20,8 @@ describe('scrape', () => {
 
     const normal = ['Lunes 6 de Julio: sin sello verde 5-6-7-8', 'Restricción Vehicular'];
 
+    const bug1 = ['Sábado 25 de Julio: sin sello verde 1-2', 'Alerta Ambiental'];
+
     const parseNumerosRestriccion = scrape.parseNumerosRestriccion;
 
     it('should return expected result', () => {
@@ -27,6 +29,7 @@ describe('scrape', () => {
       const numerosPreemergencia = parseNumerosRestriccion(preemergencia);
       const numerosAlerta        = parseNumerosRestriccion(alerta);
       const numerosNormal        = parseNumerosRestriccion(normal);
+      const numerosBug1          = parseNumerosRestriccion(bug1);
 
       // Make sure that the day is correct, but we 'ignore' the rest,
       // because of parseNumerosRestriccion implementation
@@ -34,6 +37,7 @@ describe('scrape', () => {
       const fechaPreemergencia = new Date((new Date(numerosPreemergencia.fecha.getTime())).setDate(3));
       const fechaAlerta        = new Date((new Date(numerosAlerta.fecha.getTime())).setDate(28));
       const fechaNormal        = new Date((new Date(numerosNormal.fecha.getTime())).setDate(6));
+      const fechaBug1          = new Date((new Date(numerosNormal.fecha.getTime())).setDate(25));
 
       numerosEmergencia
         .should.be.deep.equal({
@@ -102,6 +106,21 @@ describe('scrape', () => {
               numeros: {
                 conSello: [3, 3],
                 sinSello: [9, 9, 9]
+              }
+            });
+
+
+          /**
+           * Tests Bugs
+           */
+          // bug 1
+          numerosBug1
+            .should.be.deep.equal({
+              fecha  : fechaBug1,
+              estatus: 'Alerta Ambiental',
+              numeros: {
+                conSello: [],
+                sinSello: [1, 2]
               }
             });
       });
