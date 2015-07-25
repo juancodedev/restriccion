@@ -9,15 +9,19 @@ import {compose, map, filter, trim, split, replace, test, ifElse, always} from '
  * Fetches numerosRestriccion from web page and parses the data
  * @return {promise}
  */
-export function fetchNumerosRestriccion(){
-    return scrapeNumerosRestriccion()
-            .catch( error => {
-              log.error({'scrape#fetchNumerosRestriccion': {
-                message: `Error while scraping ${__RESTRICTIONDATA_URL__}`,
-                error
-              }});
-            })
-            .then(parseNumerosRestriccion);
+export async function fetchNumerosRestriccion(){
+  try {
+    const scrapeData = await scrapeNumerosRestriccion();
+    return parseNumerosRestriccion(scrapeData);
+  }
+  catch(error) {
+    log.error({'scrape#fetchNumerosRestriccion': {
+      message: `Error while scraping ${__RESTRICTIONDATA_URL__}`,
+      error
+    }});
+    throw error;
+  }
+
 }
 
 
@@ -40,8 +44,9 @@ export function parseNumerosRestriccion(jsonArray) {
             trim());
 
   const conSelloRegex = replace(/.*, con sello verde(.*)/, '$1');
-  const sinSelloRegex = replace(/^.*sin sello verde (\d[\d- ]*)(,.*)?$/, '$1');
+  const sinSelloRegex = replace(/^.*sin sello verde.*? (\d[\d- ]*)(,.*)?$/, '$1');
   const fechaRegex = /.*\b(\d{1,2}) de .*:.*/;
+
   const parseSinSello = compose(parseNumbers, sinSelloRegex);
 
   const parseConSello =
@@ -92,7 +97,20 @@ export function scrapeNumerosRestriccion(){
                 split('\n'),
                 trim);
 
-      resolve( filterElements($('.col-sm-12.restrictiontop > *').text()) );
+      const scrapedData = filterElements($('.col-sm-12.restrictiontop > *').text());
+
+      const expectedPattern =
+                  /^.*\b(\d{1,2}) de .*: sin sello verde.*? \d-.*\d(, con sello verde \d-.*\d)?$/i;
+
+      if (!test(expectedPattern, scrapedData[0])) {
+        log.fatal({'scrape#fetchNumerosRestriccion': {
+          message    : 'Unexpected scraped data pattern!',
+          scrapedData: scrapedData
+        }});
+        reject(Error('Unexpected scraped data pattern!'));
+      }
+
+      resolve(scrapedData);
     });
   });
 }
