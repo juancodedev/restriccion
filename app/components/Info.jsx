@@ -31,7 +31,7 @@ export default class Info extends React.Component {
 
     function displayDayName(date) {
       const dayName = date.format('dddd');
-      const today = moment(new Date());
+      const today = moment.parseZone(new Date());
 
       if (date.format('DD') === today.format('DD')) {
         return `Hoy ${dayName}`;

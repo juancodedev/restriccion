@@ -49,7 +49,7 @@ jobs.process('new_scrape', async function (job, done){
     const scrapedRestrictionDayDate = flattenTime(scrapedData.fecha);
     const storedRestrictionDayDate = flattenTime(latestRestrictionDay.fecha);
 
-    if (scrapedRestrictionDayDate > storedRestrictionDayDate) {
+    if (true) { //scrapedRestrictionDayDate > storedRestrictionDayDate
       notifyRestrictedUsers(scrapedData);
     }
 

@@ -2,22 +2,20 @@ import mandrill from 'mandrill-api/mandrill';
 import moment from 'moment';
 import {log} from '../modules/logger';
 import {__MANDRILL_KEY__} from '../config/mandrill';
-//import {map} from 'ramda';
+import {project} from 'ramda';
 
 const mandrillClient = new mandrill.Mandrill(__MANDRILL_KEY__);
 moment.locale('es');
 
-// TODO: actualizar documentacion y nombres de variables
 /**
  * Sends Restriction Notification Emails to Users
  * @param  {array}    users array
- * @param  {object}   object with the latest scraped data
+ * @param  {object}   RestrictionDay data
  * @param  {function} callback
  */
 export function sendEmail(users, info, done){
 
-
-  const emails = users.map(user => user.email);
+  const emails = project(['email'], users);
 
   const mergeVars = users.map(em => {
 
@@ -36,7 +34,6 @@ export function sendEmail(users, info, done){
     return obj;
   });
 
-
   const templateName = 'tengoRestriccion';
   const message = {
     'inline_css': true,
@@ -48,7 +45,7 @@ export function sendEmail(users, info, done){
   const templateContent = [
     {
       'name'   : 'fecha',
-      'content': moment(info.fecha).format('dddd DD MMMM YYYY')
+      'content': moment.parseZone(info.fecha).format('dddd DD MMMM YYYY')
     },
     {
       'name'   : 'estatus',

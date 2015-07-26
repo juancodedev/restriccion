@@ -15,8 +15,9 @@ jobs.process('new_email', function (job, done){
 });
 
 
+//TODO: revisar la api, "prepareEmails" no deberia encolar por si mismo
 /**
- * prepareEmails
+ * prepareEmails TODO
  * @param  {array} userArray is the array sent to be divided
  * @param  {object} info is the object with the latest scraped data
  */
@@ -41,14 +42,10 @@ export function addEmailToQueue(emails, info){
       emails,
       info
     })
-      //priority of the job
-      .priority('high')
-      //Attempts if the job fails
-      .attempts(5)
-      //Delay before another attempt when failed
-      .backoff({delay: 30000, type: 'fixed'})
-      //time to remain active before it is set to failed
-      .ttl(10000);
+    .priority('high') //priority of the job
+    .attempts(5) //Attempts if the job fails
+    .backoff({delay: 30000, type: 'fixed'}) //Delay before another attempt when failed
+    .ttl(10000); //time to remain active before it is set to failed
 
     emailJob
      .on('complete', function (){
