@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 moment.locale('es');
 
-
 @connect(state => ({
   restrictionDay: state.restrictionDay
 }))
@@ -15,9 +14,10 @@ export default class Info extends React.Component {
     restrictionDay: PropTypes.object.isRequired
   };
 
+
   render() {
     const {conSello, sinSello, estatus} = this.props.restrictionDay;
-    const fecha = moment(this.props.restrictionDay.fecha);
+    const fecha = moment.parseZone(this.props.restrictionDay.fecha);
     const day = fecha.format('DD');
     const month = fecha.format('MMMM');
     const year = fecha.format('YYYY');
