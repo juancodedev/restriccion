@@ -19,20 +19,13 @@ export function sendEmail(users, info, done){
   const emails = users.map(user => user.email);
 
   const mergeVars = users.map(em => {
-
-    var obj = {};
-    obj.rcpt = em.email;
-    obj.vars = [];
-    var param1 = {};
-    param1.name = 'EMAIL';
-    param1.content = em.email;
-    var param2 = {};
-    param2.name = 'TOKEN';
-    param2.content = em.token;
-    obj.vars.push(param1);
-    obj.vars.push(param2);
-
-    return obj;
+    return {
+      rcpt: em.email,
+      vars: [
+        { name: 'EMAIL', content: em.email},
+        { name: 'TOKEN', conteng: em.token}
+      ]
+    };
   });
 
 
