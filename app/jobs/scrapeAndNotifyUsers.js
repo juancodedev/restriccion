@@ -51,8 +51,10 @@ jobs.process('new_scrape', async function (job, done){
 
     log.warn({'scrapeJob#new_scrape!!!': {
       comparacion: scrapedRestrictionDayDate > storedRestrictionDayDate,
-      scraped    : scrapedRestrictionDayDate,
-      stored     : storedRestrictionDayDate
+      scraped    : scrapedData,
+      stored     : latestRestrictionDay,
+      scrapedDate: scrapedRestrictionDayDate,
+      storedDate : storedRestrictionDayDate
       }});
 
     if (scrapedRestrictionDayDate > storedRestrictionDayDate) {
@@ -74,9 +76,12 @@ jobs.process('new_scrape', async function (job, done){
  * @return {date}
  */
 function flattenTime(dateTime) {
-  const unixTime = dateTime.getTime();
-  const flatDate = unixTime.toString().substr(0, 7);
-  return new Date(Number.parseInt(flatDate));
+  let flattenedTime = new Date(dateTime);
+  flattenedTime.setHours(0);
+  flattenedTime.setMinutes(0);
+  flattenedTime.setSeconds(0);
+  flattenedTime.setMilliseconds(0);
+  return flattenedTime;
 }
 
 
