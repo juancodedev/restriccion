@@ -10,6 +10,7 @@
     },
     "rules": {
         "semi": 2,
+        "indent": [2, 2],
         "no-underscore-dangle" : 0,
         "no-use-before-define" : [2, "nofunc"],
         "no-multi-spaces" : 0,
