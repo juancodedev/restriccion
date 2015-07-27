@@ -3,6 +3,7 @@
 *.log
 *dump.rdb
 devEntry.js
+tmp/*
 node_modules
 scss/**/*.map
 css/**/*.map
