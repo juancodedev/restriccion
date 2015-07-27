@@ -24,21 +24,22 @@ describe('scrape', () => {
 
     const parseNumerosRestriccion = scrape.parseNumerosRestriccion;
 
-    it('should return expected result', () => {
-      const numerosEmergencia    = parseNumerosRestriccion(emergencia);
-      const numerosPreemergencia = parseNumerosRestriccion(preemergencia);
-      const numerosAlerta        = parseNumerosRestriccion(alerta);
-      const numerosNormal        = parseNumerosRestriccion(normal);
-      const numerosBug1          = parseNumerosRestriccion(bug1);
 
-      // Make sure that the day is correct, but we 'ignore' the rest,
-      // because of parseNumerosRestriccion implementation
-      const fechaEmergencia    = new Date((new Date(numerosEmergencia.fecha.getTime())).setDate(30));
-      const fechaPreemergencia = new Date((new Date(numerosPreemergencia.fecha.getTime())).setDate(3));
-      const fechaAlerta        = new Date((new Date(numerosAlerta.fecha.getTime())).setDate(28));
-      const fechaNormal        = new Date((new Date(numerosNormal.fecha.getTime())).setDate(6));
-      const fechaBug1          = new Date((new Date(numerosBug1.fecha.getTime())).setDate(25));
+    const numerosEmergencia    = parseNumerosRestriccion(emergencia);
+    const numerosPreemergencia = parseNumerosRestriccion(preemergencia);
+    const numerosAlerta        = parseNumerosRestriccion(alerta);
+    const numerosNormal        = parseNumerosRestriccion(normal);
+    const numerosBug1          = parseNumerosRestriccion(bug1);
 
+    // Make sure that the day is correct, but we 'ignore' the rest,
+    // because of parseNumerosRestriccion implementation
+    const fechaEmergencia    = new Date((new Date(numerosEmergencia.fecha.getTime())).setDate(30));
+    const fechaPreemergencia = new Date((new Date(numerosPreemergencia.fecha.getTime())).setDate(3));
+    const fechaAlerta        = new Date((new Date(numerosAlerta.fecha.getTime())).setDate(28));
+    const fechaNormal        = new Date((new Date(numerosNormal.fecha.getTime())).setDate(6));
+    const fechaBug1          = new Date((new Date(numerosBug1.fecha.getTime())).setDate(25));
+
+    it('should return expected result for Emergencia', () => {
       numerosEmergencia
         .should.be.deep.equal({
           fecha  : fechaEmergencia,
@@ -46,36 +47,6 @@ describe('scrape', () => {
           numeros: {
             conSello: [1, 2, 3, 4],
             sinSello: [5, 6, 7, 8, 9, 0, 1, 2]
-          }
-        });
-
-      numerosPreemergencia
-        .should.be.deep.equal({
-          fecha  : fechaPreemergencia,
-          estatus: 'Preemergencia Ambiental',
-          numeros: {
-            conSello: [7, 8],
-            sinSello: [1, 2, 3, 4, 9, 0]
-          }
-        });
-
-      numerosAlerta
-        .should.be.deep.equal({
-          fecha  : fechaAlerta,
-          estatus: 'Alerta Ambiental',
-          numeros: {
-            conSello: [],
-            sinSello: [7, 8, 9, 0]
-          }
-        });
-
-      numerosNormal
-        .should.be.deep.equal({
-          fecha  : fechaNormal,
-          estatus: 'Restricción Vehicular',
-          numeros: {
-            conSello: [],
-            sinSello: [5, 6, 7, 8]
           }
         });
 
@@ -88,6 +59,18 @@ describe('scrape', () => {
             sinSello: [2, 9, 4, 2]
           }
         });
+    });
+
+    it('should return expected result for Preemergencia', () => {
+      numerosPreemergencia
+        .should.be.deep.equal({
+          fecha  : fechaPreemergencia,
+          estatus: 'Preemergencia Ambiental',
+          numeros: {
+            conSello: [7, 8],
+            sinSello: [1, 2, 3, 4, 9, 0]
+          }
+        });
 
       numerosPreemergencia
         .should.not.be.deep.equal({
@@ -96,6 +79,18 @@ describe('scrape', () => {
           numeros: {
             conSello: [],
             sinSello: [8, 8]
+          }
+        });
+    });
+
+    it('should return expected result for Alerta', () => {
+      numerosAlerta
+        .should.be.deep.equal({
+          fecha  : fechaAlerta,
+          estatus: 'Alerta Ambiental',
+          numeros: {
+            conSello: [],
+            sinSello: [7, 8, 9, 0]
           }
         });
 
@@ -108,8 +103,31 @@ describe('scrape', () => {
             sinSello: [9, 9, 9]
           }
         });
+    });
 
+    it('should return expected result for Normal', () => {
+      numerosNormal
+        .should.be.deep.equal({
+          fecha  : fechaNormal,
+          estatus: 'Restricción Vehicular',
+          numeros: {
+            conSello: [],
+            sinSello: [5, 6, 7, 8]
+          }
+        });
 
+      numerosNormal
+        .should.not.be.deep.equal({
+          fecha  : fechaNormal,
+          estatus: 'Restar',
+          numeros: {
+            conSello: [],
+            sinSello: [9, 3, 2, 4]
+          }
+        });
+    });
+
+    it('should return expected result for Bug case', () => {
       /**
        * Tests Bugs
        */
@@ -123,7 +141,22 @@ describe('scrape', () => {
             sinSello: [1, 2]
           }
         });
+
+      /**
+       * Tests Bugs
+       */
+      // bug 1
+      numerosBug1
+        .should.not.be.deep.equal({
+          fecha  : fechaBug1,
+          estatus: 'Alertental',
+          numeros: {
+            conSello: [],
+            sinSello: [3, 1]
+          }
+        });
     });
+
 
 
     it('object should have formated "numeros"', () => {
