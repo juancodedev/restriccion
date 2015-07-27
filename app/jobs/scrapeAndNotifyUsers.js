@@ -49,14 +49,6 @@ jobs.process('new_scrape', async function (job, done){
     const scrapedRestrictionDayDate = flattenTime(scrapedData.fecha);
     const storedRestrictionDayDate = flattenTime(latestRestrictionDay.fecha);
 
-    log.warn({'scrapeJob#new_scrape!!!': {
-      comparacion: scrapedRestrictionDayDate > storedRestrictionDayDate,
-      scraped    : scrapedData,
-      stored     : latestRestrictionDay,
-      scrapedDate: scrapedRestrictionDayDate,
-      storedDate : storedRestrictionDayDate
-      }});
-
     if (scrapedRestrictionDayDate > storedRestrictionDayDate) {
       notifyRestrictedUsers(scrapedData);
     }
