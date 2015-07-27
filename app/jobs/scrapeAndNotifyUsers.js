@@ -3,7 +3,7 @@ import {log} from '../modules/logger';
 import {fetchNumerosRestriccion} from '../modules/scrape';
 import * as RestrictionDay from '../models/RestrictionDay';
 import * as User from '../models/User';
-import {prepareEmails} from './addEmailJob';
+import {setEmailJob} from './addEmailJob';
 
 const jobs = kue.createQueue();
 
@@ -87,5 +87,5 @@ function flattenTime(dateTime) {
 
 async function notifyRestrictedUsers(restrictionDayData) {
   const users = await User.allWithRestriction(restrictionDayData.numeros);
-  prepareEmails(users, restrictionDayData);
+  setEmailJob(users, restrictionDayData);
 }
