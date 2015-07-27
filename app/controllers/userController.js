@@ -61,7 +61,6 @@ export function* unsubscribe(){
     this.body = 'REVISANDOO....';
   }
   catch(error){
-    console.log('Entro al catch');
     this.status = 400;
     this.body = 'Error!';
   }
