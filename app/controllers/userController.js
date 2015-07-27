@@ -58,11 +58,10 @@ export function* unsubscribe(){
     }
 
     this.status = 200;
-    this.body = 'REVISANDOO....';
+    this.redirect('/unsubscribe.html');
   }
   catch(error){
     this.status = 400;
-    this.body = 'Error!';
+    this.redirect('/unsubscribe-error.html');
   }
-
 }
