@@ -9,26 +9,41 @@ const jobs = kue.createQueue({
   }
 });
 
-
+/**
+ * description of the job process
+ * @param  {string} 'new_email' is the name of the job to be processed
+ * @param  {function} function where the job is processed
+ */
 jobs.process('new_email', function (job, done){
   sendEmail(job.data.emails, job.data.info, done);
 });
 
 
-//TODO: revisar la api, "prepareEmails" no deberia encolar por si mismo
 /**
- * prepareEmails TODO
- * @param  {array} userArray is the array sent to be divided
+ * Entry point for Email Jobs.
+ * @param  {array} userArray is the array of all users with restriction
  * @param  {object} info is the object with the latest scraped data
  */
-export function prepareEmails(userArray, info) {
-  const divideUsers = splitEvery(150);
-  const newArray = divideUsers(userArray);
-
+export function setEmailJob(userArray, info){
+  const newArray = divideEmails(userArray);
   //Add emails to Queue
   newArray.forEach(em => {
     addEmailToQueue(em, info);
   });
+
+}
+
+
+/**
+ * divideEmails
+ * @param  {array} userArray is the array sent to be divided
+ * @param  {object} info is the object with the latest scraped data
+ */
+export function divideEmails(userArray) {
+  const divideUsers = splitEvery(150);
+  const newArray = divideUsers(userArray);
+
+  return newArray;
 }
 
 
