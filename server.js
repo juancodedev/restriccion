@@ -34,7 +34,7 @@ if(__PRODUCTION__) {
   app.use(helmet.contentSecurityPolicy({
     defaultSrc: ["'self'"],
     scriptSrc : ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
-    styleSrc  : ["'self'", 'cdnjs.cloudflare.com'],
+    styleSrc  : ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
     imgSrc    : ["'self'"],
     fontSrc   : ["'self'", 'cdnjs.cloudflare.com']
   }));
