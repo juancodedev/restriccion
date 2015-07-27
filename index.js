@@ -12,10 +12,10 @@ const scheduleScrapeAndNotifyUsers = require('./app/jobs/scrapeAndNotifyUsers');
 
 
 // First Scrape
-scrape.fetchNumerosRestriccion()
-  .then(function(datosRestriccion) {
-    console.log('First scrape ok!', datosRestriccion);
-    //return RestrictionDay.set(datosRestriccion);
+RestrictionDay.getLatest()
+  .then(function(restrictionDay){
+    if (restrictionDay.length === 0) { return scrapeAndSave(); }
+    return restrictionDay;
   })
   .then(function(){
     // Schedule "Scrape and Notify Users" Job
@@ -25,3 +25,12 @@ scrape.fetchNumerosRestriccion()
     require('./server.js');
   })
   .catch(function(err) { console.error(err); });
+
+
+function scrapeAndSave() {
+  return scrape.fetchNumerosRestriccion()
+    .then(function(datosRestriccion) {
+      console.log('First scrape ok!', datosRestriccion);
+      return RestrictionDay.set(datosRestriccion);
+    });
+}
