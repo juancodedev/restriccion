@@ -38,8 +38,8 @@ export default class Subscribe extends React.Component {
         <form action="">
           <div className="row">
             <div className="input-field select col s12 m7">
-              <select ref="restrictionDigitSelect" defaultValue="0">
-                <option value="" disabled>Selecciona último dígito de tu patente </option>
+              <select ref="restrictionDigitSelect" defaultValue="-1">
+                <option value="-1" disabled>Selecciona último dígito de tu patente </option>
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -65,7 +65,7 @@ export default class Subscribe extends React.Component {
             </div>
             <div className="row">
               <div className="input-field col s12">
-                <input onChange={this._handleEmailChange.bind(this)} id="email" type="email" className={emailClass} />
+                <input onChange={this._handleEmailChange.bind(this)} onKeyPress={this._handleKeyDown.bind(this)} id="email" type="email" className={emailClass} />
                 <label htmlFor="email">Email</label>
               </div>
             </div>
@@ -114,28 +114,30 @@ export default class Subscribe extends React.Component {
   }
 
   async _handleSubmit() {
-    this.setState(
-      merge(this.state, { loading: {initial: false, show: true} }));
+    if(allValid(this.state.valid)){
+      this.setState(
+        merge(this.state, { loading: {initial: false, show: true} }));
 
-    try {
-      await put('/users', this.state.user);
-      this.setState(
-        merge(this.state, {
-          alert: {
-            message: 'Recibido!, te notificaremos cuando tengas restricción =)',
-            isError: false,
-            show   : true,
-            initial: false
-          }}));
-    }
-    catch (error) {
-      this.setState(
-        merge(this.state, {
-          alert: { message: error.data.errors[0].description, isError: true, show: true, initial: false } }));
-    }
-    finally {
-      this.setState(
-        merge(this.state, { loading: {initial: false, show: false} }));
+      try {
+        await put('/users', this.state.user);
+        this.setState(
+          merge(this.state, {
+            alert: {
+              message: 'Recibido!, te notificaremos cuando tengas restricción =)',
+              isError: false,
+              show   : true,
+              initial: false
+            }}));
+      }
+      catch (error) {
+        this.setState(
+          merge(this.state, {
+            alert: { message: error.data.errors[0].description, isError: true, show: true, initial: false } }));
+      }
+      finally {
+        this.setState(
+          merge(this.state, { loading: {initial: false, show: false} }));
+      }
     }
   }
 
@@ -145,5 +147,12 @@ export default class Subscribe extends React.Component {
         alert: merge(this.state.alert, { show: false, initial: false })
       })
     );
+  }
+
+  _handleKeyDown(e) {
+      var ENTER = 13;
+      if( e.which === ENTER ) {
+          this._handleSubmit();
+      }
   }
 }
