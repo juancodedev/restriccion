@@ -53,26 +53,26 @@ export function divideEmails(userArray) {
  * @return {promise}
  */
 export function addEmailToQueue(emails, info){
-    const emailJob = jobs.create('new_email', {
-      emails,
-      info
-    })
-    .priority('high') //priority of the job
-    .attempts(5) //Attempts if the job fails
-    .backoff({delay: 30000, type: 'fixed'}) //Delay before another attempt when failed
-    .ttl(10000); //time to remain active before it is set to failed
+  const emailJob = jobs.create('new_email', {
+    emails,
+    info
+  })
+  .priority('high') //priority of the job
+  .attempts(5) //Attempts if the job fails
+  .backoff({delay: 30000, type: 'fixed'}) //Delay before another attempt when failed
+  .ttl(10000); //time to remain active before it is set to failed
 
-    emailJob
-     .on('complete', function (){
-       console.log('El correo ha sido enviado');
-     })
-     .on('failed', function (){
-       console.log('Falló el envío del correo');
-     });
+  emailJob
+   .on('complete', function (){
+     console.log('El correo ha sido enviado');
+   })
+   .on('failed', function (){
+     console.log('Falló el envío del correo');
+   });
 
-    emailJob.save(function(err){
-      if(err){
-        console.log('Error al guardar el trabajo');
-      }
-    });
+  emailJob.save(function(err){
+    if(err){
+      console.log('Error al guardar el trabajo');
+    }
+  });
 }

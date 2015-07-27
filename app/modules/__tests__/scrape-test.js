@@ -69,124 +69,124 @@ describe('scrape', () => {
           }
         });
 
-        numerosNormal
-          .should.be.deep.equal({
-            fecha  : fechaNormal,
-            estatus: 'Restricción Vehicular',
-            numeros: {
-              conSello: [],
-              sinSello: [5, 6, 7, 8]
-            }
-          });
+      numerosNormal
+        .should.be.deep.equal({
+          fecha  : fechaNormal,
+          estatus: 'Restricción Vehicular',
+          numeros: {
+            conSello: [],
+            sinSello: [5, 6, 7, 8]
+          }
+        });
 
-        numerosEmergencia
-          .should.not.be.deep.equal({
-            fecha  : fechaEmergencia,
-            estatus: 'Emergtal',
-            numeros: {
-              conSello: [1, 1, 1],
-              sinSello: [2, 9, 4, 2]
-            }
-          });
+      numerosEmergencia
+        .should.not.be.deep.equal({
+          fecha  : fechaEmergencia,
+          estatus: 'Emergtal',
+          numeros: {
+            conSello: [1, 1, 1],
+            sinSello: [2, 9, 4, 2]
+          }
+        });
 
-          numerosPreemergencia
-            .should.not.be.deep.equal({
-              fecha  : fechaPreemergencia,
-              estatus: 'Prial',
-              numeros: {
-                conSello: [],
-                sinSello: [8, 8]
-              }
-            });
+      numerosPreemergencia
+        .should.not.be.deep.equal({
+          fecha  : fechaPreemergencia,
+          estatus: 'Prial',
+          numeros: {
+            conSello: [],
+            sinSello: [8, 8]
+          }
+        });
 
-          numerosAlerta
-            .should.not.be.deep.equal({
-              fecha  : fechaAlerta,
-              estatus: 'Alertal',
-              numeros: {
-                conSello: [3, 3],
-                sinSello: [9, 9, 9]
-              }
-            });
-
-
-          /**
-           * Tests Bugs
-           */
-          // bug 1
-          numerosBug1
-            .should.be.deep.equal({
-              fecha  : fechaBug1,
-              estatus: 'Alerta Ambiental',
-              numeros: {
-                conSello: [],
-                sinSello: [1, 2]
-              }
-            });
-      });
+      numerosAlerta
+        .should.not.be.deep.equal({
+          fecha  : fechaAlerta,
+          estatus: 'Alertal',
+          numeros: {
+            conSello: [3, 3],
+            sinSello: [9, 9, 9]
+          }
+        });
 
 
-      it('object should have formated "numeros"', () => {
-        parseNumerosRestriccion(emergencia)
-            .should.have.deep.property('numeros.conSello')
-            .and.be.a('array');
-
-        parseNumerosRestriccion(preemergencia)
-            .should.have.deep.property('numeros.conSello')
-            .and.be.a('array');
-
-        parseNumerosRestriccion(alerta)
-            .should.have.deep.property('numeros.conSello')
-            .and.be.a('array');
-
-        parseNumerosRestriccion(emergencia)
-            .should.have.deep.property('numeros.sinSello')
-            .and.be.a('array');
-
-        parseNumerosRestriccion(preemergencia)
-            .should.have.deep.property('numeros.sinSello')
-            .and.be.a('array');
-
-        parseNumerosRestriccion(alerta)
-            .should.have.deep.property('numeros.sinSello')
-            .and.be.a('array');
-      });
+      /**
+       * Tests Bugs
+       */
+      // bug 1
+      numerosBug1
+        .should.be.deep.equal({
+          fecha  : fechaBug1,
+          estatus: 'Alerta Ambiental',
+          numeros: {
+            conSello: [],
+            sinSello: [1, 2]
+          }
+        });
+    });
 
 
-      it('object should have proper "fecha" type', () => {
-        const fechaInvalida =
-                ['fechaErronea: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4', 'Emergencia Ambiental'];
+    it('object should have formated "numeros"', () => {
+      parseNumerosRestriccion(emergencia)
+          .should.have.deep.property('numeros.conSello')
+          .and.be.a('array');
 
-        parseNumerosRestriccion(emergencia).should
-                .have.property('fecha')
-                .and.be.a('date');
+      parseNumerosRestriccion(preemergencia)
+          .should.have.deep.property('numeros.conSello')
+          .and.be.a('array');
 
-        parseNumerosRestriccion(preemergencia).should
-                .have.property('fecha')
-                .and.be.a('date');
+      parseNumerosRestriccion(alerta)
+          .should.have.deep.property('numeros.conSello')
+          .and.be.a('array');
 
-        parseNumerosRestriccion(alerta).should
-                .have.property('fecha')
-                .and.be.a('date');
+      parseNumerosRestriccion(emergencia)
+          .should.have.deep.property('numeros.sinSello')
+          .and.be.a('array');
 
-        (() => { parseNumerosRestriccion(fechaInvalida); })
-                          .should.throw(/Couldn't get 'fecha' while scraping/);
-      });
+      parseNumerosRestriccion(preemergencia)
+          .should.have.deep.property('numeros.sinSello')
+          .and.be.a('array');
+
+      parseNumerosRestriccion(alerta)
+          .should.have.deep.property('numeros.sinSello')
+          .and.be.a('array');
+    });
 
 
-      it('object should have proper "estatus" type', () => {
-        parseNumerosRestriccion(emergencia).should
-                .have.property('estatus')
-                .and.to.match(/ambiental/i);
+    it('object should have proper "fecha" type', () => {
+      const fechaInvalida =
+              ['fechaErronea: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4', 'Emergencia Ambiental'];
 
-        parseNumerosRestriccion(preemergencia).should
-                .have.property('estatus')
-                .and.to.match(/ambiental/i);
+      parseNumerosRestriccion(emergencia).should
+              .have.property('fecha')
+              .and.be.a('date');
 
-        parseNumerosRestriccion(alerta).should
-                .have.property('estatus')
-                .and.to.match(/ambiental/i);
-      });
+      parseNumerosRestriccion(preemergencia).should
+              .have.property('fecha')
+              .and.be.a('date');
+
+      parseNumerosRestriccion(alerta).should
+              .have.property('fecha')
+              .and.be.a('date');
+
+      (() => { parseNumerosRestriccion(fechaInvalida); })
+                        .should.throw(/Couldn't get 'fecha' while scraping/);
+    });
+
+
+    it('object should have proper "estatus" type', () => {
+      parseNumerosRestriccion(emergencia).should
+              .have.property('estatus')
+              .and.to.match(/ambiental/i);
+
+      parseNumerosRestriccion(preemergencia).should
+              .have.property('estatus')
+              .and.to.match(/ambiental/i);
+
+      parseNumerosRestriccion(alerta).should
+              .have.property('estatus')
+              .and.to.match(/ambiental/i);
+    });
   });
 
 

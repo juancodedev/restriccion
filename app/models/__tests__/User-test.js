@@ -90,24 +90,24 @@ describe('User', () => {
 
           });
 
-          const t2 = User.allWithRestriction(numbersDos)
-            .then(function(result){
-              result.should.be.an('array');
-              result.should.all.have.property('email');
-              result.should.all.have.property('notify');
-              result.should.all.have.property('selloVerde');
-              result.should.all.have.property('numeroRestriccion');
+        const t2 = User.allWithRestriction(numbersDos)
+          .then(function(result){
+            result.should.be.an('array');
+            result.should.all.have.property('email');
+            result.should.all.have.property('notify');
+            result.should.all.have.property('selloVerde');
+            result.should.all.have.property('numeroRestriccion');
 
-              result.should.contain.a.thing.with.property('email', 'one@gmail.com');
-              result.should.contain.a.thing.with.property('email', 'two@gmail.com');
-              result.should.contain.a.thing.with.property('email', 'three@gmail.com');
+            result.should.contain.a.thing.with.property('email', 'one@gmail.com');
+            result.should.contain.a.thing.with.property('email', 'two@gmail.com');
+            result.should.contain.a.thing.with.property('email', 'three@gmail.com');
 
-              result.should.not.contain.a.thing.with.property('email', 'four@gmail.com');
-            });
+            result.should.not.contain.a.thing.with.property('email', 'four@gmail.com');
+          });
 
-          Promise.all([t1, t2]).then(() => {
-            done();
-          }).catch(done);
+        Promise.all([t1, t2]).then(() => {
+          done();
+        }).catch(done);
       });
     });
   });

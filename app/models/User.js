@@ -28,7 +28,7 @@ const schema = mongoose.Schema({
  * Validations
  */
 schema.path('email').validate(email => {
-   return isEmail(email);
+  return isEmail(email);
 }, 'The e-mail field must be a valid e-mail address');
 
 const User = mongoose.model('User', schema);
