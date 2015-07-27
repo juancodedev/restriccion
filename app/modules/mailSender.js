@@ -2,7 +2,7 @@ import mandrill from 'mandrill-api/mandrill';
 import moment from 'moment';
 import {log} from '../modules/logger';
 import {__MANDRILL_KEY__} from '../config/mandrill';
-//import {map} from 'ramda';
+
 
 const mandrillClient = new mandrill.Mandrill(__MANDRILL_KEY__);
 moment.locale('es');

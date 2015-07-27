@@ -21,7 +21,6 @@ export async function fetchNumerosRestriccion(){
     }});
     throw error;
   }
-
 }
 
 
