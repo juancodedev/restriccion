@@ -5,7 +5,7 @@ import Subscribe from './Subscribe.jsx';
 export default class Main extends React.Component {
   render() {
     return (
-        <div className="main">
+        <div className="Main">
           <Info />
           <hr />
           <Subscribe />

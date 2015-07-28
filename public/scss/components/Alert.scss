@@ -4,7 +4,7 @@
   &.initial {
     opacity: 0;
   }
-  
+
   &.hidden {
     @extend .fadeOut;
     animation-duration: 0.5s;
@@ -15,5 +15,18 @@
     @extend .fadeIn;
     animation-duration: 0.5s;
     animation-fill-mode: both;
+  }
+
+  .alertForm{
+    min-height: 46px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 300;
+    &.alertTrue { background-color: rgba(217, 255, 57, 0.48); }
+    &.alertFalse { background-color: rgba(255, 57, 57, 0.48); }
   }
 }

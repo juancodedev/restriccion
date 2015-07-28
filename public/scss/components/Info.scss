@@ -1,0 +1,112 @@
+.Info {
+
+  &, .numeros{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    color: #fff;
+  }
+  
+  .date{
+    h5{
+      background-color: rgba(23, 23, 23, 0.62);
+      line-height: 1.5;
+      margin: 2vh 0 0 0;
+      padding: 5px 11px;
+      color: #FFC017;
+      font-weight: 300;
+      letter-spacing: 1px;
+      text-transform: capitalize;
+    }
+    &.picker__date-display{
+      background-color: #63655B;
+      padding-bottom: 0;
+      margin-bottom: 3vh;
+      flex-basis: 25%;
+      min-width: 240px;
+    }
+    .picker__weekday-display {
+      background-color: #56594D;
+      font-weight: 300;
+      margin-bottom: 6px;
+    }
+    .picker__day-display {
+      font-size: 2.2rem;
+    }
+    .picker__month-display {
+      font-size: 1.2rem;
+    }
+    .picker__year-display {
+      font-size: 1.2rem;
+    }
+  }
+
+  .restriccion{
+    h3{
+      text-transform: uppercase;
+      margin-top: 0;
+      color: #C5D38F;
+      font-weight: 100
+    }
+    .conSello, .sinSello {
+      padding: 15px 20px;
+      border: 1px solid #464E3D;
+      margin: 0 1vw 4vh 1vw;
+      & h5{
+        font-weight: 200;
+        font-size: 1.4rem;
+      }
+    }
+    .sinSello h5 {
+      color: #FF4254;
+    }
+    .conSello h5 {
+      color: #B6FF2C;
+    }
+  }
+}
+
+@media screen and (max-width: 400px){
+  .Info {
+    .restriccion{
+      .conSello, .sinSello {
+        padding: 0px 20px;
+        width: 100%;
+      }
+
+      h3{ font-size: 1.5rem; }
+    }
+
+    .date{
+      padding-top: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      width: 100%;
+      div{
+        height: 30px;
+        background: transparent;
+        font-size: 1.15rem;
+        display: inline-block;
+        height: 24px;
+        line-height: 1.9rem;
+        padding: 0;
+        margin: 0 2px 0 2px;
+        text-transform: capitalize;
+      }
+      .picker__weekday-display{
+        background: transparent;
+        font-size: 1.15rem;
+        margin: 0 4px 0 4px;
+      }
+      .picker__day-display {
+        flex-basis: 22px;
+      }
+      h5{
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}

@@ -42,7 +42,7 @@ export default class Info extends React.Component {
     }
 
     return (
-      <section className="info">
+      <section className="Info">
         <div className="date picker__date-display">
           <div className="picker__weekday-display">{displayDayName(fecha)}</div>
           <div className="picker__day-display">
