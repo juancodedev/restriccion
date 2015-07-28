@@ -2,6 +2,7 @@ import mandrill from 'mandrill-api/mandrill';
 import moment from 'moment';
 import {log} from '../modules/logger';
 import {__MANDRILL_KEY__} from '../config/mandrill';
+import {project} from 'ramda';
 
 
 const mandrillClient = new mandrill.Mandrill(__MANDRILL_KEY__);
@@ -16,7 +17,7 @@ moment.locale('es');
 export function sendEmail(users, info, done){
 
 
-  const emails = users.map(user => user.email);
+  const emails = project(['email'], users);
 
   const mergeVars = users.map(em => {
     return {
