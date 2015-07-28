@@ -10,4 +10,5 @@ RUN npm install
 ADD . /app
 
 # Install npm deps
+RUN npm run build
 RUN npm install pm2 -g
