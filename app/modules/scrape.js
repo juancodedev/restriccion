@@ -54,7 +54,6 @@ export function parseNumerosRestriccion(jsonArray) {
       compose(parseNumbers, conSelloRegex), always([]));
 
 
-  //TODO: ocupar ifElse para sacar la fecha o tirar el error
   if(!(fechaRegex.test(jsonArray[0]))) {
     throw Error("Couldn't get 'fecha' while scraping");
   }
