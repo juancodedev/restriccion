@@ -1,12 +1,12 @@
 FROM iojs
 
 # Main application dir
-# current directory contents will be copied to /app
-ADD package.json /tengo-restriccion/package.json
-ADD npm-shrinkwrap.json /tengo-restriccion/npm-shrinkwrap.json
-WORKDIR /tengo-restriccion
+# current directory contents will be copied
+ADD package.json /app/package.json
+ADD npm-shrinkwrap.json /app/npm-shrinkwrap.json
+WORKDIR /app
 RUN npm install
-ADD . /tengo-restriccion
+ADD . /app
 
 # Install npm deps
 RUN npm install pm2 -g
