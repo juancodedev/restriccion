@@ -4,7 +4,6 @@
 *dump.rdb
 devEntry.js
 tmp/*
-public/js/client.js
 node_modules
 scss/**/*.map
 css/**/*.map
