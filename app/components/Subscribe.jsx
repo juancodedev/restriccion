@@ -33,7 +33,7 @@ export default class Subscribe extends React.Component {
     const submitClass = `${allValid(this.state.valid) ? null : 'disabled'} waves-effect waves-light btn-large`;
 
     return (
-      <section className="subscripcion">
+      <section className="Subscribe">
         <h4 className="white-text">¿Te avisamos cuanto tengas restricción?</h4>
         <form action="">
           <div className="row">

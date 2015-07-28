@@ -3,6 +3,11 @@ $primary-color-light: $primary-color;
 $primary-color-dark: $primary-color;
 $secondary-color: #3A3B3F;
 
+@import 'components/Main';
+@import 'components/Header';
+@import 'components/Footer';
+@import 'components/Info';
+@import 'components/Subscribe';
 @import 'components/Alert';
 @import 'components/Loading';
 
@@ -33,181 +38,12 @@ h5 {
   font-weight: 100;
 }
 
-.stgoLab{
-  margin-bottom: 4vw;
-  text-align: center;
-  h5{ letter-spacing: 2px; }
-  img { width: 400px; }
-}
-
-.logo{ width: 780px; }
-
-.top{
-  padding: 4vw 0 4vw 0;
-}
-
-.main{
-  text-align: center;
-}
-
-.date{
-  h5{
-    background-color: rgba(23, 23, 23, 0.62);
-    line-height: 1.5;
-    margin: 2vh 0 0 0;
-    padding: 5px 11px;
-    color: #FFC017;
-    font-weight: 300;
-    letter-spacing: 1px;
-    text-transform: capitalize;
-  }
-  &.picker__date-display{
-    background-color: #63655B;
-    padding-bottom: 0;
-    margin-bottom: 3vh;
-    flex-basis: 25%;
-    min-width: 240px;
-  }
-  .picker__weekday-display {
-    background-color: #56594D;
-    font-weight: 300;
-    margin-bottom: 6px;
-  }
-  .picker__day-display {
-    font-size: 2.2rem;
-  }
-  .picker__month-display {
-    font-size: 1.2rem;
-  }
-  .picker__year-display {
-    font-size: 1.2rem;
-  }
-}
-
-.restriccion{
-  h3{
-    text-transform: uppercase;
-    margin-top: 0;
-    color: #C5D38F;
-    font-weight: 100
-  }
-  .conSello, .sinSello {
-    padding: 15px 20px;
-    border: 1px solid #464E3D;
-    margin: 0 1vw 4vh 1vw;
-    & h5{
-      font-weight: 200;
-      font-size: 1.4rem;
-    }
-  }
-  .sinSello h5 {
-    color: #FF4254;
-  }
-  .conSello h5 {
-    color: #B6FF2C;
-  }
-}
-
-.info, .numeros{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  color: #fff;
-}
-
-.subscripcion{
-  padding: 1vh 0;
-  h4{
-    margin: 0 0 2rem 0;
-    font-size: 3.5rem;
-  }
-}
-
-form{
-  max-width: 700px;
-  margin: 0 auto;
-  .input-field{
-    input{
-      color: #fff;
-      font-size: 3.5vw;
-      height: 6vw;
-      min-height: 34px;
-      text-align: center;
-    }
-    label{ top: 1.8vw; }
-    &.select label{ top: -1.2vw; }
-  }
-  .btn, .btn-large{
-    color: #63655B;
-    background-color: $primary-color;
-  }
-  .btn:hover, .btn-large:hover {
-    background-color: #deff53;
-  }
-  .select-wrapper {
-    span.caret { color: $primary-color; }
-
-    .dropdown-content li { line-height: 1rem; }
-
-    .dropdown-content li span{ color: rgba(0, 0, 0, 0.87); }
-
-    input.select-dropdown {
-      font-size: 1.4rem;
-      font-weight: 300;
-    }
-  }
-  [type="radio"]:checked + label:after {
-    border: 2px solid $primary-color;
-    background-color: $primary-color;
-  }
-  input[type=text]:focus:not([readonly]),
-  input[type=password]:focus:not([readonly]),
-  input[type=email]:focus:not([readonly]),
-  input[type=url]:focus:not([readonly]),
-  input[type=time]:focus:not([readonly]),
-  input[type=date]:focus:not([readonly]),
-  input[type=datetime-local]:focus:not([readonly]),
-  input[type=tel]:focus:not([readonly]),
-  input[type=number]:focus:not([readonly]),
-  input[type=search]:focus:not([readonly]),
-  textarea.materialize-textarea:focus:not([readonly]) {
-    border-bottom: 1px solid $primary-color;
-    box-shadow: 0 1px 0 0 $primary-color;
-  }
-  input[type=text]:focus:not([readonly])+label,
-  input[type=password]:focus:not([readonly])+label,
-  input[type=email]:focus:not([readonly])+label,
-  input[type=url]:focus:not([readonly])+label,
-  input[type=time]:focus:not([readonly])+label,
-  input[type=date]:focus:not([readonly])+label,
-  input[type=datetime-local]:focus:not([readonly])+label,
-  input[type=tel]:focus:not([readonly])+label,
-  input[type=number]:focus:not([readonly])+label,
-  input[type=search]:focus:not([readonly])+label,
-  textarea.materialize-textarea:focus:not([readonly])+label {
-    color: $primary-color;
-  }
-}
-
 .spinner-yellow, .spinner-yellow-only {
     border-color: $primary-color;
 }
 .preloader-wrapper {
   display: block;
   margin: 0 auto;
-}
-
-.alertForm{
-  min-height: 46px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: 300;
-  &.alertTrue { background-color: rgba(217, 255, 57, 0.48); }
-  &.alertFalse { background-color: rgba(255, 57, 57, 0.48); }
 }
 
 @keyframes fadeIn {
@@ -267,49 +103,4 @@ form{
   animation-name: fadeInUp;
   animation-duration: 1s;
   animation-fill-mode: both;
-}
-
-@media screen and (max-width: 400px){
-  .restriccion{
-    .conSello, .sinSello {
-      padding: 0px 20px;
-      width: 100%;
-    }
-
-    h3{ font-size: 1.5rem; }
-  }
-  form .select-wrapper input.select-dropdown {
-    font-size: 1.1rem;
-  }
-  .date{
-    padding-top: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
-    width: 100%;
-    div{
-      height: 30px;
-      background: transparent;
-      font-size: 1.15rem;
-      display: inline-block;
-      height: 24px;
-      line-height: 1.9rem;
-      padding: 0;
-      margin: 0 2px 0 2px;
-      text-transform: capitalize;
-    }
-    .picker__weekday-display{
-      background: transparent;
-      font-size: 1.15rem;
-      margin: 0 4px 0 4px;
-    }
-    .picker__day-display {
-      flex-basis: 22px;
-    }
-    h5{
-      display: block;
-      width: 100%;
-    }
-  }
 }
