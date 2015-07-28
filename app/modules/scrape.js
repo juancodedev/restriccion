@@ -3,6 +3,7 @@ import cheerio from 'cheerio';
 import {__RESTRICTIONDATA_URL__} from '../config/scraping';
 import {log} from '../modules/logger';
 import {compose, map, filter, trim, split, replace, test, ifElse, always} from 'ramda';
+import flattenTime from '../utils/flattenTime';
 
 
 /**
@@ -123,5 +124,5 @@ export function scrapeNumerosRestriccion(){
 function getDate(day){
   var date = new Date();
   date.setDate(day);
-  return date;
+  return flattenTime(date);
 }
