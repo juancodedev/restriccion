@@ -39,7 +39,6 @@ export function* create(){
 }
 
 
-// TODO: revisar/cambiar logs
 export function* unsubscribe(){
   try{
     const paramEmail = this.request.query.email;
