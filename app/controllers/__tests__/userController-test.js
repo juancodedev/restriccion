@@ -59,7 +59,8 @@ describe('userController', () => {
       .then(user => {
         request(app.listen())
           .get('/unsubscribe?email=' + user.email + '&token=' + user.token )
-          .expect(200)
+          .expect(302)
+          .expect('Redirecting to <a href="/unsubscribe.html">/unsubscribe.html</a>.')
           .end(done);
       });
     });
@@ -73,7 +74,8 @@ describe('userController', () => {
       .then(user => {
         request(app.listen())
           .get('/unsubscribe?email=' + user.email + '&token=ABC')
-          .expect(400)
+          .expect(302)
+          .expect('Redirecting to <a href="/unsubscribe-error.html">/unsubscribe-error.html</a>.')
           .end(done);
       });
     });
@@ -87,7 +89,8 @@ describe('userController', () => {
       .then(user => {
         request(app.listen())
           .get('/unsubscribe?email=ABC&token=' + user.token )
-          .expect(400)
+          .expect(302)
+          .expect('Redirecting to <a href="/unsubscribe-error.html">/unsubscribe-error.html</a>.')
           .end(done);
       });
     });
