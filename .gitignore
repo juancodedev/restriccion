@@ -2,6 +2,7 @@
 *.sass-cache*
 *.log
 *dump.rdb
+public/js/client.js
 devEntry.js
 tmp/*
 node_modules
