@@ -58,7 +58,7 @@ describe('userController', () => {
       })
       .then(user => {
         request(app.listen())
-          .get('/users?email=' + user.email + '&token=' + user.token )
+          .get('/unsubscribe?email=' + user.email + '&token=' + user.token )
           .expect(200)
           .end(done);
       });
@@ -72,7 +72,7 @@ describe('userController', () => {
       })
       .then(user => {
         request(app.listen())
-          .get('/users?email=' + user.email + '&token=ABC')
+          .get('/unsubscribe?email=' + user.email + '&token=ABC')
           .expect(400)
           .end(done);
       });
@@ -86,7 +86,7 @@ describe('userController', () => {
       })
       .then(user => {
         request(app.listen())
-          .get('/users?email=ABC&token=' + user.token )
+          .get('/unsubscribe?email=ABC&token=' + user.token )
           .expect(400)
           .end(done);
       });

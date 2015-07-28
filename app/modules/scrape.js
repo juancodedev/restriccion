@@ -99,14 +99,14 @@ export function scrapeNumerosRestriccion(){
       const scrapedData = filterElements($('.col-sm-12.restrictiontop > *').text());
 
       const expectedPattern =
-                  /^.*\b(\d{1,2}) de .*: sin sello verde.*? \d-.*\d(, con sello verde \d-.*\d)?$/i;
+                  /^.*\b(\d{1,2}) de .*:.*? sin sello verde.*? \d-.*\d(, con sello verde \d-.*\d)?$/i;
 
       if (!test(expectedPattern, scrapedData[0])) {
         log.fatal({'scrape#fetchNumerosRestriccion': {
           message    : 'Unexpected scraped data pattern!',
           scrapedData: scrapedData
         }});
-        reject(Error('Unexpected scraped data pattern!'));
+        return reject(Error('Unexpected scraped data pattern!'));
       }
 
       resolve(scrapedData);

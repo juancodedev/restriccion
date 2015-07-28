@@ -22,6 +22,8 @@ describe('scrape', () => {
 
     const bug1 = ['Sábado 25 de Julio: sin sello verde  1-2', 'Alerta Ambiental'];
 
+    const bug2 = ['Martes 28 de Julio:  sin sello verde 9-0-1-2', 'Restricción Vehicular'];
+
     const parseNumerosRestriccion = scrape.parseNumerosRestriccion;
 
 
@@ -30,6 +32,7 @@ describe('scrape', () => {
     const numerosAlerta        = parseNumerosRestriccion(alerta);
     const numerosNormal        = parseNumerosRestriccion(normal);
     const numerosBug1          = parseNumerosRestriccion(bug1);
+    const numerosBug2          = parseNumerosRestriccion(bug2);
 
     // Make sure that the day is correct, but we 'ignore' the rest,
     // because of parseNumerosRestriccion implementation
@@ -38,6 +41,7 @@ describe('scrape', () => {
     const fechaAlerta        = new Date((new Date(numerosAlerta.fecha.getTime())).setDate(28));
     const fechaNormal        = new Date((new Date(numerosNormal.fecha.getTime())).setDate(6));
     const fechaBug1          = new Date((new Date(numerosBug1.fecha.getTime())).setDate(25));
+    const fechaBug2          = new Date((new Date(numerosBug2.fecha.getTime())).setDate(28));
 
     it('should return expected result for Emergencia', () => {
       numerosEmergencia
@@ -128,10 +132,6 @@ describe('scrape', () => {
     });
 
     it('should return expected result for Bug case', () => {
-      /**
-       * Tests Bugs
-       */
-      // bug 1
       numerosBug1
         .should.be.deep.equal({
           fecha  : fechaBug1,
@@ -142,10 +142,6 @@ describe('scrape', () => {
           }
         });
 
-      /**
-       * Tests Bugs
-       */
-      // bug 1
       numerosBug1
         .should.not.be.deep.equal({
           fecha  : fechaBug1,
@@ -157,6 +153,27 @@ describe('scrape', () => {
         });
     });
 
+    it('should return expected result for Bug2 case', () => {
+      numerosBug2
+        .should.be.deep.equal({
+          fecha  : fechaBug2,
+          estatus: 'Restricción Vehicular',
+          numeros: {
+            conSello: [],
+            sinSello: [9, 0, 1, 2]
+          }
+        });
+
+      numerosBug1
+        .should.not.be.deep.equal({
+          fecha  : fechaBug1,
+          estatus: 'Restricción Vehicular',
+          numeros: {
+            conSello: [],
+            sinSello: [3, 1]
+          }
+        });
+    });
 
 
     it('object should have formated "numeros"', () => {
@@ -233,11 +250,6 @@ describe('scrape', () => {
               .and.to.have.length.above(0);
     });
 
-    it('returns expected "fecha/numeros" text pattern', () => {
-      return scrapeNumerosRestriccion.should.eventually
-              .have.property(0)
-              .and.to.match(/^.*\b(\d{1,2}) de .*: sin sello verde.*? \d-.*\d(, con sello verde \d-.*\d)?$/i);
-    });
 
     it('returns expected "estatus" text pattern', () => {
       return scrapeNumerosRestriccion.should.eventually
