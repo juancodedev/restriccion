@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from '../utils/mongoosePromise';
 import {db} from '../config/db.js';
 mongoose.connect(db);
 

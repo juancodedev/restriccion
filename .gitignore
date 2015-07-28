@@ -5,6 +5,7 @@
 public/js/client.js
 devEntry.js
 tmp/*
+log/*
 node_modules
 scss/**/*.map
 css/**/*.map

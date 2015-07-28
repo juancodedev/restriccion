@@ -1,4 +1,4 @@
-import readFile from '../modules/readfile-promise';
+import readFile from '../utils/readfilePromise';
 import {getLatest} from '../models/RestrictionDay';
 import server from '../config/server.js';
 import {__DEVELOPMENT__} from '../config/envs';
