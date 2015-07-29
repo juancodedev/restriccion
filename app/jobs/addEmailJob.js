@@ -1,6 +1,6 @@
 import kue from 'kue';
 import {splitEvery} from 'ramda';
-import {sendEmail} from '../modules/mailSender';
+import {sendRestrictionEmail} from '../modules/mailSender';
 import {host} from '../config/redis';
 
 const jobs = kue.createQueue({
@@ -14,8 +14,14 @@ const jobs = kue.createQueue({
  * @param  {string} 'new_email' is the name of the job to be processed
  * @param  {function} function where the job is processed
  */
-jobs.process('new_email', function (job, done){
-  sendEmail(job.data.emails, job.data.info, done);
+jobs.process('new_email', async function (job, done){
+  try {
+    await sendRestrictionEmail(job.data.emails, job.data.info);
+    done();
+  }
+  catch(error) {
+    done(error);
+  }
 });
 
 

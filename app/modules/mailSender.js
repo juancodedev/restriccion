@@ -8,64 +8,106 @@ import {project} from 'ramda';
 const mandrillClient = new mandrill.Mandrill(__MANDRILL_KEY__);
 moment.locale('es');
 
+
 /**
  * Sends Restriction Notification Emails to Users
- * @param  {array}    users array
- * @param  {object}   object with the latest scraped data
- * @param  {function} callback
+ * @param  {array}   users an array of Users
+ * @param  {object}  info with the latest scraped data
+ * @return {promise}
  */
-export function sendEmail(users, info, done){
+export function sendRestrictionEmail(users, info){
+  return new Promise((resolve, reject) => {
 
+    const emails = project(['email'], users);
 
-  const emails = project(['email'], users);
+    const mergeVars = users.map(em => {
+      return {
+        rcpt: em.email,
+        vars: [
+          { name: 'EMAIL', content: em.email},
+          { name: 'TOKEN', content: em.token}
+        ]
+      };
+    });
 
-  const mergeVars = users.map(em => {
-    return {
-      rcpt: em.email,
-      vars: [
-        { name: 'EMAIL', content: em.email},
-        { name: 'TOKEN', conteng: em.token}
-      ]
+    const message = {
+      'inline_css': true,
+      'to'        : emails,
+      'merge'     : true,
+      'merge_vars': mergeVars
     };
+
+    const templateContent = [
+      {
+        'name'   : 'fecha',
+        'content': moment(info.fecha).format('dddd DD MMMM YYYY')
+      },
+      {
+        'name'   : 'estatus',
+        'content': info.estatus
+      },
+      {
+        'name'   : 'conSello',
+        'content': (info.numeros.conSello.length > 0) ? info.numeros.conSello.join('-') : 'Sin restricción'
+      },
+      {
+        'name'   : 'sinSello',
+        'content': info.numeros.sinSello.join('-')
+      }
+    ];
+
+    mandrillClient.messages.sendTemplate({
+      'template_name'   : 'tengoRestriccion',
+      'template_content': templateContent,
+      'message'         : message
+    }, result => {
+      log.info({'mailSender#sendRestrictionEmail': { result }});
+      resolve(result);
+    }, error => {
+      log.error({'mailSender#sendRestrictionEmail': { error }});
+      reject(error);
+    });
   });
+}
 
 
-  const templateName = 'tengoRestriccion';
-  const message = {
-    'inline_css': true,
-    'to'        : emails,
-    'merge'     : true,
-    'merge_vars': mergeVars
-  };
+/**
+ * Sends Welcome Email to User
+ * @param  {object}   user User Data
+ * @param  {function} done callback
+ * @return {promise}
+ */
+export function sendWelcomeEmail(user) {
+  return new Promise((resolve, reject) => {
 
-  const templateContent = [
-    {
-      'name'   : 'fecha',
-      'content': moment(info.fecha).format('dddd DD MMMM YYYY')
-    },
-    {
-      'name'   : 'estatus',
-      'content': info.estatus
-    },
-    {
-      'name'   : 'conSello',
-      'content': (info.numeros.conSello.length > 0) ? info.numeros.conSello.join('-') : 'Sin restricción'
-    },
-    {
-      'name'   : 'sinSello',
-      'content': info.numeros.sinSello.join('-')
-    }
-  ];
+    const email = {email: user.email};
 
-  mandrillClient.messages.sendTemplate({
-    'template_name'   : templateName,
-    'template_content': templateContent,
-    'message'         : message
-  }, result => {
-    log.info({'mailSender#sendEmail': { result }});
-  }, error => {
-    log.error({'mailSender#sendEmail': { error }});
+    const mergeVars = [{
+      rcpt: user.email,
+      vars: [
+        { name: 'EMAIL', content: user.email},
+        { name: 'TOKEN', content: user.token}
+      ]
+    }];
+
+
+    const message = {
+      'inline_css': true,
+      'to'        : [email],
+      'merge'     : true,
+      'merge_vars': mergeVars
+    };
+
+    mandrillClient.messages.sendTemplate({
+      'template_name'   : 'tengorestricci-n-bienvenida',
+      'template_content': '',
+      'message'         : message
+    }, result => {
+      log.info({'mailSender#sendRestrictionEmail': { result }});
+      resolve(result);
+    }, error => {
+      log.error({'mailSender#sendRestrictionEmail': { error }});
+      reject(error);
+    });
   });
-
-  done();
 }
