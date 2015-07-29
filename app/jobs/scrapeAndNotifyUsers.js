@@ -3,7 +3,7 @@ import {log} from '../modules/logger';
 import {fetchNumerosRestriccion} from '../modules/scrape';
 import * as RestrictionDay from '../models/RestrictionDay';
 import * as User from '../models/User';
-import {setEmailJob} from './addEmailJob';
+import {addNotifyRestrictedUsersJob} from './notifyRestrictedUsersJob';
 import flattenTime from '../utils/flattenTime';
 
 const jobs = kue.createQueue();
@@ -39,7 +39,7 @@ export default function scheduleScrapeAndNotifyUsers(firstDelay, recurringDelay)
 
 
 /**
- * Handler for 'new_scrape' Kue Job
+ * Job processor
  */
 jobs.process('new_scrape', async function (job, done){
   log.info({'scrapeJob#new_scrape': job});
@@ -66,5 +66,5 @@ jobs.process('new_scrape', async function (job, done){
 
 async function notifyRestrictedUsers(restrictionDayData) {
   const users = await User.allWithRestriction(restrictionDayData.numeros);
-  setEmailJob(users, restrictionDayData);
+  addNotifyRestrictedUsersJob(users, restrictionDayData);
 }
