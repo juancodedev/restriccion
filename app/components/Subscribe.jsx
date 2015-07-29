@@ -34,7 +34,7 @@ export default class Subscribe extends React.Component {
 
     return (
       <section className="Subscribe">
-        <h4 className="white-text">¿Te avisamos cuanto tengas restricción?</h4>
+        <h4 className="white-text">¿Te avisamos cuando tengas restricción?</h4>
         <form action="">
           <div className="row">
             <div className="input-field select col s12 m7">

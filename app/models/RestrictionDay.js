@@ -64,11 +64,11 @@ export function set(restrictionDayData) {
  * @param {object} restrictionDayData an object according to RestrictionDay's Schema
  */
 export function create(restrictionDayData) {
-  CRUD.create(RestrictionDay, addId(restrictionDayData))
-    .catch( error => {
-      log.error({'RestrictionDay#create': { restrictionDayData, error }});
-      return Promise.reject(error);
-    });
+  return CRUD.create(RestrictionDay, addId(restrictionDayData))
+          .catch( error => {
+            log.error({'RestrictionDay#create': { restrictionDayData, error }});
+            return Promise.reject(error);
+          });
 }
 
 
