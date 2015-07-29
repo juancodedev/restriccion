@@ -75,10 +75,11 @@
   }
 }
 
-@media screen and (max-width: 400px){
+@media screen and (max-width: 480px){
   .Subscribe{
     form .select-wrapper input.select-dropdown {
       font-size: 1.1rem;
     }
+    form .input-field input{ font-size: 7.5vw; }
   }
 }

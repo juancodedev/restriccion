@@ -17,9 +17,11 @@ export default class App extends React.Component {
       <Provider store={store}>
         {() =>
           <div>
-            <Header />
-            <Main />
-            <hr/>
+            <div className="container">
+              <Header />
+              <Main />
+              <hr/>
+            </div>
             <Footer />
           </div>
         }

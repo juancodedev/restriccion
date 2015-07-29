@@ -1,6 +1,42 @@
 .Footer {
-  margin-bottom: 4vw;
   text-align: center;
   h5{ letter-spacing: 2px; }
-  img { width: 400px; }
+  img {
+    width: 400px;
+    margin-bottom: 4vw;
+  }
+}
+.stgoLab{
+  text-align: center;
+}
+.git {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #D9FF39;
+    align-items: center;
+    color: #3A3B3F;
+    padding: 5px 0;
+    font-weight: 400;
+    img {
+      max-width: 110px;
+      margin: 0 0 0 6px;
+    }
+    a {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      color: #3A3B3F;
+      &:hover{ opacity: 0.7; }
+    }
+}
+
+@media screen and (max-width: 480px){
+  .Footer {
+    padding-top: 3vw;
+    img.stgoLogo {
+        margin-bottom: 30px;
+    }
+  }
 }

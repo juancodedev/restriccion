@@ -8,7 +8,7 @@ require('./app/modules/connectToDB');
 const __PRODUCTION__ = require('./app/config/envs').__PRODUCTION__;
 const RestrictionDay = require('./app/models/RestrictionDay.js');
 const scrape = require('./app/modules/scrape.js');
-const scheduleScrapeAndNotifyUsers = require('./app/jobs/scrapeAndNotifyUsers');
+//const scheduleScrapeAndNotifyUsers = require('./app/jobs/scrapeAndNotifyUsers');
 
 
 // First Scrape
@@ -19,7 +19,7 @@ RestrictionDay.getLatest()
   })
   .then(function(){
     // Schedule "Scrape and Notify Users" Job
-    if(__PRODUCTION__) { scheduleScrapeAndNotifyUsers(1000 * 30, 1000 * 60 * 60); }
+    //if(__PRODUCTION__) { scheduleScrapeAndNotifyUsers(1000 * 30, 1000 * 60 * 60); }
 
     // Run the Server
     require('./server.js');

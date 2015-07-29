@@ -7,12 +7,60 @@
     width: 780px; }
 
 .Footer {
-  margin-bottom: 4vw;
   text-align: center; }
   .Footer h5 {
     letter-spacing: 2px; }
   .Footer img {
-    width: 400px; }
+    width: 400px;
+    margin-bottom: 4vw; }
+
+.stgoLab {
+  text-align: center; }
+
+.git {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #D9FF39;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #3A3B3F;
+  padding: 5px 0;
+  font-weight: 400; }
+  .git img {
+    max-width: 110px;
+    margin: 0 0 0 6px; }
+  .git a {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    color: #3A3B3F; }
+    .git a:hover {
+      opacity: 0.7; }
+
+@media screen and (max-width: 480px) {
+  .Footer {
+    padding-top: 3vw; }
+    .Footer img.stgoLogo {
+      margin-bottom: 30px; } }
 
 .Info, .Info .numeros {
   display: -webkit-box;
@@ -44,7 +92,7 @@
   -webkit-flex-basis: 25%;
       -ms-flex-preferred-size: 25%;
           flex-basis: 25%;
-  min-width: 240px; }
+  min-width: 270px; }
 
 .Info .date .picker__weekday-display {
   background-color: #56594D;
@@ -189,9 +237,11 @@
     .Subscribe form textarea.materialize-textarea:focus:not([readonly]) + label {
       color: #D9FF39; }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 480px) {
   .Subscribe form .select-wrapper input.select-dropdown {
-    font-size: 1.1rem; } }
+    font-size: 1.1rem; }
+  .Subscribe form .input-field input {
+    font-size: 7.5vw; } }
 
 .Alert {
   height: 0; }
