@@ -3,10 +3,12 @@
  * @description a data model representing RestrictionDay
  */
 
-import mongoose from 'mongoose';
+import mongoose from '../utils/mongoosePromise';
 import moment from 'moment';
 import * as CRUD from './helpers/CRUD.js';
 import {log} from '../modules/logger';
+
+
 
 /**
  * RestrictionDay's Schema

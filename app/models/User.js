@@ -3,7 +3,7 @@
  * @description a data model representing an User
  */
 
-import mongoose from 'mongoose';
+import mongoose from '../utils/mongoosePromise';
 import {isEmail} from 'validator';
 import randToken from 'rand-token';
 import * as CRUD from './helpers/CRUD.js';

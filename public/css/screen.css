@@ -157,7 +157,9 @@
       color: rgba(0, 0, 0, 0.87); }
     .Subscribe form .select-wrapper input.select-dropdown {
       font-size: 1.4rem;
-      font-weight: 300; }
+      font-weight: 300;
+      height: 4vw;
+      min-height: 45px; }
     .Subscribe form [type="radio"]:checked + label:after {
       border: 2px solid #D9FF39;
       background-color: #D9FF39; }
