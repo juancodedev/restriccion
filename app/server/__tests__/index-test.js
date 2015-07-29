@@ -10,7 +10,7 @@ chai.should();
 
 
 describe('Website', () => {
-  it('should return status 200', done => {
+  it('should render correct RestrictionDay', done => {
 
     const testDate = new Date('December 31, 2015 11:13:00');
 
@@ -26,14 +26,14 @@ describe('Website', () => {
       request(app.listen())
         .get('/')
         .expect(200)
-        .expect(testing)
+        .expect(restrictionDayInfo)
         .end(done);
     });
   });
 });
 
 
-function testing(res){
+function restrictionDayInfo(res){
   const $ = cheerio.load(res.text.toString());
   const sinSello = $('.sinSello h4').text();
   const conSello = $('.conSello h4').text();
