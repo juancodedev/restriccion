@@ -1,14 +1,20 @@
 import * as User from '../models/User';
 import {log} from '../modules/logger';
+import {addWelcomeEmailJob} from '../jobs/welcomeEmailJob';
+import {__PRODUCTION__} from '../config/envs';
 
 export function* create(){
   const query = this.request.body;
   this.type = 'application/json';
 
   try{
-    const doc = yield User.create(query);
+    const user = yield User.create(query);
+
+    // Send welcome email
+    if (__PRODUCTION__) { addWelcomeEmailJob(user); }
+
     this.status = 201;
-    this.body = doc;
+    this.body = user;
   }
   catch(error){
     log.error({'userController#create': { query, error }});
@@ -34,7 +40,6 @@ export function* create(){
         ]
       };
     }
-
   }
 }
 
