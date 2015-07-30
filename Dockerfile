@@ -6,8 +6,7 @@ WORKDIR /app
 RUN npm install
 RUN npm install pm2 -g
 
-ADD . /app
+VOLUME /app/public
+COPY . /app
 
-RUN npm run build
-
-VOLUME ["/app/public"]
+ENTRYPOINT ["/entrypoint.sh"]
