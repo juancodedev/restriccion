@@ -61,11 +61,11 @@ export default class Info extends React.Component {
           <div className="numeros">
             <div className="sinSello">
               <h4 className="num">{displayNumeros(sinSello)}</h4>
-              <h5>Sin sello verde</h5>
+              <h5 className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="No Catalíticos">Sin sello verde</h5>
             </div>
             <div className="conSello">
               <h4 className="num">{displayNumeros(conSello)}</h4>
-              <h5>Con sello verde</h5>
+              <h5 className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Catalíticos">Con sello verde</h5>
             </div>
           </div>
         </div>

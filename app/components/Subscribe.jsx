@@ -55,11 +55,11 @@ export default class Subscribe extends React.Component {
             <div className="col m3 s12 offset-m2">
               <p>
                 <input onChange={this._handleChange.bind(this, 'sinSelloVerde')} name="sello" type="radio" id="sin_sello" />
-                <label htmlFor="sin_sello">Sin sello verde</label>
+                <label htmlFor="sin_sello" className="tooltipped" data-position="right" data-delay="50" data-tooltip="No Catalíticos">Sin sello verde</label>
               </p>
               <p>
                 <input onChange={this._handleChange.bind(this, 'conSelloVerde')} name="sello" type="radio" id="con_sello" />
-                <label htmlFor="con_sello">Con sello verde</label>
+                <label htmlFor="con_sello" className="tooltipped" data-position="right" data-delay="50" data-tooltip="Catalíticos">Con sello verde</label>
               </p>
             </div>
             </div>
