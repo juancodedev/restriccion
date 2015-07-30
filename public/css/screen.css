@@ -181,7 +181,8 @@
     font-size: 3.5rem; }
   .Subscribe form {
     max-width: 700px;
-    margin: 0 auto; }
+    margin: 0 auto;
+    position: relative; }
     .Subscribe form .input-field input {
       color: #fff;
       font-size: 3.5vw;
@@ -256,7 +257,30 @@
     -webkit-animation-duration: 0.5s;
             animation-duration: 0.5s;
     -webkit-animation-fill-mode: both;
-            animation-fill-mode: both; }
+            animation-fill-mode: both;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(58, 59, 63, 0.94);
+    height: auto;
+    z-index: 99;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center; }
   .Alert .alertForm {
     min-height: 46px;
     display: -webkit-box;
@@ -276,11 +300,12 @@
             align-items: center;
     color: #fff;
     font-size: 1.5rem;
-    font-weight: 300; }
+    font-weight: 300;
+    padding: 0 10px; }
     .Alert .alertForm.alertTrue {
-      background-color: rgba(217, 255, 57, 0.48); }
+      background-color: #859d29; }
     .Alert .alertForm.alertFalse {
-      background-color: rgba(255, 57, 57, 0.48); }
+      background-color: #b32b30; }
 
 .Loading {
   height: 0; }
