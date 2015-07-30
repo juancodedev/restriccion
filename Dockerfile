@@ -9,4 +9,4 @@ RUN npm install pm2 -g
 VOLUME /app/public
 COPY . /app
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT entrypoint.sh
