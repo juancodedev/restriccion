@@ -10,3 +10,5 @@ VOLUME /app/public
 COPY . /app
 
 ENTRYPOINT entrypoint.sh
+
+CMD pm2 start index.js --no-daemon
