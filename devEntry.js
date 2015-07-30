@@ -13,7 +13,8 @@ scrape.fetchNumerosRestriccion()
     scheduleScrapeAndNotifyUsers(1000 * 10, 1000 * 60);
   });
 
-
+/*
 User.find({email: 'nicolas@santiagolab.cl'})
   .then( x => sendWelcomeEmail(x))
   .then( x => console.log(x) );
+  */

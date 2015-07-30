@@ -54,9 +54,9 @@ export function chunkList(list) {
  * @param  {array, object} email array with the recipient data and scrapedInfo object
  * @return {promise}
  */
-export function addEmailsToQueue(emails, info){
+export function addEmailsToQueue(users, info){
   const emailJob = jobs.create('notify_restricted_users', {
-    emails,
+    users,
     info
   })
   .priority('high') //priority of the job
@@ -65,12 +65,12 @@ export function addEmailsToQueue(emails, info){
   .ttl(10000); //time to remain active before it is set to failed
 
   emailJob
-  .on('complete', (result) => {
-    log.info({'notifyRestrictedUsersJob#addEmailsToQueue': {status: 'complete', result }});
-  })
-  .on('failed', (err) => {
-    log.error({'notifyRestrictedUsersJob#addEmailsToQueue': {status: 'failed', error: err }});
-  });
+    .on('complete', (result) => {
+      log.info({'notifyRestrictedUsersJob#addEmailsToQueue': {status: 'complete', result }});
+    })
+    .on('failed', (err) => {
+      log.error({'notifyRestrictedUsersJob#addEmailsToQueue': {status: 'failed', error: err }});
+    });
 
   emailJob.save( err => {
     if(err){ throw err; }
