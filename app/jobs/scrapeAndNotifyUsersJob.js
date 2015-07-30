@@ -1,4 +1,5 @@
 import kue from 'kue';
+import {kueConfig} from '../config/kueConfig';
 import {log} from '../modules/logger';
 import {fetchNumerosRestriccion} from '../modules/scrape';
 import * as RestrictionDay from '../models/RestrictionDay';
@@ -6,7 +7,32 @@ import * as User from '../models/User';
 import {addNotifyRestrictedUsersJob} from './notifyRestrictedUsersJob';
 import flattenTime from '../utils/flattenTime';
 
-const jobs = kue.createQueue();
+const jobs = kue.createQueue(kueConfig);
+
+/**
+ * Job processor
+ */
+jobs.process('new_scrape', async function (job, done){
+  log.info({'scrapeJob#new_scrape': job});
+
+  try {
+    const scrapedData = await fetchNumerosRestriccion();
+    const latestRestrictionDay = await RestrictionDay.getLatest();
+    const scrapedRestrictionDayDate = flattenTime(scrapedData.fecha);
+    const storedRestrictionDayDate = flattenTime(latestRestrictionDay.fecha);
+
+    if (scrapedRestrictionDayDate > storedRestrictionDayDate) {
+      notifyRestrictedUsers(scrapedData);
+    }
+
+    await RestrictionDay.set(scrapedData);
+
+    done();
+  }
+  catch (err) {
+    log.error({'scrapeJob#new_scrape': {job, err}});
+  }
+});
 
 
 /**
@@ -36,32 +62,6 @@ export default function scheduleScrapeAndNotifyUsers(firstDelay, recurringDelay)
     if(err){ throw err; }
   });
 }
-
-
-/**
- * Job processor
- */
-jobs.process('new_scrape', async function (job, done){
-  log.info({'scrapeJob#new_scrape': job});
-
-  try {
-    const scrapedData = await fetchNumerosRestriccion();
-    const latestRestrictionDay = await RestrictionDay.getLatest();
-    const scrapedRestrictionDayDate = flattenTime(scrapedData.fecha);
-    const storedRestrictionDayDate = flattenTime(latestRestrictionDay.fecha);
-
-    if (scrapedRestrictionDayDate > storedRestrictionDayDate) {
-      notifyRestrictedUsers(scrapedData);
-    }
-
-    await RestrictionDay.set(scrapedData);
-
-    done();
-  }
-  catch (err) {
-    log.error({'scrapeJob#new_scrape': {job, err}});
-  }
-});
 
 
 async function notifyRestrictedUsers(restrictionDayData) {

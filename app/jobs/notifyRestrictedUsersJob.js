@@ -1,15 +1,10 @@
 import kue from 'kue';
 import {splitEvery} from 'ramda';
 import {sendRestrictionEmail} from '../modules/mailSender';
-import {host} from '../config/redis';
+import {kueConfig} from '../config/kueConfig';
 import {log} from '../modules/logger';
 
-
-const jobs = kue.createQueue({
-  redis: {
-    host: host
-  }
-});
+const jobs = kue.createQueue(kueConfig);
 
 /**
  * Job processor
