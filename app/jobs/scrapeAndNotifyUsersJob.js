@@ -1,5 +1,5 @@
 import kue from 'kue';
-import {kueConfig} from '../config/kueConfig';
+import kueConfig from '../config/kueConfig';
 import {log} from '../modules/logger';
 import {fetchNumerosRestriccion} from '../modules/scrape';
 import * as RestrictionDay from '../models/RestrictionDay';

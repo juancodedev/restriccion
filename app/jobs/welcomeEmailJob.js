@@ -1,6 +1,6 @@
 import kue from 'kue';
 import {sendWelcomeEmail} from '../modules/mailSender';
-import {kueConfig} from '../config/kueConfig';
+import kueConfig from '../config/kueConfig';
 import {log} from '../modules/logger';
 
 const jobs = kue.createQueue(kueConfig);
