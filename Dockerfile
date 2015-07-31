@@ -6,8 +6,8 @@ WORKDIR /app
 RUN npm install
 RUN npm install pm2 -g
 
-ADD . /app
+VOLUME /app/public
 
-RUN npm run build
+COPY . /app
 
-VOLUME ["/app/public"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
