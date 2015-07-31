@@ -12,4 +12,4 @@ before_script:
   - mongo --version
 
 after_success:
-    - "curl -H 'Content-Type: application/json' -X PUT -d '{\"$D1\":\"$D2\"}' http://$D3"
+    - "curl -H 'Content-Type: application/json' -X PUT -d $D1 http://$D2"
