@@ -12,4 +12,4 @@ before_script:
   - mongo --version
 
 after_success:
-    "curl $DEPLOY"
+    "$DEPLOY"
