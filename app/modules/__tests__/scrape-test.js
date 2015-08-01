@@ -20,6 +20,8 @@ describe('scrape', () => {
 
     const normal = ['Lunes 6 de Julio: sin sello verde 5-6-7-8', 'Restricción Vehicular'];
 
+    const noAplica = ['Sábado 1 de Agosto:  No aplica', 'Restricción Vehicular'];
+
     const bug1 = ['Sábado 25 de Julio: sin sello verde  1-2', 'Alerta Ambiental'];
 
     const bug2 = ['Martes 28 de Julio:  sin sello verde 9-0-1-2', 'Restricción Vehicular'];
@@ -31,6 +33,7 @@ describe('scrape', () => {
     const numerosPreemergencia = parseNumerosRestriccion(preemergencia);
     const numerosAlerta        = parseNumerosRestriccion(alerta);
     const numerosNormal        = parseNumerosRestriccion(normal);
+    const numerosNoAplica      = parseNumerosRestriccion(noAplica);
     const numerosBug1          = parseNumerosRestriccion(bug1);
     const numerosBug2          = parseNumerosRestriccion(bug2);
 
@@ -40,6 +43,7 @@ describe('scrape', () => {
     const fechaPreemergencia = new Date((new Date(numerosPreemergencia.fecha.getTime())).setDate(3));
     const fechaAlerta        = new Date((new Date(numerosAlerta.fecha.getTime())).setDate(28));
     const fechaNormal        = new Date((new Date(numerosNormal.fecha.getTime())).setDate(6));
+    const fechaNoAplica      = new Date((new Date(numerosNoAplica.fecha.getTime())).setDate(1));
     const fechaBug1          = new Date((new Date(numerosBug1.fecha.getTime())).setDate(25));
     const fechaBug2          = new Date((new Date(numerosBug2.fecha.getTime())).setDate(28));
 
@@ -131,7 +135,29 @@ describe('scrape', () => {
         });
     });
 
-    it('should return expected result for Bug case', () => {
+    it('should return expected result for No Aplica', () => {
+      numerosNoAplica
+        .should.be.deep.equal({
+          fecha  : fechaNoAplica,
+          estatus: 'Restricción Vehicular',
+          numeros: {
+            conSello: [],
+            sinSello: []
+          }
+        });
+
+      numerosNormal
+        .should.not.be.deep.equal({
+          fecha  : fechaNormal,
+          estatus: 'Restar',
+          numeros: {
+            conSello: [],
+            sinSello: [9, 3, 2, 4]
+          }
+        });
+    });
+
+    it('should return expected result for Bug1 case', () => {
       numerosBug1
         .should.be.deep.equal({
           fecha  : fechaBug1,

@@ -2,8 +2,13 @@ import request from 'request';
 import cheerio from 'cheerio';
 import {__RESTRICTIONDATA_URL__} from '../config/scraping';
 import {log} from '../modules/logger';
-import {compose, map, filter, trim, split, replace, test, ifElse, always} from 'ramda';
+import {compose, map, filter, trim, split,
+        replace, test, ifElse, always, not} from 'ramda';
 import flattenTime from '../utils/flattenTime';
+
+const noAplicaPattern = /^.*\b(\d{1,2}) de .*:.*? No aplica$/i;
+const expectedPattern =
+            /^.*\b(\d{1,2}) de .*:.*? sin sello verde.*? \d-.*\d(, con sello verde \d-.*\d)?$/i;
 
 
 /**
@@ -47,7 +52,10 @@ export function parseNumerosRestriccion(jsonArray) {
   const sinSelloRegex = replace(/^.*sin sello verde.*? (\d[\d- ]*)(,.*)?$/, '$1');
   const fechaRegex = /.*\b(\d{1,2}) de .*:.*/;
 
-  const parseSinSello = compose(parseNumbers, sinSelloRegex);
+  const parseSinSello =
+    ifElse( compose(not, test(noAplicaPattern)),
+      compose(parseNumbers, sinSelloRegex), always([]));
+
 
   const parseConSello =
     ifElse(test(/^.*, con sello verde (.*)$/),
@@ -59,7 +67,6 @@ export function parseNumerosRestriccion(jsonArray) {
   }
 
   const day = jsonArray[0].replace(fechaRegex, '$1');
-
 
   return {
     fecha  : getDate(day),
@@ -98,10 +105,7 @@ export function scrapeNumerosRestriccion(){
 
       const scrapedData = filterElements($('.col-sm-12.restrictiontop > *').text());
 
-      const expectedPattern =
-                  /^.*\b(\d{1,2}) de .*:.*? sin sello verde.*? \d-.*\d(, con sello verde \d-.*\d)?$/i;
-
-      if (!test(expectedPattern, scrapedData[0])) {
+      if (!test(expectedPattern, scrapedData[0]) && !test(noAplicaPattern, scrapedData[0])) {
         log.fatal({'scrape#fetchNumerosRestriccion': {
           message    : 'Unexpected scraped data pattern!',
           scrapedData: scrapedData

@@ -5,7 +5,9 @@ require('babel/register');
 require('./app/modules/connectToDB');
 
 // Requires
-const __PRODUCTION__ = require('./app/config/envs').__PRODUCTION__;
+const envs = require('./app/config/envs');
+const __PRODUCTION__ = envs.__PRODUCTION__;
+const __DEVELOPMENT__ = envs.__DEVELOPMENT__;
 const RestrictionDay = require('./app/models/RestrictionDay.js');
 const scrape = require('./app/modules/scrape.js');
 const scheduleScrapeAndNotifyUsers = require('./app/jobs/scrapeAndNotifyUsersJob');
@@ -14,7 +16,7 @@ const scheduleScrapeAndNotifyUsers = require('./app/jobs/scrapeAndNotifyUsersJob
 // First Scrape
 RestrictionDay.getLatest()
   .then(function(restrictionDay){
-    if (restrictionDay.length === 0) { return scrapeAndSave(); }
+    if (restrictionDay.length === 0 || __DEVELOPMENT__) { return scrapeAndSave(); }
     return restrictionDay;
   })
   .then(function(){
