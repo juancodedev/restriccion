@@ -2,6 +2,7 @@ import mandrill from 'mandrill-api/mandrill';
 import moment from 'moment';
 import {log} from '../modules/logger';
 import {__MANDRILL_KEY__} from '../config/mandrill';
+import {__ADMIN_EMAIL__} from '../config/admin';
 import {project} from 'ramda';
 
 
@@ -74,7 +75,6 @@ export function sendRestrictionEmail(users, info){
 /**
  * Sends Welcome Email to User
  * @param  {object}   user User Data
- * @param  {function} done callback
  * @return {promise}
  */
 export function sendWelcomeEmail(user) {
@@ -107,6 +107,43 @@ export function sendWelcomeEmail(user) {
       resolve(result);
     }, error => {
       log.error({'mailSender#sendRestrictionEmail': { error }});
+      reject(error);
+    });
+  });
+}
+
+
+/**
+ * Sends Log Email to Admin
+ * @param  {object}  logJson
+ * @return {promise}
+ */
+export function sendLogEmail(title, logJson) {
+  return new Promise((resolve, reject) => {
+    const prettyLog = JSON.stringify(logJson, null, 4);
+
+    const message = {
+      'html'      : prettyLog,
+      'text'      : prettyLog,
+      'subject'   : `[LOG] ${title}`,
+      'from_email': 'logger@tengorestriccion.cl',
+      'to'        : [
+         {
+          'email': __ADMIN_EMAIL__,
+          'type' : 'to'
+         }
+      ]
+    };
+
+    console.log('--\n', message, '--\n');
+
+    mandrillClient.messages.send({
+      'message': message
+    }, result => {
+      log.info({'mailSender#sendLogEmail': { result }});
+      resolve(result);
+    }, error => {
+      log.error({'mailSender#sendLogEmail': { error }});
       reject(error);
     });
   });

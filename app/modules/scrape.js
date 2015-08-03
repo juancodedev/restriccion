@@ -1,7 +1,9 @@
 import request from 'request';
 import cheerio from 'cheerio';
 import {__RESTRICTIONDATA_URL__} from '../config/scraping';
+import {__PRODUCTION__} from '../config/envs';
 import {log} from '../modules/logger';
+import {sendLogEmail} from '../modules/mailSender';
 import {compose, map, filter, trim, split,
         replace, test, ifElse, always, not} from 'ramda';
 import flattenTime from '../utils/flattenTime';
@@ -106,10 +108,14 @@ export function scrapeNumerosRestriccion(){
       const scrapedData = filterElements($('.col-sm-12.restrictiontop > *').text());
 
       if (!test(expectedPattern, scrapedData[0]) && !test(noAplicaPattern, scrapedData[0])) {
-        log.fatal({'scrape#fetchNumerosRestriccion': {
+        const logJson = {
           message    : 'Unexpected scraped data pattern!',
           scrapedData: scrapedData
-        }});
+        };
+
+        log.fatal({'scrape#fetchNumerosRestriccion': logJson});
+        if(__PRODUCTION__) { sendLogEmail(logJson.message, logJson.scrapedData); }
+
         return reject(Error('Unexpected scraped data pattern!'));
       }
 
