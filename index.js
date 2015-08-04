@@ -21,7 +21,7 @@ RestrictionDay.getLatest()
   })
   .then(function(){
     // Schedule "Scrape and Notify Users" Job
-    if(__PRODUCTION__) { scheduleScrapeAndNotifyUsers(1000 * 30, 1000 * 60 * 60); }
+    if(__PRODUCTION__) { scheduleScrapeAndNotifyUsers(1000 * 30, 1000 * 60 * 30); }
 
     // Run the Server
     require('./server.js');
