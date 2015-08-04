@@ -33,7 +33,7 @@ app.use(helmet.noSniff());
 if(__PRODUCTION__) {
   app.use(helmet.contentSecurityPolicy({
     defaultSrc: ["'self'"],
-    scriptSrc : ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com', 'google-analytics.com'],
+    scriptSrc : ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com', '*.google-analytics.com'],
     styleSrc  : ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
     imgSrc    : ["'self'"],
     fontSrc   : ["'self'", 'cdnjs.cloudflare.com']
