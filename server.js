@@ -35,7 +35,7 @@ if(__PRODUCTION__) {
     defaultSrc: ["'self'"],
     scriptSrc : ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com', '*.google-analytics.com'],
     styleSrc  : ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
-    imgSrc    : ["'self'"],
+    imgSrc    : ["'self'", '*.google-analytics.com'],
     fontSrc   : ["'self'", 'cdnjs.cloudflare.com']
   }));
 }
