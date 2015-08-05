@@ -135,8 +135,6 @@ export function sendLogEmail(title, logJson) {
       ]
     };
 
-    console.log('--\n', message, '--\n');
-
     mandrillClient.messages.send({
       'message': message
     }, result => {
