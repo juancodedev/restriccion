@@ -16,8 +16,8 @@ const scheduleScrapeAndNotifyUsers = require('./app/jobs/scrapeAndNotifyUsersJob
 // First Scrape
 RestrictionDay.getLatest()
   .then(function(restrictionDay){
-    if (restrictionDay.length === 0 || __DEVELOPMENT__) { return scrapeAndSave(); }
-    return restrictionDay;
+    if (!restrictionDay || __DEVELOPMENT__) { return scrapeAndSave(); }
+    // return restrictionDay;
   })
   .then(function(){
     // Schedule "Scrape and Notify Users" Job
