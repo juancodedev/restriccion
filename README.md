@@ -55,4 +55,5 @@ http://www.tengorestriccion.cl/
   - Si quieres aportar con la documentación puedes enviar un pull request con tus cambios
 
 
-![http://www.tengorestriccion.cl/imgs/logo-santiagolab-negro.svg](http://santiagolab.cl)
+
+[![SantiagoLab.cl](http://www.tengorestriccion.cl/imgs/logo-santiagolab-negro.svg)](http://santiagolab.cl)
