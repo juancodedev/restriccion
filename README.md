@@ -1,7 +1,7 @@
-# Tengo Restricción?
+# ¿Tengo Restricción?
 [![Build Status](https://travis-ci.org/SantiagoLab/tengo-restriccion.svg)](https://travis-ci.org/SantiagoLab/tengo-restriccion)
 
-App para notificación de restricción vehicular, en Santiago de Chile, según patente
+App para notificación de restricción vehicular según patente en Santiago de Chile
 
 http://www.tengorestriccion.cl/
 
