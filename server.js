@@ -33,10 +33,11 @@ app.use(helmet.noSniff());
 if(__PRODUCTION__) {
   app.use(helmet.contentSecurityPolicy({
     defaultSrc: ["'self'"],
-    scriptSrc : ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com', '*.google-analytics.com', '*.cloudflare.com'],
-    styleSrc  : ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com', '*.cloudflare.com'],
-    imgSrc    : ["'self'", '*.google-analytics.com'],
-    fontSrc   : ["'self'", 'cdnjs.cloudflare.com']
+    scriptSrc : ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'cdnjs.cloudflare.com',
+                  '*.google-analytics.com', '*.cloudflare.com'],
+    styleSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com', '*.cloudflare.com'],
+    imgSrc  : ["'self'", '*.google-analytics.com'],
+    fontSrc : ["'self'", 'cdnjs.cloudflare.com']
   }));
 }
 
