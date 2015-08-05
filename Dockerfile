@@ -1,4 +1,4 @@
-FROM iojs
+FROM iojs:2.5
 
 ADD package.json /app/package.json
 ADD npm-shrinkwrap.json /app/npm-shrinkwrap.json

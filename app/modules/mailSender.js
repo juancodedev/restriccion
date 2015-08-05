@@ -128,10 +128,10 @@ export function sendLogEmail(title, logJson) {
       'subject'   : `[LOG] ${title}`,
       'from_email': 'logger@tengorestriccion.cl',
       'to'        : [
-         {
+        {
           'email': __ADMIN_EMAIL__,
           'type' : 'to'
-         }
+        }
       ]
     };
 
