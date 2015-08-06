@@ -34,10 +34,10 @@ if(__PRODUCTION__) {
   app.use(helmet.contentSecurityPolicy({
     defaultSrc: ["'self'"],
     scriptSrc : ["'self'", "'unsafe-inline'", "'unsafe-eval'",
-                 '*://*.google-analytics.com', '*://*.cloudflare.com'],
-    styleSrc: ["'self'", "'unsafe-inline'", '*://*.cloudflare.com'],
-    imgSrc  : ["'self'", '*://*.google-analytics.com'],
-    fontSrc : ["'self'", '*://*.cloudflare.com']
+                 '*://*.google-analytics.com:*', '*://*.cloudflare.com:*'],
+    styleSrc: ["'self'", "'unsafe-inline'", '*://*.cloudflare.com:*'],
+    imgSrc  : ["'self'", '*://*.google-analytics.com:*'],
+    fontSrc : ["'self'", '*://*.cloudflare.com:*']
   }));
 }
 
