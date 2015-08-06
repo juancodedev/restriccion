@@ -31,7 +31,7 @@ app.use(helmet.hidePoweredBy());
 app.use(helmet.ieNoOpen());
 app.use(helmet.noSniff());
 if(__PRODUCTION__) {
-  app.use(helmet.hsts({ maxAge: 1000 * 60 * 60 * 24 * 30 }));
+  app.use(helmet.hsts({ maxAge: 1000 * 60 * 60 * 24 * 30, force: true }));
   app.use(helmet.contentSecurityPolicy({
     defaultSrc: ["'self'"],
     scriptSrc : ["'self'", "'unsafe-inline'", "'unsafe-eval'",
