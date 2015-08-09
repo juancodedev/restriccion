@@ -8,8 +8,8 @@
     "win": "parallelshell \"set NODE_ENV=development&&nodemon index.js\"  \"node webpack-server.js\" \"npm run watch\"",
     "production": "NODE_ENV=production pm2 start index.js",
     "test": "eslint . && NODE_ENV=test mocha --compilers js:babel/register --reporter spec 'app/**/__tests__/*-test.js'",
-    "build": "NODE_ENV=production npm run build:bundle && npm run build:css",
-    "build:bundle": "webpack -p --config webpack.config.production.js && uglifyjs public/js/client.js --compress --mangle -o public/js/client.js",
+    "build": "npm run build:css && NODE_ENV=production npm run build:bundle",
+    "build:bundle": "webpack -p --config webpack.config.production.js",
     "build:css:dev": "node-sass public/scss/screen.scss -o public/css/ --source-map public/scss/screen.css.map && postcss --use autoprefixer -d public/css/ public/css/screen.css",
     "build:css": "npm run build:css:dev && cleancss -o public/css/screen.css public/css/screen.css",
     "watch": "onchange \"public/scss/**/*.scss\" -- npm run build:css:dev"

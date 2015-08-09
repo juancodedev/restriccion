@@ -6,8 +6,10 @@ WORKDIR /app
 RUN npm install
 RUN npm install pm2 -g
 
-VOLUME /app/public
-
 COPY . /app
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
+
+VOLUME /app/public
+
+CMD ["pm2 start index.js --no-daemon"]
