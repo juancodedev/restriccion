@@ -76,6 +76,12 @@
   }
 }
 
+[type="radio"]:not(:checked)+label,
+[type="radio"]:checked+label {
+  color: #CACACA;
+  font-size: 1.2rem;
+}
+
 @media screen and (max-width: 480px){
   .Subscribe{
     form .select-wrapper input.select-dropdown {
