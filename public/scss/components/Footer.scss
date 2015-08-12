@@ -1,6 +1,12 @@
 .Footer {
   text-align: center;
   h5{ letter-spacing: 2px; }
+  small {
+    opacity: 0.4;
+    display: block;
+    text-align: center;
+    &:hover { opacity: 0.8; }
+  }
   img {
     width: 400px;
     margin-bottom: 4vw;
@@ -17,6 +23,7 @@
     align-items: center;
     color: #3A3B3F;
     padding: 5px 0;
+    margin-top: 25px;
     font-weight: 400;
     img {
       max-width: 110px;
