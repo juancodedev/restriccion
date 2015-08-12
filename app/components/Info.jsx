@@ -43,7 +43,7 @@ export default class Info extends React.Component {
 
     return (
       <section className="Info">
-        <div className="date picker__date-display">
+        <div className="date picker__date-display z-depth-1">
           <div className="picker__weekday-display">{displayDayName(fecha)}</div>
           <div className="picker__day-display">
             <div>{day}</div>
@@ -59,11 +59,11 @@ export default class Info extends React.Component {
         <div className="restriccion">
           <h3>Patentes terminadas en:</h3>
           <div className="numeros">
-            <div className="sinSello">
+            <div className="sinSello z-depth-1">
               <h4 className="num">{displayNumeros(sinSello)}</h4>
               <h5 className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="No Catalíticos">Sin sello verde</h5>
             </div>
-            <div className="conSello">
+            <div className="conSello z-depth-1">
               <h4 className="num">{displayNumeros(conSello)}</h4>
               <h5 className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Catalíticos">Con sello verde</h5>
             </div>

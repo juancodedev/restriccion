@@ -14,8 +14,13 @@ $secondary-color: #3A3B3F;
 
 
 body{
-  background: $secondary-color;
+  background: $secondary-color url(../imgs/bkg.jpg);
+  background-size: 100% 75%;
   text-rendering: optimizeLegibility;
+}
+
+#appRoot {
+  background: linear-gradient(to bottom, rgba(33, 18, 12,0) 5%, rgba(33, 18, 12, 1) 60%);
 }
 
 hr{
@@ -25,7 +30,7 @@ hr{
 }
 
 h4{
-  font-weight: 100;
+  font-weight: 300;
 }
 
 h4.num {

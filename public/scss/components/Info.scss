@@ -46,14 +46,15 @@
       text-transform: uppercase;
       margin-top: 0;
       color: #C5D38F;
-      font-weight: 100
+      font-weight: 300;
     }
     .conSello, .sinSello {
       padding: 15px 20px;
-      border: 1px solid #464E3D;
+      //border: 1px solid #464E3D;
+      background: rgba(86, 89, 77, 0.5);
       margin: 0 1vw 4vh 1vw;
       & h5{
-        font-weight: 200;
+        font-weight: 300;
         font-size: 1.4rem;
       }
     }
