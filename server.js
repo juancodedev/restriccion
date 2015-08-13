@@ -43,6 +43,7 @@ if(__PRODUCTION__) {
     imgSrc  : ["'self'",
               'http://*.facebook.net/', 'https://*.facebook.net/',
               'http://*.facebook.com/', 'https://*.facebook.com/',
+              'http://stats.g.doubleclick.net', 'https://stats.g.doubleclick.net',
               'https://*.google-analytics.com', 'http://*.google-analytics.com'],
     fontSrc: ["'self'", 'https://*.cloudflare.com', 'http://*.cloudflare.com']
   }));
