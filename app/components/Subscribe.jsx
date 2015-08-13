@@ -6,6 +6,7 @@ import {isEmail} from 'validator';
 import {getValidatorClass, allValid} from '../utils/formHelper';
 import Loading from './Loading.jsx';
 import Alert from './Alert.jsx';
+import {trackSubscription} from '../client/track';
 
 
 export default class Subscribe extends React.Component {
@@ -121,6 +122,9 @@ export default class Subscribe extends React.Component {
 
     try {
       await put('/users', this.state.user);
+
+      trackSubscription(this.state.user.email);
+
       this.setState(
         merge(this.state, {
           alert: {
