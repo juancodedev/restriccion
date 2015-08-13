@@ -35,8 +35,9 @@ if(__PRODUCTION__) {
   app.use(helmet.contentSecurityPolicy({
     defaultSrc: ["'self'"],
     scriptSrc : ["'self'", "'unsafe-inline'", "'unsafe-eval'",
-                 'https://*.google-analytics.com', 'http://*.google-analytics.com',
-                 'https://*.cloudflare.com', 'http://*.cloudflare.com'],
+                'http://*.facebook.net/', 'https://*.facebook.net/',
+                'https://*.google-analytics.com', 'http://*.google-analytics.com',
+                'https://*.cloudflare.com', 'http://*.cloudflare.com'],
     styleSrc: ["'self'", "'unsafe-inline'", 'https://*.cloudflare.com', 'http://*.cloudflare.com'],
     imgSrc  : ["'self'", 'https://*.google-analytics.com', 'http://*.google-analytics.com'],
     fontSrc : ["'self'", 'https://*.cloudflare.com', 'http://*.cloudflare.com']
