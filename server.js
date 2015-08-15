@@ -40,7 +40,7 @@ if(__PRODUCTION__) {
                 'https://*.google-analytics.com', 'http://*.google-analytics.com',
                 'https://*.cloudflare.com', 'http://*.cloudflare.com'],
     styleSrc: ["'self'", "'unsafe-inline'", 'https://*.cloudflare.com', 'http://*.cloudflare.com'],
-    imgSrc  : ["'self'", "'unsafe-inline'",
+    imgSrc  : ["'self'", 'data:',
               'http://*.facebook.net/', 'https://*.facebook.net/',
               'http://*.facebook.com/', 'https://*.facebook.com/',
               'http://stats.g.doubleclick.net', 'https://stats.g.doubleclick.net',
