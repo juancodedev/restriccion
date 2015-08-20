@@ -15,7 +15,7 @@
     "watch": "onchange \"public/scss/**/*.scss\" -- npm run build:css:dev"
   },
   "author": "SantiagoLab.cl <contact@santiagolab.cl>",
-  "license": "MIT",
+  "license": "GPLv3",
   "dependencies": {
     "axios": "^0.5.4",
     "babel": "^5.8.20",
