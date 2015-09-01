@@ -138,7 +138,11 @@ export function scrapeNumerosRestriccion(){
  * @return {date}
  */
 function getDate(day){
-  var date = new Date();
-  date.setDate(day);
+  let date = new Date();
+  const today = date.getDate();
+
+  date.setDate(day);  
+  if(day === '1' && today >= 28) { date.setMonth(date.getMonth() + 1); }
+
   return flattenTime(date);
 }
