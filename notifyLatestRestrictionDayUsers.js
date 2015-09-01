@@ -18,11 +18,12 @@ const job = require('./app/jobs/notifyRestrictedUsersJob');
 
 // Main
 RestrictionDay.getLatest()
-  .then( function(restrictionDayData) {
+  .then(function(restrictionDayData) {
     console.log(restrictionDayData);
-    return User.allWithRestriction(restrictionDayData.numeros);
-  })
-  .then( function(users) {
-    console.log(users);
-    job.addNotifyRestrictedUsersJob(users, restrictionDayData);
+
+    User.allWithRestriction(restrictionDayData.numeros)
+      .then(function(users) {
+        console.log(users, restrictionDayData);
+        job.addNotifyRestrictedUsersJob(users, restrictionDayData);
+      });
   });
