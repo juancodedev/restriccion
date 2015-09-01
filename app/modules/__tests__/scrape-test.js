@@ -22,6 +22,8 @@ describe('scrape', () => {
 
     const noAplica = ['Sábado 1 de Agosto:  No aplica', 'Restricción Vehicular'];
 
+    const noRige = ['Martes 1 de Septiembre: sin sello verde No rige', 'Restricción Vehicular'];
+
     const bug1 = ['Sábado 25 de Julio: sin sello verde  1-2', 'Alerta Ambiental'];
 
     const bug2 = ['Martes 28 de Julio:  sin sello verde 9-0-1-2', 'Restricción Vehicular'];
@@ -34,6 +36,7 @@ describe('scrape', () => {
     const numerosAlerta        = parseNumerosRestriccion(alerta);
     const numerosNormal        = parseNumerosRestriccion(normal);
     const numerosNoAplica      = parseNumerosRestriccion(noAplica);
+    const numerosNoRige        = parseNumerosRestriccion(noRige);
     const numerosBug1          = parseNumerosRestriccion(bug1);
     const numerosBug2          = parseNumerosRestriccion(bug2);
 
@@ -44,6 +47,7 @@ describe('scrape', () => {
     const fechaAlerta        = new Date((new Date(numerosAlerta.fecha.getTime())).setDate(28));
     const fechaNormal        = new Date((new Date(numerosNormal.fecha.getTime())).setDate(6));
     const fechaNoAplica      = new Date((new Date(numerosNoAplica.fecha.getTime())).setDate(1));
+    const fechaNoRige        = new Date((new Date(numerosNoRige.fecha.getTime())).setDate(1));
     const fechaBug1          = new Date((new Date(numerosBug1.fecha.getTime())).setDate(25));
     const fechaBug2          = new Date((new Date(numerosBug2.fecha.getTime())).setDate(28));
 
@@ -146,7 +150,29 @@ describe('scrape', () => {
           }
         });
 
-      numerosNormal
+      numerosNoAplica
+        .should.not.be.deep.equal({
+          fecha  : fechaNormal,
+          estatus: 'Restar',
+          numeros: {
+            conSello: [],
+            sinSello: [9, 3, 2, 4]
+          }
+        });
+    });
+
+    it('should return expected result for No Rige', () => {
+      numerosNoRige
+        .should.be.deep.equal({
+          fecha  : fechaNoRige,
+          estatus: 'Restricción Vehicular',
+          numeros: {
+            conSello: [],
+            sinSello: []
+          }
+        });
+
+      numerosNoRige
         .should.not.be.deep.equal({
           fecha  : fechaNormal,
           estatus: 'Restar',

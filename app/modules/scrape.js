@@ -5,10 +5,11 @@ import {__PRODUCTION__} from '../config/envs';
 import {log} from '../modules/logger';
 import {sendLogEmail} from '../modules/mailSender';
 import {compose, map, filter, trim, split,
-        replace, test, ifElse, always, not} from 'ramda';
+        replace, test, ifElse, always, not, anyPass} from 'ramda';
 import flattenTime from '../utils/flattenTime';
 
 const noAplicaPattern = /^.*\b(\d{1,2}) de .*:.*? No aplica$/i;
+const noRigePattern = /^.*\b(\d{1,2}) de .*:.*? No Rige$/i;
 const expectedPattern =
             /^.*\b(\d{1,2}) de .*:.*? sin sello verde.*? \d-.*\d(, con sello verde \d-.*\d)?$/i;
 
@@ -53,10 +54,14 @@ export function parseNumerosRestriccion(jsonArray) {
   const conSelloRegex = replace(/.*, con sello verde(.*)/, '$1');
   const sinSelloRegex = replace(/^.*sin sello verde.*? (\d[\d- ]*)(,.*)?$/, '$1');
   const fechaRegex = /.*\b(\d{1,2}) de .*:.*/;
+  const exceptionsPredicates = [
+    test(noAplicaPattern),
+    test(noRigePattern)
+  ];
 
   const parseSinSello =
-    ifElse( compose(not, test(noAplicaPattern)),
-      compose(parseNumbers, sinSelloRegex), always([]));
+    ifElse( anyPass(exceptionsPredicates),
+      always([]), compose(parseNumbers, sinSelloRegex) );
 
 
   const parseConSello =
@@ -107,7 +112,9 @@ export function scrapeNumerosRestriccion(){
 
       const scrapedData = filterElements($('.col-sm-12.restrictiontop > *').text());
 
-      if (!test(expectedPattern, scrapedData[0]) && !test(noAplicaPattern, scrapedData[0])) {
+      if (!test(expectedPattern, scrapedData[0]) &&
+          !test(noAplicaPattern, scrapedData[0]) &&
+          !test(noRigePattern, scrapedData[0])) {
         const logJson = {
           message    : 'Unexpected scraped data pattern!',
           scrapedData: scrapedData
