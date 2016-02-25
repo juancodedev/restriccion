@@ -7,7 +7,7 @@ chai.should();
 describe('scrape', () => {
   describe('#parseNumerosRestriccion', () => {
     const emergencia = [
-      'Martes 30 de Junio: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4',
+      'Martes 25 de Junio: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4',
       'Emergencia Ambiental'];
 
     const preemergencia = [
@@ -15,7 +15,7 @@ describe('scrape', () => {
       'Preemergencia Ambiental'];
 
     const alerta = [
-      'Domingo 28 de Junio: sin sello verde 7-8-9-0, con sello verde sin restriccion',
+      'Domingo 21 de Junio: sin sello verde 7-8-9-0, con sello verde sin restriccion',
       'Alerta Ambiental'];
 
     const normal = ['Lunes 6 de Julio: sin sello verde 5-6-7-8', 'Restricción Vehicular'];
@@ -24,9 +24,9 @@ describe('scrape', () => {
 
     const noRige = ['Martes 1 de Septiembre: sin sello verde No rige', 'Restricción Vehicular'];
 
-    const bug1 = ['Sábado 25 de Julio: sin sello verde  1-2', 'Alerta Ambiental'];
+    const bug1 = ['Sábado 19 de Julio: sin sello verde  1-2', 'Alerta Ambiental'];
 
-    const bug2 = ['Martes 28 de Julio:  sin sello verde 9-0-1-2', 'Restricción Vehicular'];
+    const bug2 = ['Martes 18 de Julio:  sin sello verde 9-0-1-2', 'Restricción Vehicular'];
 
     const parseNumerosRestriccion = scrape.parseNumerosRestriccion;
 
@@ -42,14 +42,14 @@ describe('scrape', () => {
 
     // Make sure that the day is correct, but we 'ignore' the rest,
     // because of parseNumerosRestriccion implementation
-    const fechaEmergencia    = new Date((new Date(numerosEmergencia.fecha.getTime())).setDate(30));
+    const fechaEmergencia    = new Date((new Date(numerosEmergencia.fecha.getTime())).setDate(25));
     const fechaPreemergencia = new Date((new Date(numerosPreemergencia.fecha.getTime())).setDate(3));
-    const fechaAlerta        = new Date((new Date(numerosAlerta.fecha.getTime())).setDate(28));
+    const fechaAlerta        = new Date((new Date(numerosAlerta.fecha.getTime())).setDate(21));
     const fechaNormal        = new Date((new Date(numerosNormal.fecha.getTime())).setDate(6));
     const fechaNoAplica      = new Date((new Date(numerosNoAplica.fecha.getTime())).setDate(1));
     const fechaNoRige        = new Date((new Date(numerosNoRige.fecha.getTime())).setDate(1));
-    const fechaBug1          = new Date((new Date(numerosBug1.fecha.getTime())).setDate(25));
-    const fechaBug2          = new Date((new Date(numerosBug2.fecha.getTime())).setDate(28));
+    const fechaBug1          = new Date((new Date(numerosBug1.fecha.getTime())).setDate(19));
+    const fechaBug2          = new Date((new Date(numerosBug2.fecha.getTime())).setDate(18));
 
     it('should return expected result for Emergencia', () => {
       numerosEmergencia
