@@ -17,7 +17,7 @@ function streamType(file) {
       type  : 'rotating-file',
       path  : path.join(__dirname, '..', '..', 'log', file),
       period: '1d',
-      count : 15
+      count : 180
     }];
   }
 
