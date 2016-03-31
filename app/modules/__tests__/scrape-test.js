@@ -9,47 +9,44 @@ describe('scrape', () => {
     const emergencia = [
       'Martes 25 de Junio: sin sello verde 5-6-7-8-9-0-1-2, con sello verde 1-2-3-4',
       'Emergencia Ambiental'];
-
     const preemergencia = [
       'Viernes 3 de Julio: sin sello verde 1-2-3-4 -9-0, con sello verde 7-8',
       'Preemergencia Ambiental'];
-
     const alerta = [
       'Domingo 21 de Junio: sin sello verde 7-8-9-0, con sello verde sin restriccion',
       'Alerta Ambiental'];
-
     const normal = ['Lunes 6 de Julio: sin sello verde 5-6-7-8', 'Restricción Vehicular'];
-
     const noAplica = ['Sábado 1 de Agosto:  No aplica', 'Restricción Vehicular'];
-
     const noRige = ['Martes 1 de Septiembre: sin sello verde No rige', 'Restricción Vehicular'];
+    const sinRestriccion = ['Jueves 27 de Marzo:Sin restricción', 'Restricción Vehicular'];
 
     const bug1 = ['Sábado 19 de Julio: sin sello verde  1-2', 'Alerta Ambiental'];
-
     const bug2 = ['Martes 18 de Julio:  sin sello verde 9-0-1-2', 'Restricción Vehicular'];
 
     const parseNumerosRestriccion = scrape.parseNumerosRestriccion;
 
 
-    const numerosEmergencia    = parseNumerosRestriccion(emergencia);
-    const numerosPreemergencia = parseNumerosRestriccion(preemergencia);
-    const numerosAlerta        = parseNumerosRestriccion(alerta);
-    const numerosNormal        = parseNumerosRestriccion(normal);
-    const numerosNoAplica      = parseNumerosRestriccion(noAplica);
-    const numerosNoRige        = parseNumerosRestriccion(noRige);
-    const numerosBug1          = parseNumerosRestriccion(bug1);
-    const numerosBug2          = parseNumerosRestriccion(bug2);
+    const numerosEmergencia     = parseNumerosRestriccion(emergencia);
+    const numerosPreemergencia  = parseNumerosRestriccion(preemergencia);
+    const numerosAlerta         = parseNumerosRestriccion(alerta);
+    const numerosNormal         = parseNumerosRestriccion(normal);
+    const numerosNoAplica       = parseNumerosRestriccion(noAplica);
+    const numerosNoRige         = parseNumerosRestriccion(noRige);
+    const numerosBug1           = parseNumerosRestriccion(bug1);
+    const numerosBug2           = parseNumerosRestriccion(bug2);
+    const numerosSinRestriccion = parseNumerosRestriccion(sinRestriccion);
 
     // Make sure that the day is correct, but we 'ignore' the rest,
     // because of parseNumerosRestriccion implementation
-    const fechaEmergencia    = new Date((new Date(numerosEmergencia.fecha.getTime())).setDate(25));
-    const fechaPreemergencia = new Date((new Date(numerosPreemergencia.fecha.getTime())).setDate(3));
-    const fechaAlerta        = new Date((new Date(numerosAlerta.fecha.getTime())).setDate(21));
-    const fechaNormal        = new Date((new Date(numerosNormal.fecha.getTime())).setDate(6));
-    const fechaNoAplica      = new Date((new Date(numerosNoAplica.fecha.getTime())).setDate(1));
-    const fechaNoRige        = new Date((new Date(numerosNoRige.fecha.getTime())).setDate(1));
-    const fechaBug1          = new Date((new Date(numerosBug1.fecha.getTime())).setDate(19));
-    const fechaBug2          = new Date((new Date(numerosBug2.fecha.getTime())).setDate(18));
+    const fechaEmergencia     = new Date((new Date(numerosEmergencia.fecha.getTime())).setDate(25));
+    const fechaPreemergencia  = new Date((new Date(numerosPreemergencia.fecha.getTime())).setDate(3));
+    const fechaAlerta         = new Date((new Date(numerosAlerta.fecha.getTime())).setDate(21));
+    const fechaNormal         = new Date((new Date(numerosNormal.fecha.getTime())).setDate(6));
+    const fechaNoAplica       = new Date((new Date(numerosNoAplica.fecha.getTime())).setDate(1));
+    const fechaNoRige         = new Date((new Date(numerosNoRige.fecha.getTime())).setDate(1));
+    const fechaBug1           = new Date((new Date(numerosBug1.fecha.getTime())).setDate(19));
+    const fechaBug2           = new Date((new Date(numerosBug2.fecha.getTime())).setDate(18));
+    const fechaSinRestriccion = new Date((new Date(numerosSinRestriccion.fecha.getTime())).setDate(27));
 
     it('should return expected result for Emergencia', () => {
       numerosEmergencia
@@ -183,6 +180,28 @@ describe('scrape', () => {
         });
     });
 
+    it('should return expected result for SinRestriccion case', () => {
+      numerosSinRestriccion
+        .should.be.deep.equal({
+          fecha  : fechaSinRestriccion,
+          estatus: 'Restricción Vehicular',
+          numeros: {
+            conSello: [],
+            sinSello: []
+          }
+        });
+
+      numerosSinRestriccion
+        .should.not.be.deep.equal({
+          fecha  : fechaSinRestriccion,
+          estatus: 'Restricción Vehicular',
+          numeros: {
+            conSello: [],
+            sinSello: [3, 1]
+          }
+        });
+    });
+
     it('should return expected result for Bug1 case', () => {
       numerosBug1
         .should.be.deep.equal({
@@ -216,9 +235,9 @@ describe('scrape', () => {
           }
         });
 
-      numerosBug1
+      numerosBug2
         .should.not.be.deep.equal({
-          fecha  : fechaBug1,
+          fecha  : fechaBug2,
           estatus: 'Restricción Vehicular',
           numeros: {
             conSello: [],

@@ -10,6 +10,7 @@ import flattenTime from '../utils/flattenTime';
 
 const noAplicaPattern = /^.*\b(\d{1,2}) de .*:.*? No aplica$/i;
 const noRigePattern = /^.*\b(\d{1,2}) de .*:.*? No Rige$/i;
+const sinRestriccionPattern = /^.*\b(\d{1,2}) de .*:Sin restricción$/i;
 const expectedPattern =
             /^.*\b(\d{1,2}) de .*:.*? sin sello verde.*? \d-.*\d(, con sello verde \d-.*\d)?$/i;
 
@@ -56,7 +57,8 @@ export function parseNumerosRestriccion(jsonArray) {
   const fechaRegex = /.*\b(\d{1,2}) de .*:.*/;
   const exceptionsPredicates = [
     test(noAplicaPattern),
-    test(noRigePattern)
+    test(noRigePattern),
+    test(sinRestriccionPattern)
   ];
 
   const parseSinSello =
@@ -114,7 +116,8 @@ export function scrapeNumerosRestriccion(){
 
       if (!test(expectedPattern, scrapedData[0]) &&
           !test(noAplicaPattern, scrapedData[0]) &&
-          !test(noRigePattern, scrapedData[0])) {
+          !test(noRigePattern, scrapedData[0]) &&
+          !test(sinRestriccionPattern, scrapedData[0])) {
         const logJson = {
           message    : 'Unexpected scraped data pattern!',
           scrapedData: scrapedData
@@ -141,7 +144,7 @@ function getDate(day){
   let date = new Date();
   const today = date.getDate();
 
-  date.setDate(day);  
+  date.setDate(day);
   if(day === '1' && today >= 28) { date.setMonth(date.getMonth() + 1); }
 
   return flattenTime(date);
