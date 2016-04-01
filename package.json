@@ -7,6 +7,7 @@
     "start": "parallelshell \"NODE_ENV=development nodemon index.js\"  \"node webpack-server.js\" \"npm run watch\"",
     "win": "parallelshell \"set NODE_ENV=development&&nodemon index.js\"  \"node webpack-server.js\" \"npm run watch\"",
     "production": "NODE_ENV=production pm2 start index.js",
+    "notifyLatest": "NODE_ENV=production node notifyLatestRestrictionDayUsers.js",
     "test": "eslint . && NODE_ENV=test mocha --compilers js:babel/register --reporter spec 'app/**/__tests__/*-test.js'",
     "build": "npm run build:css && NODE_ENV=production npm run build:bundle",
     "build:bundle": "webpack -p --config webpack.config.production.js",
