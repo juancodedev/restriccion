@@ -12,9 +12,8 @@ import {setLatestRestrictionDay} from '../actions/RestrictionDayActions';
 import App from '../components/App.jsx';
 
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const reducer = combineReducers(reducers);
-const store = createStoreWithMiddleware(reducer);
+const store = createStore(reducer, applyMiddleware(thunk));
 
 
 export default function* (){

@@ -22,7 +22,7 @@ export default class Loading extends React.Component {
         className={classes}
         onClick={this.props.onClick} >
         <div className={`alertForm ${this.props.isError ? 'alertFalse' : 'alertTrue'}`} >
-          <span>{this.props.message}</span>
+          <span dangerouslySetInnerHTML={{__html: this.props.message}} />
         </div>
       </div>
     );

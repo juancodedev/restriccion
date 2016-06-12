@@ -128,7 +128,7 @@ export default class Subscribe extends React.Component {
       this.setState(
         merge(this.state, {
           alert: {
-            message: 'Recibido!, te notificaremos cuando tengas restricción =)',
+            message: 'Inscrito! te enviamos un correo de bienvenida. <br /> Si no lo encuentras puede que esté en tu carpeta de spam, si es así debes desmarcarlo de spam para recibir los avisos de restricción',
             isError: false,
             show   : true,
             initial: false
