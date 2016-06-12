@@ -12,7 +12,7 @@ const noAplicaPattern = /^.*\b(\d{1,2}) de .*:.*? No aplica$/i;
 const noRigePattern = /^.*\b(\d{1,2}) de .*:.*? No Rige$/i;
 const sinRestriccionPattern = /^.*\b(\d{1,2}) de .*:Sin restricción$/i;
 const expectedPattern =
-            /^.*\b(\d{1,2}) de .*:.*? sin sello verde.*? \d-.*\d(, con sello verde \d-.*\d)?$/i;
+            /^.*\b(\d{1,2}) de .*:.*? sin sello verde.*? \d\s?-\s?.*\d(, con sello verde \d-.*\d)?$/i;
 
 
 /**

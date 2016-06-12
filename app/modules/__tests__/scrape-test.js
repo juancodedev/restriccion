@@ -22,6 +22,7 @@ describe('scrape', () => {
 
     const bug1 = ['Sábado 19 de Julio: sin sello verde  1-2', 'Alerta Ambiental'];
     const bug2 = ['Martes 18 de Julio:  sin sello verde 9-0-1-2', 'Restricción Vehicular'];
+    const bug3 = ['Domingo 12 de Junio: sin sello verde  1 - 2','Alerta Ambiental'];
 
     const parseNumerosRestriccion = scrape.parseNumerosRestriccion;
 
@@ -34,6 +35,7 @@ describe('scrape', () => {
     const numerosNoRige         = parseNumerosRestriccion(noRige);
     const numerosBug1           = parseNumerosRestriccion(bug1);
     const numerosBug2           = parseNumerosRestriccion(bug2);
+    const numerosBug3           = parseNumerosRestriccion(bug3);
     const numerosSinRestriccion = parseNumerosRestriccion(sinRestriccion);
 
     // Make sure that the day is correct, but we 'ignore' the rest,
@@ -46,6 +48,7 @@ describe('scrape', () => {
     const fechaNoRige         = new Date((new Date(numerosNoRige.fecha.getTime())).setDate(1));
     const fechaBug1           = new Date((new Date(numerosBug1.fecha.getTime())).setDate(19));
     const fechaBug2           = new Date((new Date(numerosBug2.fecha.getTime())).setDate(18));
+    const fechaBug3           = new Date((new Date(numerosBug2.fecha.getTime())).setDate(12));
     const fechaSinRestriccion = new Date((new Date(numerosSinRestriccion.fecha.getTime())).setDate(27));
 
     it('should return expected result for Emergencia', () => {
@@ -242,6 +245,28 @@ describe('scrape', () => {
           numeros: {
             conSello: [],
             sinSello: [3, 1]
+          }
+        });
+    });
+
+    it('should return expected result for Bug3 case', () => {
+      numerosBug3
+        .should.be.deep.equal({
+          fecha  : fechaBug3,
+          estatus: 'Alerta Ambiental',
+          numeros: {
+            conSello: [],
+            sinSello: [1, 2]
+          }
+        });
+
+      numerosBug3
+        .should.not.be.deep.equal({
+          fecha  : fechaBug3,
+          estatus: 'Restricción Vehicular',
+          numeros: {
+            conSello: [],
+            sinSello: [3, 4]
           }
         });
     });
