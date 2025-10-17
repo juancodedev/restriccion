@@ -18,7 +18,7 @@
   "author": "SantiagoLab.cl <contact@santiagolab.cl>",
   "license": "GPL-3.0",
   "dependencies": {
-    "axios": "^0.5.4",
+    "axios": "^0.30.2",
     "babel": "^5.8.20",
     "babel-core": "^5.8.20",
     "babel-eslint": "^4.0.5",
