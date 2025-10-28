@@ -36,7 +36,7 @@
         "redux": "^1.0.0-rc",
         "redux-thunk": "^0.1.0",
         "request": "^2.60.0",
-        "validator": "^4.0.2"
+        "validator": "^13.15.20"
       },
       "devDependencies": {
         "autoprefixer": "^5.2.0",
@@ -10529,9 +10529,10 @@
       }
     },
     "node_modules/validator": {
-      "version": "4.0.2",
-      "resolved": "https://registry.npmjs.org/validator/-/validator-4.0.2.tgz",
-      "integrity": "sha512-1GpEJpLWzuWJeo65jvsYGgeYgAoeyKamivBQykVYlgMfTMYSJqiXieMeDfDTG+BqHtR191XJnIsVPLxzpfgwBw==",
+      "version": "13.15.20",
+      "resolved": "https://registry.npmjs.org/validator/-/validator-13.15.20.tgz",
+      "integrity": "sha512-KxPOq3V2LmfQPP4eqf3Mq/zrT0Dqp2Vmx2Bn285LwVahLc+CsxOM0crBHczm8ijlcjZ0Q5Xd6LW3z3odTPnlrw==",
+      "license": "MIT",
       "engines": {
         "node": ">= 0.10"
       }
